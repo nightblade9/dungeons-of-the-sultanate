@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-	//	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	// Spring stuff. These all use the version specified above in plugins (currently 2.7.3)
 	implementation 'org.springframework.boot:spring-boot-starter-quartz'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -24,6 +24,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'org.webjars:bootstrap:4.3.1'
+	implementation 'org.webjars:webjars-locator-core:0.52'
 
 	// DB stuff
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
