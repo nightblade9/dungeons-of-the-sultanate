@@ -1,4 +1,4 @@
-package com.deengames.dungeonsofthesultantate.controllers;
+package com.deengames.dungeonsofthesultanate.controllers;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;

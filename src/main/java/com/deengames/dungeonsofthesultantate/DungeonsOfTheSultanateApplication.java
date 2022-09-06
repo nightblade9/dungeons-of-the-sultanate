@@ -1,13 +1,13 @@
-package com.deengames.dungeonsofthesultantate;
+package com.deengames.dungeonsofthesultanate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DungeonsOfTheSultantateApplication {
+public class DungeonsOfTheSultanateApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DungeonsOfTheSultantateApplication.class, args);
+		SpringApplication.run(DungeonsOfTheSultanateApplication.class, args);
 	}
 
 //	@Bean
