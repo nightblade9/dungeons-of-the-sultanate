@@ -19,6 +19,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-quartz'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// web UI
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
 	// User/authorization stuff. Spring ones use the version from plugins.
 	implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -26,6 +28,9 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	implementation 'org.webjars:bootstrap:5.2.0'
 	implementation 'org.webjars:webjars-locator-core:0.52'
+
+	// reload changes at runtime
+	implementation 'org.springframework.boot:spring-boot-devtools'
 
 	// DB stuff
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
