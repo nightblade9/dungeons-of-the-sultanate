@@ -10,7 +10,7 @@ public class HomeController
     @GetMapping("/")
     public String index(Model model)
     {
-        model.addAttribute("authenticatedAs", "night blade!");
+        //model.addAttribute("authenticatedAs", "whoever you are");
         return "index"; // index.html
     }
 }
