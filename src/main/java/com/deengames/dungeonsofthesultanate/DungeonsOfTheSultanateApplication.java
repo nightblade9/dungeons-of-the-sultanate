@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
+// TODO: remove deprecated APIs + @RestController
 public class DungeonsOfTheSultanateApplication extends WebSecurityConfigurerAdapter {
 
 	public static void main(String[] args) {

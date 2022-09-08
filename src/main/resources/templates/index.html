@@ -13,7 +13,7 @@
 <body>
 <div class="container authenticated unauthenticated">
     <p>Dungeons of the Sultanate is a browser-based, (mostly) single-player roguelike.</p>
-    <p th:if="${authenticatedAs == null}">Click here to log in.</p>
+    <p th:if="${authenticatedAs == null}">Click <a href="/oauth2/authorization/github">here</a> to log in.</p>
     <p
             th:if="${authenticatedAs != null}"
             th:text="'Welcome to Dungeons of the Sultanate, ' + ${authenticatedAs} + '!'"
