@@ -40,3 +40,19 @@ It should show something like this (correct) if you've set the environment varia
 ```
 c.d.d.DungeonsOfTheSultanateApplication  : The following 1 profile is active: "dev"
 ```
+
+# Architecture
+
+## Technologies
+
+Everything is done on the server-side; we use:
+
+- MongoDB
+- PostgresQL via JPA
+- Spring MVC
+- Spring Boot
+- ThymeLeaf (UI)
+
+## Design
+
+We try to follow Jeffery Palermo's onion architecture. You can read about it [here](https://jeffreypalermo.com/2008/07/the-onion-architecture-part-1/) (part one of four).
