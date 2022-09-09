@@ -27,8 +27,16 @@ Run the app, and verify that browsing to `http://localhost:8080` presents you wi
 
 ## Troubleshooting OAuth2
 
+If you get a generic user/password page, check the health-check end-point at [http://localhost:8080/health](http://localhost:8080/health). Look for:
 
-If you get a generic user/password page, check the console logs. Immediately after the Spring ASCII logo, oook for something like this (incorrect):
+```json
+{
+  "oauth2_client_id":"e3d19545c58e172e61b1",
+  "oauth2_client_secret_set":"true"
+}
+```
+
+If these are not set to these values, check that `profile` is set to `dev`.  You can also verify this by checking the console logs. Immediately after the Spring ASCII logo, look for something like this (incorrect):
 
 ```
 c.d.d.DungeonsOfTheSultanateApplication  : No active profile set, falling back to 1 default profile: "default"
