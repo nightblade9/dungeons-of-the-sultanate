@@ -23,11 +23,10 @@ spring:
 
 You can create a new client secret [here](https://github.com/settings/developers) - there doesn't seem to be any way to view existing client secrets.
 
-Then, configure your run task in IDEA by picking Run > Run, edit the existing configuration, and under Environment Variables, specify `spring.profiles.active=dev`.
-
 Run the app, and verify that browsing to `http://localhost:8080` presents you with a link to log in, and you can log in via GitHub.
 
 ## Troubleshooting OAuth2
+
 
 If you get a generic user/password page, check the console logs. Immediately after the Spring ASCII logo, oook for something like this (incorrect):
 
@@ -35,11 +34,15 @@ If you get a generic user/password page, check the console logs. Immediately aft
 c.d.d.DungeonsOfTheSultanateApplication  : No active profile set, falling back to 1 default profile: "default"
 ```
 
-It should show something like this (correct) if you've set the environment variable correctly in the run configuration:
+It should show something like this (correct):
 
 ```
 c.d.d.DungeonsOfTheSultanateApplication  : The following 1 profile is active: "dev"
 ```
+
+This project uses `System.setProperty` in `main` to set the default spring profile to `dev`. If this isn't working, make sure your `application-dev.yml` has the correct OAuth2 configuration.
+
+If you want to override this for some reason, you can manually specify a run configuration in IntelliJ IDEA: select the Run menu, then Run, edit the existing configuration, and under Environment Variables, specify `spring.profiles.active=dev`.
 
 # Architecture
 
