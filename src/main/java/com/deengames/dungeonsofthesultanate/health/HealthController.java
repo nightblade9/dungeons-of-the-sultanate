@@ -17,13 +17,6 @@ public class HealthController {
 
     public static final String ROOT_URL = "health";
 
-    @Value("${spring.profiles.active}")
-    private String activeProfile;
-
-    // Does not need to be protected
-    @Value("${spring.security.oauth2.client.registration.github.clientId}")
-    private String oauth2CilentId;
-
     // Client secret DOES have to be protected, so don't even store it in a variable
     @Autowired
     private Environment env;
@@ -34,12 +27,12 @@ public class HealthController {
     public Map<String, String> health(Model model)
     {
         var isClientSecretSet =
-            env.getProperty("spring.security.oauth2.client.registration.github.clientId") != null;
+            env.getProperty("spring.security.oauth2.client.registration.github.clientSecret") != null;
 
         var toReturn = new HashMap<String, String>();
         toReturn.put("current_time_utc", Instant.now().toString());
-        toReturn.put("profile", this.activeProfile);
-        toReturn.put("oauth2_client_id", this.oauth2CilentId);
+        toReturn.put("profile", env.getDefaultProfiles()[0]);
+        toReturn.put("oauth2_client_id", env.getProperty("spring.security.oauth2.client.registration.github.clientId"));
         toReturn.put("oauth2_client_secret_set", String.valueOf(isClientSecretSet));
 
         return toReturn;
