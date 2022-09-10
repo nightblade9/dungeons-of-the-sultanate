@@ -20,7 +20,7 @@ public class HomeController
     // TODO: can move to microservice, base controller, etc.
     public String getCurrentUser()
     {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof AnonymousAuthenticationToken)
         {
             return null;

@@ -34,7 +34,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .oauth2Client()
                 .and()
-                .oauth2Login();
+                .oauth2Login()
+                .defaultSuccessUrl("/user/onLogin");
     }
 
     // Other Configurations...
