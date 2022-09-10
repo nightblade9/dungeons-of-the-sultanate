@@ -6,6 +6,10 @@ Browser-based roguelike built in JEE and friends.
 
 # Development Environment Setup
 
+## Databases
+
+- Set up mongodb. If you're on Linux, you can grab the binaries from AUR. Start the service with `systemctl start mongodb`. Enable it running at startup via `systemctl enable mongodb`.
+
 ## Configurating OAuth2
 
 You need to configure OAuth2. First, create a new `src/main/java/resources/application-dev.yml` file with the required OAuth2 configuration:

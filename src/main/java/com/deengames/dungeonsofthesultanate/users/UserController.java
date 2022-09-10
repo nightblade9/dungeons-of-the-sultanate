@@ -7,11 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 //// Wires up the UI/view, via the UserService
 @RestController
 public class UserController {
-//    @GetMapping("/")
-//    public UserModel index()
-//    {
-//        return null;
-//    }
 
     // This method invokes when the user successfully authenticates; it's configured in SecurityConfiguration,
     // via .oauthoauth2Login().defaultSuccessUrl("/user/onLogin").
