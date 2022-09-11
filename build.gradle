@@ -37,6 +37,10 @@ dependencies {
 //	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 }
 
+test {
+	environment "spring.profiles.default", "test"
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }

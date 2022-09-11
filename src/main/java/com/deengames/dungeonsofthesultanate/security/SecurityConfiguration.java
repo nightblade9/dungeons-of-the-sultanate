@@ -19,7 +19,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers(String.format("/%s", HealthController.ROOT_URL));
+                .antMatchers("/", String.format("/%s", HealthController.ROOT_URL));
     }
 
     // MUST be under configure(WebSecurity), see: https://stackoverflow.com/questions/56388865/spring-security-configuration-httpsecurity-vs-websecurity/56389047#56389047
@@ -29,7 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
 //                .csrf().disable().cors().disable()
                 .authorizeRequests()
-                .antMatchers(String.format("/%s", HealthController.ROOT_URL)).permitAll()
+                .antMatchers("/", String.format("/%s", HealthController.ROOT_URL)).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Client()
