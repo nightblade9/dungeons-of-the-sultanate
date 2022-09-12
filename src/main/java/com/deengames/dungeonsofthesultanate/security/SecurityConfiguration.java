@@ -8,18 +8,23 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-@Order(99)
+@Order(99) // if 100+, breaks authz stuff
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    // Other Configurations...
+    private final String[] unauthenticatedRoutes = new String[]
+    {
+        "/", // home page
+        String.format("/%s", HealthController.ROOT_URL), // BASIC health check (root)
+        "*.js" // all Javascript
+    };
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/", String.format("/%s", HealthController.ROOT_URL));
+                .antMatchers(unauthenticatedRoutes);
     }
 
     // MUST be under configure(WebSecurity), see: https://stackoverflow.com/questions/56388865/spring-security-configuration-httpsecurity-vs-websecurity/56389047#56389047
@@ -29,7 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
 //                .csrf().disable().cors().disable()
                 .authorizeRequests()
-                .antMatchers("/", String.format("/%s", HealthController.ROOT_URL)).permitAll()
+                .antMatchers(unauthenticatedRoutes).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Client()
