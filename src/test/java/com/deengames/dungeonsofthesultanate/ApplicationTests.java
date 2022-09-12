@@ -4,6 +4,8 @@ import com.deengames.dungeonsofthesultanate.users.UserModel;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ApplicationTests {
@@ -18,7 +20,7 @@ public class ApplicationTests {
     {
         // For lombok to work in tests, specify it as a plugin, not an old-school Gradle dependency.
         // Arrange
-        var userModel = new UserModel("id1", "testUser", "test@test.com");
+        var userModel = new UserModel("id1", "testUser", "test@test.com", new Date());
         userModel.setId("newID");
 
         // Act
