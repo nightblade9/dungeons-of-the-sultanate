@@ -17,8 +17,7 @@ import java.util.Date;
 @RestController
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private UserServiceImpl userService = new UserServiceImpl();
 
     // This method invokes when the user successfully authenticates; it's configured in SecurityConfiguration,
     // via .oauth2Login().defaultSuccessUrl("/user/onLogin").
@@ -28,9 +27,7 @@ public class UserController {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
 
         // TODO: add user into database and update lastLogin
-        var user = userRepository.findUserByUserName(authentication.getName());
-        user.setLastLoginUtc(new Date());
-        userRepository.save(user);
+        userService.updateUserLastLogin(authentication.getName());
 
         // Redirect. This doesn't trigger the controller, IDK why (I get a 500 error).
         return new RedirectView("/map/world");
