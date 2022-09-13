@@ -1,5 +1,10 @@
 package com.deengames.dungeonsofthesultanate.users;
 
-public class UserRepository {
-    // TODO: Mongo!
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
+
+public interface UserRepository extends MongoRepository<UserModel, String> {
+
+    @Query("{userName: '?0'")
+    UserModel findUserByUserName(String userName);
 }

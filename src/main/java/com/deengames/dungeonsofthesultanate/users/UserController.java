@@ -1,5 +1,6 @@
 package com.deengames.dungeonsofthesultanate.users;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,11 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.net.URI;
+import java.util.Date;
 
 //
 //// Wires up the UI/view, via the UserService
 @RestController
 public class UserController {
+
+    @Autowired
+    private UserRepository userRepository;
 
     // This method invokes when the user successfully authenticates; it's configured in SecurityConfiguration,
     // via .oauth2Login().defaultSuccessUrl("/user/onLogin").
@@ -23,6 +28,9 @@ public class UserController {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
 
         // TODO: add user into database and update lastLogin
+        var user = userRepository.findUserByUserName(authentication.getName());
+        user.setLastLoginUtc(new Date());
+        userRepository.save(user);
 
         // Redirect. This doesn't trigger the controller, IDK why (I get a 500 error).
         return new RedirectView("/map/world");
