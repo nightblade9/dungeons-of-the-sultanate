@@ -17,30 +17,10 @@ import java.util.Map;
 @Controller
 public class HomeController
 {
-    // TODO: can move to microservice, base controller, etc.
-    public String getCurrentUser()
-    {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof AnonymousAuthenticationToken)
-        {
-            return null;
-        }
-
-        var token = (OAuth2AuthenticationToken)authentication;
-        if (token == null)
-        {
-            // Not a GitHub? OAUth2 token ...
-            return null;
-        }
-        // "login" is what GitHub OAuth2 gives us
-        var userName = token.getPrincipal().getAttributes().get("login").toString();
-        return userName;
-    }
-
     @GetMapping("/")
-    public String index(Model model)
+    // User is not available here, because this page is unauthenticated (no security context).
+    public String index()
     {
-        model.addAttribute("authenticatedAs", getCurrentUser());
         return "index"; // index.html
     }
 }

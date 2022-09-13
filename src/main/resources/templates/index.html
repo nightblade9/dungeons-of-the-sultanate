@@ -11,13 +11,9 @@
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container authenticated unauthenticated">
+<div class="container">
     <p>Dungeons of the Sultanate is a browser-based, (mostly) single-player roguelike.</p>
-    <p th:if="${authenticatedAs == null}">Click <a href="/oauth2/authorization/github">here</a> to log in.</p>
-    <p
-            th:if="${authenticatedAs != null}"
-            th:text="'Welcome to Dungeons of the Sultanate, ' + ${authenticatedAs} + '!'"
-    />
+    <p>Click <a href="/oauth2/authorization/github">here</a> to log in.</p>
 </div>
 </body>
 </html>
