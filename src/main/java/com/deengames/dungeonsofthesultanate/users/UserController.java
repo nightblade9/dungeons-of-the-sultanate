@@ -16,7 +16,7 @@ import java.net.URI;
 public class UserController {
 
     // This method invokes when the user successfully authenticates; it's configured in SecurityConfiguration,
-    // via .oauthoauth2Login().defaultSuccessUrl("/user/onLogin").
+    // via .oauth2Login().defaultSuccessUrl("/user/onLogin").
     @GetMapping("/user/onLogin")
     public RedirectView postLogin()
     {
