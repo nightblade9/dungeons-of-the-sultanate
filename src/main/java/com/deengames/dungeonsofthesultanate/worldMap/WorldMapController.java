@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class WorldMapController
 {
     @GetMapping("/map/world")
-    public String worldMap(Model model)
+    public String worldMap(Model model) throws Exception
     {
         var currentUser = CurrentUser.getCurrentUser();
         model.addAttribute("authenticatedAs", currentUser);
