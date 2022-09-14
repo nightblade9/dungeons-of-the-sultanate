@@ -27,7 +27,7 @@ public class UserController {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
 
         // TODO: add user into database and update lastLogin
-        userService.updateUserLastLogin(authentication.getName());
+        // userService.updateUserLastLogin(authentication.getName());
 
         // Redirect. This doesn't trigger the controller, IDK why (I get a 500 error).
         return new RedirectView("/map/world");
