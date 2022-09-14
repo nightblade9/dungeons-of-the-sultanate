@@ -33,12 +33,7 @@ public class CurrentUser {
         // TODO: strategy pattern to get rid of switch/case based on issuer type
         var attributes = token.getPrincipal().getAttributes();
         
-        if (attributes.containsKey("login"))
-        {
-            // GitHub
-            return attributes.get("login").toString();
-        }
-        else if (attributes.containsKey("name"))
+        if (attributes.containsKey("name"))
         {
             // Google
             return attributes.get("name").toString();
