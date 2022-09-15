@@ -11,7 +11,7 @@ import java.io.IOException;
 @Configuration
 public class MongoConfiguration {
     private static final String MONGO_DB_URL = "localhost";
-    private static final String MONGO_DB_NAME = "embeded_db";
+    private static final String MONGO_DB_NAME = "dots";
 
     @Bean
     public MongoTemplate mongoTemplate() throws Exception {
