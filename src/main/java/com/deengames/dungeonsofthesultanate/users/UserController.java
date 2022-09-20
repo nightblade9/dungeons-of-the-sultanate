@@ -1,5 +1,6 @@
 package com.deengames.dungeonsofthesultanate.users;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
+import java.util.Date;
 
 //// Wires up the UI/view, via the UserService
 @RestController
@@ -37,16 +39,12 @@ public class UserController {
 
     // TODO: doesn't belong here
     // TODO: refactor to use strategy pattern to encapsulate OAuth-provider specifics
-    private String getLogin(Authentication authentication) throws UsernameNotFoundException
-    {
-        if (authentication instanceof OAuth2AuthenticationToken)
-        {
-            var principal = (DefaultOAuth2User)(authentication.getPrincipal());
+    private String getLogin(Authentication authentication) throws UsernameNotFoundException {
+        if (authentication instanceof OAuth2AuthenticationToken) {
+            var principal = (DefaultOAuth2User) (authentication.getPrincipal());
             return principal.getAttribute("login").toString();
-        }
-        else if (authentication.getPrincipal() instanceof DefaultOAuth2User)
-        {
-            var principal = (DefaultOidcUser)(authentication.getPrincipal());
+        } else if (authentication.getPrincipal() instanceof DefaultOAuth2User) {
+            var principal = (DefaultOidcUser) (authentication.getPrincipal());
             return principal.getAttribute("name");
         }
 
@@ -54,19 +52,16 @@ public class UserController {
     }
 
     private UserModel insertOrGetUser(String username) throws UsernameNotFoundException {
-        try
-        {
-            return userDetailsService.loadUserByUsername(username);
+        var user = userDetailsService.loadUserByUsername(username);
+
+        if (user != null) {
+            user.setLastLoginUtc(new Date());
+            userDetailsService.saveUser(user);
+            return user;
         }
-        catch (UsernameNotFoundException unfe)
-        {
-            // TODO: insert user into DB!
-            try {
-                return userDetailsService.loadUserByUsername(username);
-            } catch (UsernameNotFoundException unfe2)
-            {
-                throw unfe2;
-            }
-        }
+
+        user = new UserModel(new ObjectId(), username, "todo", new Date());
+        userDetailsService.saveUser(user);
+        return user;
     }
 }
