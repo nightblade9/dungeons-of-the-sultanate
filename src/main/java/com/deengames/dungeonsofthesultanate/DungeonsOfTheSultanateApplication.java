@@ -2,12 +2,10 @@ package com.deengames.dungeonsofthesultanate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@EnableMongoRepositories
 @RestController
 // TODO: remove deprecated APIs + @RestController
 public class DungeonsOfTheSultanateApplication extends WebSecurityConfigurerAdapter {

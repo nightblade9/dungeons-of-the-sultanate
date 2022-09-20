@@ -6,10 +6,6 @@ Browser-based roguelike built in JEE and friends.
 
 # Development Environment Setup
 
-## Databases
-
-- Set up mongodb. If you're on Linux, you can grab the binaries from AUR. Start the service with `systemctl start mongodb`. Enable it running at startup via `systemctl enable mongodb`.
-
 ## Configurating OAuth2
 
 You need to configure OAuth2. First, create a new `src/main/java/resources/application-dev.yml` file with the required OAuth2 configuration:
@@ -29,7 +25,7 @@ You can create a new client secret [here](https://github.com/settings/developers
 
 Run the app, and verify that browsing to `http://localhost:8080` presents you with a link to log in, and you can log in via GitHub.
 
-## Troubleshooting OAuth2
+### Troubleshooting OAuth2
 
 If you get a generic user/password page, check the health-check end-point at [http://localhost:8080/health](http://localhost:8080/health). Look for:
 
@@ -55,6 +51,24 @@ c.d.d.DungeonsOfTheSultanateApplication  : The following 1 profile is active: "d
 This project uses `System.setProperty` in `main` to set the default spring profile to `dev`. If this isn't working, make sure your `application-dev.yml` has the correct OAuth2 configuration.
 
 If you want to override this for some reason, you can manually specify a run configuration in IntelliJ IDEA: select the Run menu, then Run, edit the existing configuration, and under Environment Variables, specify `spring.profiles.active=dev`.
+
+## Configuring MongoDB
+
+- Install and start mongodb 
+  - If you're on Linux, you can grab the binaries from AUR.
+  - Start the service with `systemctl start mongodb`. Enable it running at startup via `systemctl enable mongodb`.
+- Note that you'll use the default/root user.
+- Update `application-dev.yml`:
+
+```yaml
+spring:
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1/dots
+      database: dots
+```
+
+Log in and authenticate via an OAuth2 provider; if you don't get any exceptions, MongoDB is working as expected.
 
 # Architecture
 

@@ -14,23 +14,20 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
-@Document
+@Document    
+@Getter 
+@Setter
 public class UserModel implements UserDetails {
 
-    @MongoId
-    @Getter @Setter
+    @Id
     private ObjectId id;
 
-    @Getter @Setter
     private String username;
 
-    @Getter @Setter
     private String password;
 
-    @Getter @Setter
     private String emailAddress;
 
-    @Getter @Setter
     private Date lastLoginUtc;
 
     public UserModel(ObjectId id, String username, String emailAddress, Date lastLoginUtc)
