@@ -21,7 +21,7 @@ public class ApplicationTests {
     {
         // For lombok to work in tests, specify it as a plugin, not an old-school Gradle dependency.
         // Arrange
-        var userModel = new UserModel(new ObjectId(), "testUser", "test@test.com", new Date());
+        var userModel = new UserModel(new ObjectId(), "test@test.com", new Date());
         userModel.setEmailAddress("fake@fake.com");
 
         // Act

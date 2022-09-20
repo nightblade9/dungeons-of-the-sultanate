@@ -22,20 +22,23 @@ public class UserModel implements UserDetails {
     @Id
     private ObjectId id;
 
-    private String username;
-
     private String password;
 
     private String emailAddress;
 
     private Date lastLoginUtc;
 
-    public UserModel(ObjectId id, String username, String emailAddress, Date lastLoginUtc)
+    public UserModel(ObjectId id, String emailAddress, Date lastLoginUtc)
     {
         this.id = id;
-        this.username = username;
         this.emailAddress = emailAddress;
         this.lastLoginUtc = lastLoginUtc;
+    }
+
+    @Override
+    public String getUsername()
+    {
+        return this.emailAddress;
     }
 
     @Override

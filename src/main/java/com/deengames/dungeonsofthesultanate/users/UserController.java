@@ -1,18 +1,14 @@
 package com.deengames.dungeonsofthesultanate.users;
 
+import com.deengames.dungeonsofthesultanate.security.CurrentUser;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.security.Principal;
 import java.util.Date;
 
 //// Wires up the UI/view, via the UserService
@@ -27,40 +23,31 @@ public class UserController {
     @GetMapping("/user/onLogin")
     public RedirectView postLogin() throws UsernameNotFoundException {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
-        var userLogin = getLogin(authentication);
-        // add user into database (if not there already), and update lastLogin
-        var user = insertOrGetUser(userLogin);
+        var userEmail = CurrentUser.getUserEmailAddressFromToken(authentication);
+        if (userEmail == null)
+        {
+            throw new UsernameNotFoundException("Couldn't get user email address from claim!");
+        }
 
-        // update
+        // add user into database (if not there already), and update lastLogin
+        var user = insertOrGetUser(userEmail);
 
         // Redirect. This doesn't trigger the controller, IDK why (I get a 500 error).
         return new RedirectView("/map/world");
     }
 
-    // TODO: doesn't belong here
-    // TODO: refactor to use strategy pattern to encapsulate OAuth-provider specifics
-    private String getLogin(Authentication authentication) throws UsernameNotFoundException {
-        if (authentication instanceof OAuth2AuthenticationToken) {
-            var principal = (DefaultOAuth2User) (authentication.getPrincipal());
-            return principal.getAttribute("login").toString();
-        } else if (authentication.getPrincipal() instanceof DefaultOAuth2User) {
-            var principal = (DefaultOidcUser) (authentication.getPrincipal());
-            return principal.getAttribute("name");
-        }
+    private UserModel insertOrGetUser(String userEmailAddress) throws UsernameNotFoundException {
+        var user = userDetailsService.loadUserByUsername(userEmailAddress);
 
-        throw new UsernameNotFoundException("OAuth2 provider not supported");
-    }
-
-    private UserModel insertOrGetUser(String username) throws UsernameNotFoundException {
-        var user = userDetailsService.loadUserByUsername(username);
-
+        // Existing user, update login time
         if (user != null) {
             user.setLastLoginUtc(new Date());
             userDetailsService.saveUser(user);
             return user;
         }
 
-        user = new UserModel(new ObjectId(), username, "todo", new Date());
+        // New user, insert!
+        user = new UserModel(new ObjectId(), userEmailAddress, new Date());
         userDetailsService.saveUser(user);
         return user;
     }

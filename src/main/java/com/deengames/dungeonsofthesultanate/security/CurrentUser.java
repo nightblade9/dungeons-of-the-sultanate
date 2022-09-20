@@ -1,17 +1,18 @@
 package com.deengames.dungeonsofthesultanate.security;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 
 public class CurrentUser {
 
     // Gets the current user from the OAuth2 authentication security context.
     // Doesn't work on pages that don't require authentication (see SecurityConfiguration.java),
     // because there's no security context for those routes.
-    public static String getCurrentUser() throws Exception
+    public static String getUserEmailAddressFromToken(Authentication authentication)
     {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof AnonymousAuthenticationToken)
         {
             return null;
@@ -23,24 +24,19 @@ public class CurrentUser {
             // Not a valid OAUth2 token ...
             return null;
         }
-        // "login" is what GitHub OAuth2 gives us, "email" is what Google OAuth2 gives us
-        String userName = getUserNameFromToken(token);
-        return userName;
+
+        return getUserEmailAddress(authentication);
     }
 
-    private static String getUserNameFromToken(OAuth2AuthenticationToken token)
+    private static String getUserEmailAddress(Authentication authentication) throws UsernameNotFoundException
     {
-        // TODO: strategy pattern to get rid of switch/case based on issuer type
-        var attributes = token.getPrincipal().getAttributes();
-        
-        if (attributes.containsKey("name"))
-        {
-            // Google
-            return attributes.get("name").toString();
+        var principal = authentication.getPrincipal();
+        if (principal instanceof DefaultOAuth2User) {
+            // GitHub and Google; Google is DefaultOidcUser, which is a subclass or something?
+            return ((DefaultOAuth2User)principal).getAttribute("email").toString();
         }
-        else
-        {
-            throw new SecurityException("Not sure how to get user name from token!");
-        }
+
+        // Token tampered with, username claim not present, OAuth provider not supported, etc.
+        return null;
     }
 }
