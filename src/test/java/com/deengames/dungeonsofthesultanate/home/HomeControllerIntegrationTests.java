@@ -1,4 +1,4 @@
-package com.deengames.dungeonsofthesultanate.controllers;
+package com.deengames.dungeonsofthesultanate.home;
 
 import org.junit.jupiter.api.Test;
 
