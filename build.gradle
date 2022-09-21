@@ -37,6 +37,7 @@ dependencies {
 
 	// DB stuff
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:3.4.9'
 	//	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 }
 
