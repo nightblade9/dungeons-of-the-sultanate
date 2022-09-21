@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.Instant;
 import java.util.*;
 
-// TODO: shouldn't be authenticated, because we need to check if authz is broken! ...
 @RestController
 public class HealthController {
 
