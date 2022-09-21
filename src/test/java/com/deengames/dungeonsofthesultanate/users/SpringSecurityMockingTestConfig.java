@@ -15,10 +15,12 @@ public class SpringSecurityMockingTestConfig {
 
     // Other bean is not @Primary; adding a name guarantees we override it, instead of getting an exception that
     // Spring already has an implementation for UserDetailsService.
-    @Bean(name="userDetailsServicePrimaryOverride")
+    @Bean(name="stubUserDetailsBean")
     @Primary
     public UserDetailsService userDetailsService() {
-        UserModel basicUser = new UserModel(new ObjectId(), "basic", "basic@mockeduser.com", new Date());
+        var emailAddress = "basic@mockeduser.com";
+        var username = UserModel.calculateUserName(emailAddress);
+        UserModel basicUser = new UserModel(new ObjectId(), username, emailAddress, new Date());
         return new InMemoryUserDetailsManager(Arrays.asList(
                 basicUser
         ));

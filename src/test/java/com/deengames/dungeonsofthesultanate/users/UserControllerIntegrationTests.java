@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -27,7 +28,8 @@ public class UserControllerIntegrationTests
     private MockMvc mockMvc;
 
     @Test
-    @WithUserDetails("basic@mockeduser.com")
+    // Name might not be needed, not sure; the production code has an implementation, too...
+    @WithUserDetails(userDetailsServiceBeanName="stubUserDetailsBean", value="basic@mockeduser.com")
     public void onlogin_InsertsUserIntoDatabase() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/user/onLogin")
             .accept(MediaType.ALL))
