@@ -44,8 +44,8 @@ public class UserController {
         return new RedirectView("/map/world");
     }
 
-    private UserDetails upsertUser(String username) throws UsernameNotFoundException {
-        var emailAddress = UserModel.calculateUserName(username);
+    private UserDetails upsertUser(String emailAddress) throws UsernameNotFoundException {
+        var username = UserModel.calculateUserName(emailAddress);
         var user = (UserModel)userDetailsService.loadUserByUsername(username);
 
         // Existing user, update login time
