@@ -1,6 +1,7 @@
 package com.deengames.dungeonsofthesultanate.users;
 
 import com.deengames.dungeonsofthesultanate.security.CurrentUser;
+import com.deengames.dungeonsofthesultanate.security.SecurityContextFetcher;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,11 +24,14 @@ public class UserController {
     @Autowired
     private WriteUserDetailsService writeUserDetailsService;
 
+    @Autowired
+    private SecurityContextFetcher securityContextFetcher;
+
     // This method invokes when the user successfully authenticates; it's configured in SecurityConfiguration,
     // via .oauth2Login().defaultSuccessUrl("/user/onLogin").
     @GetMapping("/user/onLogin")
     public RedirectView postLogin() throws UsernameNotFoundException {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        var authentication = securityContextFetcher.getAuthentication();
         var userEmail = CurrentUser.getUserEmailAddressFromToken(authentication);
         if (userEmail == null)
         {
