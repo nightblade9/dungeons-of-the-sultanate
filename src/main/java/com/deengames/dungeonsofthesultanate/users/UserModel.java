@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.management.relation.Role;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 @Document    
 @Getter 
@@ -30,14 +29,20 @@ public class UserModel implements UserDetails {
 
     private Date lastLoginUtc;
 
+    // WARNING: allowing users to change their username, will break authentication! On login, we only have a token
+    // with the email address; we look up the user by username, since that's what the base Spring UserService wants.
+    static String calculateUserName(String emailAddress)
+    {
+        var username = emailAddress.substring(0, emailAddress.indexOf('@'));
+        return username.toLowerCase();
+    }
+
     public UserModel(ObjectId id, String username, String emailAddress, Date lastLoginUtc)
     {
         this.id = id;
         this.emailAddress = emailAddress;
         this.lastLoginUtc = lastLoginUtc;
-        this.username = username != null ?
-                username :
-                emailAddress.substring(emailAddress.indexOf('@') + 1);
+        this.username = username;
     }
 
     @Override

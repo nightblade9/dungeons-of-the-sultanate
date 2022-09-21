@@ -4,10 +4,12 @@ import com.deengames.dungeonsofthesultanate.security.CurrentUser;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Date;
 
@@ -16,7 +18,10 @@ import java.util.Date;
 public class UserController {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService; // read service
+
+    @Autowired
+    private WriteUserDetailsService writeUserDetailsService;
 
     // This method invokes when the user successfully authenticates; it's configured in SecurityConfiguration,
     // via .oauth2Login().defaultSuccessUrl("/user/onLogin").
@@ -36,19 +41,20 @@ public class UserController {
         return new RedirectView("/map/world");
     }
 
-    private UserModel insertOrGetUser(String userEmailAddress) throws UsernameNotFoundException {
-        var user = userDetailsService.loadUserByUsername(userEmailAddress);
+    private UserDetails insertOrGetUser(String username) throws UsernameNotFoundException {
+        var emailAddress = UserModel.calculateUserName(username);
+        var user = (UserModel)userDetailsService.loadUserByUsername(username);
 
         // Existing user, update login time
         if (user != null) {
             user.setLastLoginUtc(new Date());
-            userDetailsService.saveUser(user);
+            writeUserDetailsService.saveUser(user);
             return user;
         }
 
         // New user, insert!
-        user = new UserModel(new ObjectId(), null, userEmailAddress, new Date());
-        userDetailsService.saveUser(user);
+        user = new UserModel(new ObjectId(), username, emailAddress, new Date());
+        writeUserDetailsService.saveUser(user);
         return user;
     }
 }
