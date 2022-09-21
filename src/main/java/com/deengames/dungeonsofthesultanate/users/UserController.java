@@ -4,7 +4,6 @@ import com.deengames.dungeonsofthesultanate.security.CurrentUser;
 import com.deengames.dungeonsofthesultanate.security.SecurityContextFetcher;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +29,7 @@ public class UserController {
     // This method invokes when the user successfully authenticates; it's configured in SecurityConfiguration,
     // via .oauth2Login().defaultSuccessUrl("/user/onLogin").
     @GetMapping("/user/onLogin")
-    public RedirectView postLogin() throws UsernameNotFoundException {
+    public RedirectView onLogin() throws UsernameNotFoundException {
         var authentication = securityContextFetcher.getAuthentication();
         var userEmail = CurrentUser.getUserEmailAddressFromToken(authentication);
         if (userEmail == null)
@@ -39,13 +38,13 @@ public class UserController {
         }
 
         // add user into database (if not there already), and update lastLogin
-        var user = insertOrGetUser(userEmail);
+        upsertUser(userEmail);
 
         // Redirect. This doesn't trigger the controller, IDK why (I get a 500 error).
         return new RedirectView("/map/world");
     }
 
-    private UserDetails insertOrGetUser(String username) throws UsernameNotFoundException {
+    private UserDetails upsertUser(String username) throws UsernameNotFoundException {
         var emailAddress = UserModel.calculateUserName(username);
         var user = (UserModel)userDetailsService.loadUserByUsername(username);
 

@@ -9,6 +9,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A stub OAuth2 principal with an injectable/settable user email claim (and potentially other claims).
+ */
 class StubOAuth2Principal implements OAuth2AuthenticatedPrincipal {
 
     @Getter
