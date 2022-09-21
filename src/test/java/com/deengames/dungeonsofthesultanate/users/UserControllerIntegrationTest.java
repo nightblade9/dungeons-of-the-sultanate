@@ -5,20 +5,23 @@ import com.deengames.dungeonsofthesultanate.security.SecurityContextFetcher;
 import com.deengames.dungeonsofthesultanate.security.StubToken;
 import io.jsonwebtoken.lang.Assert;
 import org.bson.types.ObjectId;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.given;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserControllerIntegrationTest extends BaseIntegrationTest {
+
     // Subject under test
     @Autowired
     private UserController controller;
@@ -62,8 +65,8 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
 
         // Assert
         var actuals = userRepository.findAll();
-        Assert.state(actuals.size() == 1);
+        assertTrue(actuals.size() == 1);
         var actual = actuals.get(0);
-        Assert.state(actual.getLastLoginUtc().after(creationDate));
+        assertTrue(actual.getLastLoginUtc().after(creationDate));
     }
 }

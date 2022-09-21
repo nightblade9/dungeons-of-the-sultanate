@@ -1,11 +1,8 @@
 package com.deengames.dungeonsofthesultanate;
 
 import com.deengames.dungeonsofthesultanate.users.UserModel;
-import com.deengames.dungeonsofthesultanate.users.UserRepository;
 import org.bson.types.ObjectId;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
