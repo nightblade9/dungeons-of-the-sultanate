@@ -14,7 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Date;
 
 @SpringBootTest
-class DungeonsOfTheSultanateApplicationTests {
+class DungeonsOfTheSultanateApplicationTests extends BaseIntegrationTest
+{
 
 	@Autowired
 	private UserRepository userRepository;
@@ -27,9 +28,6 @@ class DungeonsOfTheSultanateApplicationTests {
 	void databaseAccessWorks()
 	{
 		// Arrange
-		// TODO: move this to @Before; not sure why @Before/@After aren't called ...
-		userRepository.deleteAll();
-
 		var expectedEmailAddress = "test@test.com";
 		var expectedUser = new UserModel(new ObjectId(), null, expectedEmailAddress, new Date());
 
@@ -37,9 +35,8 @@ class DungeonsOfTheSultanateApplicationTests {
 		userRepository.save(expectedUser);
 
 		// Assert
-		var actual = userRepository.findAll().get(0);
-		// Wierdly enough, userRepository.findUserByEmailAddress(expectedEmailAddress) yields null...
-		Assert.assertEquals(actual.getEmailAddress(), expectedUser.getEmailAddress());
+		var actual = userRepository.findUserByEmailAddress(expectedEmailAddress);
+		Assert.assertNotNull(actual);
 		Assert.assertEquals(actual.getId(), expectedUser.getId());
 	}
 }
