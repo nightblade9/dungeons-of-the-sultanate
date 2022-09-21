@@ -47,7 +47,7 @@ public class UserController {
         }
 
         // New user, insert!
-        user = new UserModel(new ObjectId(), userEmailAddress, new Date());
+        user = new UserModel(new ObjectId(), null, userEmailAddress, new Date());
         userDetailsService.saveUser(user);
         return user;
     }

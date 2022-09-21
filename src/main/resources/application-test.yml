@@ -1,4 +1,8 @@
 spring:
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1/dots_test
+      database: dots_test
   security:
     oauth2:
       client:
