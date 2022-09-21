@@ -1,9 +1,11 @@
 package com.deengames.dungeonsofthesultanate.security;
 
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 
 public class CurrentUser {
@@ -18,7 +20,7 @@ public class CurrentUser {
             return null;
         }
 
-        var token = (OAuth2AuthenticationToken)authentication;
+        var token = (AbstractAuthenticationToken)authentication;
         if (token == null)
         {
             // Not a valid OAUth2 token ...
@@ -31,9 +33,9 @@ public class CurrentUser {
     private static String getUserEmailAddress(Authentication authentication) throws UsernameNotFoundException
     {
         var principal = authentication.getPrincipal();
-        if (principal instanceof DefaultOAuth2User) {
+        if (principal instanceof OAuth2AuthenticatedPrincipal) {
             // GitHub and Google; Google is DefaultOidcUser, which is a subclass or something?
-            return ((DefaultOAuth2User)principal).getAttribute("email").toString();
+            return ((OAuth2AuthenticatedPrincipal)principal).getAttribute("email").toString();
         }
 
         // Token tampered with, username claim not present, OAuth provider not supported, etc.
