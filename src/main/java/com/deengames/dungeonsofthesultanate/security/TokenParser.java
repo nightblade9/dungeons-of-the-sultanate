@@ -4,11 +4,9 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 
-public class CurrentUser {
+public class TokenParser {
 
     // Gets the current user from the OAuth2 authentication security context.
     // Doesn't work on pages that don't require authentication (see SecurityConfiguration.java),

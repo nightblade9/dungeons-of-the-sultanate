@@ -21,10 +21,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     };
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web
-                .ignoring()
-                .antMatchers(unauthenticatedRoutes);
+            .ignoring()
+            .antMatchers(unauthenticatedRoutes);
     }
 
     // MUST be under configure(WebSecurity), see: https://stackoverflow.com/questions/56388865/spring-security-configuration-httpsecurity-vs-websecurity/56389047#56389047
@@ -32,15 +32,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
 
         http
-//                .csrf().disable().cors().disable()
-                .authorizeRequests()
-                .antMatchers(unauthenticatedRoutes).permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .oauth2Client()
-                .and()
-                .oauth2Login()
-                .defaultSuccessUrl("/user/onLogin");
+//            .csrf().disable().cors().disable()
+            .authorizeRequests()
+            .antMatchers(unauthenticatedRoutes).permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .oauth2Client()
+            .and()
+            .oauth2Login()
+            .defaultSuccessUrl("/user/onLogin");
     }
 
     // Other Configurations...

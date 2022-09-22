@@ -1,6 +1,6 @@
 package com.deengames.dungeonsofthesultanate.users;
 
-import com.deengames.dungeonsofthesultanate.security.CurrentUser;
+import com.deengames.dungeonsofthesultanate.security.TokenParser;
 import com.deengames.dungeonsofthesultanate.security.SecurityContextFetcher;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class UserController {
     @GetMapping("/user/onLogin")
     public RedirectView onLogin() throws UsernameNotFoundException {
         var authentication = securityContextFetcher.getAuthentication();
-        var userEmail = CurrentUser.getUserEmailAddressFromToken(authentication);
+        var userEmail = TokenParser.getUserEmailAddressFromToken(authentication);
         if (userEmail == null)
         {
             throw new UsernameNotFoundException("Couldn't get user email address from claim!");
