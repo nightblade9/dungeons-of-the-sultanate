@@ -31,7 +31,7 @@ public class HealthControllerTests {
     {
         mvc.perform(MockMvcRequestBuilders.get(String.format("/%s/detailed", HealthController.ROOT_URL))
             .accept(MediaType.APPLICATION_JSON))
-        .andExpect(header().stringValues("Location", "http://localhost/oauth2/authorization/github"))
+        .andExpect(header().stringValues("Location", "http://localhost/login"))
         .andExpect(status().is3xxRedirection());
     }
 }
