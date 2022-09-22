@@ -1,14 +1,10 @@
-package com.deengames.dungeonsofthesultanate.maps;
+package com.deengames.dungeonsofthesultanate.maps.world;
 
 import com.deengames.dungeonsofthesultanate.security.TokenParser;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class WorldMapController
