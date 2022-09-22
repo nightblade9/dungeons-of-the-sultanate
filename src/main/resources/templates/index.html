@@ -1,5 +1,6 @@
 <!doctype html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{layout/layout.html}">
     <head>
         <title>Dungeons of the Sultanate</title>
@@ -7,7 +8,7 @@
     <body>
         <div id="header">
             <!-- todo: only show if logged in -->
-            <a href="/logout">Log out</a>
+            <a href="/logout" th:insert="{SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken}">Log out</a>
         </div>
         <section layout:fragment="content">
             <p>Dungeons of the Sultanate is a browser-based, (mostly) single-player roguelike.</p>
