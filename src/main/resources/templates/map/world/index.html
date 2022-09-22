@@ -13,9 +13,9 @@
             <h1>Locations</h1>
             <!-- TODO: grid layout would be fantastico -->
             <span th:each="location : ${locations}">
-                <a href="#">
-                    <img th:src="@{'/images/' + ${location.toLowerCase().replace(' ', '-')} + '/banner.png'}" class="area-thumbnail" />
-                    <p th:text="${location}" />
+                <a th:href="@{'/map/' + ${location.slug}}">
+                    <img th:src="@{'/images/' + ${location.slug} + '/banner.png'}" class="area-thumbnail" />
+                    <p th:text="${location.name}" />
                 </a>
             </span>
         </section>

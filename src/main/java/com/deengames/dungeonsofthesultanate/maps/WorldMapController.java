@@ -6,6 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 public class WorldMapController
 {
@@ -16,7 +20,23 @@ public class WorldMapController
         var userEmailAddress = TokenParser.getUserEmailAddressFromToken(authentication);
         model.addAttribute("authenticatedAs", userEmailAddress);
 
-        model.addAttribute("locations", WorldMapLocations.LOCATIONS);
+        var locations = Arrays.stream(WorldMapLocations.LOCATIONS)
+            .map(l -> new LocationData(l))
+            .toArray();
+
+        model.addAttribute("locations", locations);
         return "map/world/index";
+    }
+
+    class LocationData {
+
+        public String name;
+        public final String slug;
+
+        public LocationData(String name)
+        {
+            this.name = name;
+            this.slug = name.toLowerCase().replace(' ', '-');
+        }
     }
 }
