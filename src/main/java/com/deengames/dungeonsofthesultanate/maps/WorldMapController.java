@@ -15,28 +15,13 @@ public class WorldMapController
 {
     @GetMapping("/map/world")
     public String worldMap(Model model) {
-        // Used because this is where you reach on authentication
+        // Used because this is where you reach on authentication.
+        // TODO: use Rails' :flash for this instead.
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         var userEmailAddress = TokenParser.getUserEmailAddressFromToken(authentication);
         model.addAttribute("authenticatedAs", userEmailAddress);
 
-        var locations = Arrays.stream(WorldMapLocations.LOCATIONS)
-            .map(l -> new LocationData(l))
-            .toArray();
-
-        model.addAttribute("locations", locations);
+        model.addAttribute("locations", WorldMapLocations.locations);
         return "map/world/index";
-    }
-
-    class LocationData {
-
-        public String name;
-        public final String slug;
-
-        public LocationData(String name)
-        {
-            this.name = name;
-            this.slug = name.toLowerCase().replace(' ', '-');
-        }
     }
 }
