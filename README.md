@@ -27,6 +27,12 @@ Run the app, and verify that browsing to `http://localhost:8080` presents you wi
 
 ### Troubleshooting OAuth2
 
+If you get this exception at runtime, check that you have specified the `clientId` and `clientSecret` values correctly in your `application-dev.yml` file:
+
+```json
+No qualifying bean of type 'org.springframework.security.oauth2.client.registration.ClientRegistrationRepository' available
+```
+
 If you get a generic user/password page, check the health-check end-point at [http://localhost:8080/health](http://localhost:8080/health). Look for:
 
 ```json
@@ -42,9 +48,10 @@ If these are not set to these values, check that `profile` is set to `dev`.  You
 c.d.d.DungeonsOfTheSultanateApplication  : No active profile set, falling back to 1 default profile: "default"
 ```
 
-It should show something like this (correct):
+It should show one of these instead (correct):
 
 ```
+c.d.d.DungeonsOfTheSultanateApplication  : No active profile set, falling back to 1 default profile "dev"
 c.d.d.DungeonsOfTheSultanateApplication  : The following 1 profile is active: "dev"
 ```
 
