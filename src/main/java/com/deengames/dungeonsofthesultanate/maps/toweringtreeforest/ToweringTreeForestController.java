@@ -12,6 +12,7 @@ public class ToweringTreeForestController
 {
     @GetMapping("/map/towering-tree-forest")
     public String worldMap(Model model) {
+        model.addAttribute("location", WorldMapLocations.locations[0]);
         return "map/toweringtreeforest/index";
     }
 }
