@@ -11,8 +11,13 @@
             <p th:text="'Welcome back, ' + ${authenticatedAs} + '!'" />
 
             <h1>Locations</h1>
-            <img th:src="@{/images/towering-tree-forest.png}" class="area-thumbnail" />
-            <p>Towering Tree Forest</p>
+            <!-- TODO: grid layout would be fantastico -->
+            <span th:each="location : ${locations}">
+                <a href="#">
+                    <img th:src="@{'/images/' + ${location.toLowerCase().replace(' ', '-')} + '/banner.png'}" class="area-thumbnail" />
+                    <p th:text="${location}" />
+                </a>
+            </span>
         </section>
     </body>
 </html>
