@@ -1,19 +1,17 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>Dungeons of the Sultanate</title>
-    <meta name="description" content=""/>
-    <meta name="viewport" content="width=device-width"/>
-    <base href="/"/>
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
-    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-</head>
-<body>
-<div class="container">
-    <p>Dungeons of the Sultanate is a browser-based, (mostly) single-player roguelike.</p>
-    <p>Click <a href="/login">here</a> to log in.</p>
-</div>
-</body>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout.html}">
+    <head>
+        <title>Dungeons of the Sultanate</title>
+    </head>
+    <body>
+        <div id="header">
+            <!-- todo: only show if logged in -->
+            <a href="/logout">Log out</a>
+        </div>
+        <section layout:fragment="content">
+            <p>Dungeons of the Sultanate is a browser-based, (mostly) single-player roguelike.</p>
+            <p>Click <a href="/login">here</a> to log in.</p>
+        </section>
+    </body>
 </html>

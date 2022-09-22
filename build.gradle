@@ -24,6 +24,7 @@ dependencies {
 
 	// web UI
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
 
 	// User/authorization stuff. Spring ones use the version from plugins.
 	implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -37,7 +38,7 @@ dependencies {
 
 	// DB stuff
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:3.4.9'
+	testRuntimeOnly 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:3.4.9'
 	//	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 }
 

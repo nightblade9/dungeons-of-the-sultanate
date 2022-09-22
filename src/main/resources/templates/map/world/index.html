@@ -1,25 +1,18 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>Dungeons of the Sultanate</title>
-    <meta name="description" content=""/>
-    <meta name="viewport" content="width=device-width"/>
-    <base href="/"/>
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
-    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-    <!-- unique to this page, and all map pages bruh -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/maps.css}" />
-</head>
-<body>
-<div class="container">
-    <p th:text="'World map TBD. Welcome, ' + ${authenticatedAs} + '!'" />
-    <p><a href="/logout">Log out</a></p>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout/layout.html}">
+    <head>
+        <title>World Map</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/maps.css}" />
+    </head>
+    <body>
+        <section layout:fragment="content">
+            <p th:text="'Welcome back, ' + ${authenticatedAs} + '!'" />
 
-    <h1>Locations</h1>
-        <img th:src="@{/images/towering-tree-forest.png}" class="area-thumbnail" />
-        <p>Towering Tree Forest</p>
-</div>
-</body>
+            <h1>Locations</h1>
+            <img th:src="@{/images/towering-tree-forest.png}" class="area-thumbnail" />
+            <p>Towering Tree Forest</p>
+        </section>
+    </body>
 </html>
