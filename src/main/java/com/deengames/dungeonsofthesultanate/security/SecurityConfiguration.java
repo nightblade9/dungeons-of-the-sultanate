@@ -17,7 +17,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     {
         "/", // home page
         String.format("/%s", HealthController.ROOT_URL), // BASIC health check (root)
-        "/webjars/**", "*.css" // web files that shouldn't be locked behind authentication
+        "/webjars/**", "*.css", "*.png" // web files that shouldn't be locked behind authentication
     };
 
     @Override

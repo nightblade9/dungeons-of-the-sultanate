@@ -13,3 +13,6 @@ spring:
           github:
             clientId: fake-client-id
             clientSecret: fake-client-secret
+          google:
+            clientId: fake-client-id
+            clientSecret: fake-client-secret
