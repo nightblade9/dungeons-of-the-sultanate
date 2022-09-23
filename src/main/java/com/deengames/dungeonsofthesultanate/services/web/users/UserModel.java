@@ -30,7 +30,7 @@ public class UserModel implements UserDetails {
 
     // WARNING: allowing users to change their username, will break authentication! On login, we only have a token
     // with the email address; we look up the user by username, since that's what the base Spring UserService wants.
-    static String calculateUserName(String emailAddress)
+    public static String calculateUserName(String emailAddress)
     {
         var username = emailAddress.substring(0, emailAddress.indexOf('@'));
         return username.toLowerCase();
