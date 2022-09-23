@@ -1,16 +1,9 @@
 package com.deengames.dungeonsofthesultanate.turnservice;
 
-import com.deengames.dungeonsofthesultanate.turnservice.stuff.ServiceThing;
-import org.springframework.amqp.core.AmqpAdmin;
-import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.beans.factory.BeanFactory;
+import com.deengames.dungeonsofthesultanate.turnservice.api.MessageQueueGateway;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 
@@ -18,7 +11,7 @@ import javax.annotation.PostConstruct;
 public class TurnServiceApplication {
 
 	@Autowired
-	private ServiceThing realThing;
+	private MessageQueueGateway messageQueueGateway;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TurnServiceApplication.class, args);
@@ -31,6 +24,7 @@ public class TurnServiceApplication {
 	}
 
 	private void main() throws InterruptedException {
-		this.realThing.goGoGo();
+		// Loops "forever" and processes messages
+		this.messageQueueGateway.waitForMessages();
 	}
 }
