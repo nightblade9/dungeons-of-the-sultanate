@@ -15,7 +15,7 @@ public class MessageQueueReader
     @Autowired
     private AmqpTemplate amqpTemplate;
 
-    private final String queueName = "testQueue";
+    private final String queueName = "dotsQueue";
 
     private boolean isRunning = false;
 
