@@ -16,10 +16,8 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	// Spring stuff. These all use the version specified above in plugins (currently 2.7.3)
-	implementation 'org.springframework.boot:spring-boot-starter-quartz'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
 	testImplementation 'org.springframework.security:spring-security-test:5.7.3'
 
 	// web UI
@@ -35,11 +33,12 @@ dependencies {
 
 	// reload changes at runtime
 	implementation 'org.springframework.boot:spring-boot-devtools'
+	// messaging
+	implementation 'org.springframwork:spring-jms:5.3.23'
 
 	// DB stuff
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	testRuntimeOnly 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:3.4.9'
-	//	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 }
 
 test {
