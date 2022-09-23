@@ -5,7 +5,7 @@ plugins {
 	id 'io.freefair.lombok' version '6.5.0.3'
 }
 
-group = 'com.deengames'
+group = 'com.deengames.dungeonsofthesultanate'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
