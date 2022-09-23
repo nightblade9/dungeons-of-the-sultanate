@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TurnServiceApplication {
 
 	public static void main(String[] args) {
+		System.setProperty(org.springframework.core.env.AbstractEnvironment.DEFAULT_PROFILES_PROPERTY_NAME, "dev");
+
 		SpringApplication.run(TurnServiceApplication.class, args);
 	}
 

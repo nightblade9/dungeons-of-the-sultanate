@@ -18,6 +18,7 @@ public class PlayerTurns {
     }
 
     // In truth: a MongoDB BSON ID
+    @Id
     @Getter @Setter
     private String playerId;
 
