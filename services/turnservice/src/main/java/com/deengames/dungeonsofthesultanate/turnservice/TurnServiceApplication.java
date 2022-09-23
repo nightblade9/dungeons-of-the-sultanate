@@ -1,6 +1,6 @@
 package com.deengames.dungeonsofthesultanate.turnservice;
 
-import com.deengames.dungeonsofthesultanate.turnservice.api.MessageQueueGateway;
+import com.deengames.dungeonsofthesultanate.turnservice.api.MessageQueueReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +11,7 @@ import javax.annotation.PostConstruct;
 public class TurnServiceApplication {
 
 	@Autowired
-	private MessageQueueGateway messageQueueGateway;
+	private MessageQueueReader messageQueueReader;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TurnServiceApplication.class, args);
@@ -25,6 +25,6 @@ public class TurnServiceApplication {
 
 	private void main() throws InterruptedException {
 		// Loops "forever" and processes messages
-		this.messageQueueGateway.waitForMessages();
+		this.messageQueueReader.waitForMessages();
 	}
 }

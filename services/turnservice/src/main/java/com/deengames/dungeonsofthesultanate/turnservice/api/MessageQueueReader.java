@@ -3,15 +3,11 @@ package com.deengames.dungeonsofthesultanate.turnservice.api;
 
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
-
 @Component
-public class MessageQueueGateway
+public class MessageQueueReader
 {
     @Autowired
     private AmqpAdmin amqpAdmin;

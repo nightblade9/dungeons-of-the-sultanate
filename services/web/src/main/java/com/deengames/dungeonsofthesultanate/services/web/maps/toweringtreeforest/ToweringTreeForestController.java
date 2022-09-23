@@ -1,6 +1,7 @@
 package com.deengames.dungeonsofthesultanate.services.web.maps.toweringtreeforest;
 
 import com.deengames.dungeonsofthesultanate.services.web.maps.world.WorldMapLocations;
+import com.deengames.dungeonsofthesultanate.services.web.messagequeue.MessageQueueWriter;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
@@ -16,40 +17,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.Date;
 
 @Controller
-public class ToweringTreeForestController
-{
+public class ToweringTreeForestController {
+
     @Autowired
-    private AutowireCapableBeanFactory autowireCapableBeanFactory;
+    private MessageQueueWriter messageQueueWriter;
 
     @GetMapping("/map/towering-tree-forest")
-    public String worldMap(Model model) throws InstantiationException, IllegalAccessException {
+    public String worldMap(Model model) {
         model.addAttribute("location", WorldMapLocations.locations[0]);
-
-        var thing = MessagingProofOfConcept.class.newInstance();
-        autowireCapableBeanFactory.autowireBean(thing);
-        thing.putMessage();
+        messageQueueWriter.putMessage();
         return "map/toweringtreeforest/index";
-    }
-
-    static class MessagingProofOfConcept
-    {
-        @Autowired
-        private AmqpAdmin amqpAdmin;
-
-        @Autowired
-        private AmqpTemplate amqpTemplate;
-
-        private final String queueName = "testQueue";
-
-        @Bean
-        public Queue myQueue() {
-            return new Queue(queueName, false);
-        }
-
-        public void putMessage()
-        {
-            String text = String.format("hello at %s!", new Date());
-            amqpTemplate.convertAndSend(queueName, text);
-        }
     }
 }
