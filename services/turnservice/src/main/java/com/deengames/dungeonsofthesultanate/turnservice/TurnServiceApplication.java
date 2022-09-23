@@ -17,20 +17,20 @@ import javax.annotation.PostConstruct;
 @SpringBootApplication
 public class TurnServiceApplication {
 
-	private static ServiceThing service;
-
 	@Autowired
 	private ServiceThing realThing;
 
-	@PostConstruct
-	private void postConstruct()
-	{
-		service = realThing;
-	}
-
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) {
 		SpringApplication.run(TurnServiceApplication.class, args);
-		service.goGoGo();
 	}
 
+	@PostConstruct
+	// Called after static void main
+	private void postConstruct() throws InterruptedException {
+		this.main();
+	}
+
+	private void main() throws InterruptedException {
+		this.realThing.goGoGo();
+	}
 }
