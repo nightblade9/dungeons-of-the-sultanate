@@ -34,7 +34,7 @@ dependencies {
 	// reload changes at runtime
 	implementation 'org.springframework.boot:spring-boot-devtools'
 	// messaging
-	implementation 'org.springframwork:spring-jms:5.3.23'
+	implementation 'org.springframework.boot:spring-boot-starter-amqp:2.7.4'
 
 	// DB stuff
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'

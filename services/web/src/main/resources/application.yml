@@ -1,2 +1,8 @@
 # Global YML configuration goes here.
 # For GitHub + OAuth2, see application-dev.yml or application-production.yml.
+spring:
+  rabbitmq:
+    template:
+      retry:
+        enabled: true
+        initial-interval: "2s"
