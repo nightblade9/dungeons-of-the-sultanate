@@ -1,18 +1,16 @@
 package com.deengames.dungeonsofthesultanate.users;
 
 import com.deengames.dungeonsofthesultanate.BaseIntegrationTest;
-import com.deengames.dungeonsofthesultanate.security.SecurityContextFetcher;
+import com.deengames.dungeonsofthesultanate.services.web.security.SecurityContextFetcher;
 import com.deengames.dungeonsofthesultanate.security.StubToken;
+import com.deengames.dungeonsofthesultanate.services.web.users.UserController;
+import com.deengames.dungeonsofthesultanate.services.web.users.UserModel;
 import io.jsonwebtoken.lang.Assert;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 

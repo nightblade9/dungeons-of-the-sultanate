@@ -1,7 +1,7 @@
 package com.deengames.dungeonsofthesultanate;
 
-import com.deengames.dungeonsofthesultanate.users.UserModel;
-import com.deengames.dungeonsofthesultanate.users.UserRepository;
+import com.deengames.dungeonsofthesultanate.services.web.users.UserModel;
+import com.deengames.dungeonsofthesultanate.services.web.users.UserRepository;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

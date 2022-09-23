@@ -1,4 +1,4 @@
-package com.deengames.dungeonsofthesultanate.users;
+package com.deengames.dungeonsofthesultanate.services.web.users;
 
 import lombok.Getter;
 import lombok.Setter;

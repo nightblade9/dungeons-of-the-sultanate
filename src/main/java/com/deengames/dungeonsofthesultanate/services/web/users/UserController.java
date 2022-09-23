@@ -1,7 +1,7 @@
-package com.deengames.dungeonsofthesultanate.users;
+package com.deengames.dungeonsofthesultanate.services.web.users;
 
-import com.deengames.dungeonsofthesultanate.security.TokenParser;
-import com.deengames.dungeonsofthesultanate.security.SecurityContextFetcher;
+import com.deengames.dungeonsofthesultanate.services.web.security.TokenParser;
+import com.deengames.dungeonsofthesultanate.services.web.security.SecurityContextFetcher;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

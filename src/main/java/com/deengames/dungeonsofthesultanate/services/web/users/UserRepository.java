@@ -1,4 +1,4 @@
-package com.deengames.dungeonsofthesultanate.users;
+package com.deengames.dungeonsofthesultanate.services.web.users;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;

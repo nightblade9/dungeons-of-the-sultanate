@@ -1,6 +1,6 @@
-package com.deengames.dungeonsofthesultanate.configuration;
+package com.deengames.dungeonsofthesultanate.services.web.configuration;
 
-import com.deengames.dungeonsofthesultanate.health.HealthController;
+import com.deengames.dungeonsofthesultanate.services.web.health.HealthController;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

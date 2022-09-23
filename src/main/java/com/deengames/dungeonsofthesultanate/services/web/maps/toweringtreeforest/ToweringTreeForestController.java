@@ -1,8 +1,6 @@
-package com.deengames.dungeonsofthesultanate.maps.toweringtreeforest;
+package com.deengames.dungeonsofthesultanate.services.web.maps.toweringtreeforest;
 
-import com.deengames.dungeonsofthesultanate.maps.world.WorldMapLocations;
-import com.deengames.dungeonsofthesultanate.security.TokenParser;
-import org.springframework.security.core.context.SecurityContextHolder;
+import com.deengames.dungeonsofthesultanate.services.web.maps.world.WorldMapLocations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,6 +1,6 @@
-package com.deengames.dungeonsofthesultanate.maps.world;
+package com.deengames.dungeonsofthesultanate.services.web.maps.world;
 
-import com.deengames.dungeonsofthesultanate.security.TokenParser;
+import com.deengames.dungeonsofthesultanate.services.web.security.TokenParser;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

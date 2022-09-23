@@ -1,4 +1,4 @@
-package com.deengames.dungeonsofthesultanate.users;
+package com.deengames.dungeonsofthesultanate.services.web.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
