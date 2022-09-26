@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    # TODO: replace with embedded DB!
+    url: jdbc:postgresql://localhost:5432/dots_turnservice_test
+    username: postgres
+    password: password

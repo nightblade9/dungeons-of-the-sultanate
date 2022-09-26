@@ -33,6 +33,11 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
 }
 
+test {
+	environment "spring.profiles.default", "test"
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
+

@@ -8,17 +8,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.Instant;
 
 @RestController
-public class TurnController {
+public class PlayerController {
 
     @Autowired
     private TurnService service;
 
-    @PostMapping(value = "/newPlayer", consumes = "application/json", produces = "application/json")
-    public void onNewPlayer(@RequestBody String playerId)
+    @PostMapping(value = "/player", consumes = "application/json", produces = "application/json")
+    public void createPlayer(@RequestBody String playerId)
     {
         var data = new PlayerTurns();
         data.setPlayerId(playerId);
-        data.setLastTurnTickUtc(Instant.now());
         service.addNewRecord(data);
     }
 }

@@ -18,6 +18,9 @@ spring:
       # The SQL dialect makes Hibernate generate better SQL for the chosen database
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          # Store dates in UTC when we persist them
+          time_zone: UTC
     show-sql: true
 server:
   port:

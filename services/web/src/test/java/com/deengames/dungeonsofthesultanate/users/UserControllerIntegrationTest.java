@@ -5,7 +5,6 @@ import com.deengames.dungeonsofthesultanate.services.web.security.SecurityContex
 import com.deengames.dungeonsofthesultanate.security.StubToken;
 import com.deengames.dungeonsofthesultanate.services.web.users.UserController;
 import com.deengames.dungeonsofthesultanate.services.web.users.UserModel;
-import io.jsonwebtoken.lang.Assert;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Date;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.given;
 
@@ -41,7 +41,7 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
 
         // Assert
         var actual = userRepository.findUserByEmailAddress(expectedEmailAddress);
-        Assert.notNull(actual);
+        assertNotNull(actual);
     }
 
     @Test
