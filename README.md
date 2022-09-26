@@ -99,6 +99,14 @@ Copy/paste the settings to `application-dev.yml`, and specify the PostgresQL use
 - In the `Gradle` window on the right, for both projects, run `application` > `bootRun`.  Both should run.
 - In the bottom-right of the IDE, click Services. You should see both services running.
 
+## Inter-Service Communication
+
+Make sure all services have a `dots.service_to_service_secret` value specified in `application-dev.yml`. For development:
+
+```yaml
+dots:
+  service_to_service_secret: Super Sekrit Dev Value!
+```
 
 # Architecture
 

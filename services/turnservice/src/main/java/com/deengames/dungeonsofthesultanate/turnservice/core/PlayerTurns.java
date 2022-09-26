@@ -3,11 +3,9 @@ package com.deengames.dungeonsofthesultanate.turnservice.core;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.Clock;
-import java.time.Instant;
 import java.time.OffsetDateTime;
 
 @Entity
@@ -25,7 +23,7 @@ public class PlayerTurns {
     // In truth: a MongoDB BSON ID
     @Id
     @Getter @Setter
-    private String playerId;
+    private String userId;
 
     @Getter @Setter
     private int numTurns;

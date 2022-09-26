@@ -4,10 +4,12 @@ import com.deengames.dungeonsofthesultanate.services.web.security.TokenParser;
 import com.deengames.dungeonsofthesultanate.services.web.security.SecurityContextFetcher;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -26,6 +28,9 @@ public class UserController {
     @Autowired
     private SecurityContextFetcher securityContextFetcher;
 
+    @Autowired
+    private Environment environment;
+
     // This method invokes when the user successfully authenticates; it's configured in SecurityConfiguration,
     // via .oauth2Login().defaultSuccessUrl("/user/onLogin").
     @GetMapping("/user/onLogin")
@@ -38,7 +43,8 @@ public class UserController {
         }
 
         // add user into database (if not there already), and update lastLogin
-        upsertUser(userEmail);
+        var user = (UserModel)upsertUser(userEmail);
+        initializeUserTurns(user);
 
         // Redirect. This doesn't trigger the controller, IDK why (I get a 500 error).
         return new RedirectView("/map/world");
@@ -59,5 +65,12 @@ public class UserController {
         user = new UserModel(new ObjectId(), username, emailAddress, new Date());
         writeUserDetailsService.saveUser(user);
         return user;
+    }
+
+    private void initializeUserTurns(UserModel user)
+    {
+        var secret = environment.getProperty("dots.service_to_service_secret");
+        var userId = user.getId().toString();
+        new RestTemplate().postForObject("http://localhost:8081/player", userId, String.class);
     }
 }

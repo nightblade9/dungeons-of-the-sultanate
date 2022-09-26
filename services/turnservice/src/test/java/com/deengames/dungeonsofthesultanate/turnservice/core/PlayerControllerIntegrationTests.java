@@ -5,15 +5,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.io.InvalidObjectException;
 import java.util.Collection;
-import java.util.Date;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.BDDMockito.given;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PlayerControllerIntegrationTests extends BaseIntegrationTest {
@@ -35,7 +31,7 @@ public class PlayerControllerIntegrationTests extends BaseIntegrationTest {
 
         // Assert
         var actual = turnRepository.findById(expectedId).get();
-        assertEquals(expectedId, actual.getPlayerId());
+        assertEquals(expectedId, actual.getUserId());
         assertEquals(PlayerTurns.newPlayerNumTurns, actual.getNumTurns());
     }
 
@@ -45,7 +41,7 @@ public class PlayerControllerIntegrationTests extends BaseIntegrationTest {
         // Arrange
         var expectedId = UUID.randomUUID().toString();
         var existingPlayer = new PlayerTurns();
-        existingPlayer.setPlayerId(expectedId);
+        existingPlayer.setUserId(expectedId);
         turnRepository.save(existingPlayer);
 
         // Act
