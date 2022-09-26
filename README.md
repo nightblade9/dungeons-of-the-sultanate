@@ -6,6 +6,10 @@ Browser-based roguelike built in JEE and friends.
 
 # Development Environment Setup
 
+- Install MongoDB and PostgresQL (latest versions)
+- Open IDEA > New project > repository root
+- Click "project" (top-left of IDE) and choose Project Files; then, for each project, find the `build.gradle` under the root of each project, right-click, and pick `Link Gradle project`. Wait for IDEA to process the prjects ("Gradle" window on the right side, the two-way arrow circle icon should be white, not grey)
+
 ## Configurating OAuth2
 
 You need to configure OAuth2. First, create a new `src/main/java/resources/application-dev.yml` file with the required OAuth2 configuration:
@@ -71,11 +75,30 @@ If you want to override this for some reason, you can manually specify a run con
 spring:
   data:
     mongodb:
-      uri: mongodb://127.0.0.1/dots
-      database: dots
+      uri: mongodb://127.0.0.1/dots_web
+      database: dots_web
 ```
 
 Log in and authenticate via an OAuth2 provider; if you don't get any exceptions, MongoDB is working as expected.
+
+## Configuring PostgresQL
+
+I hope you installed PostgresSQL 14. Anyway, open up each microservice's `application.yml`. If they have PostgresQL/JPA config such as:
+
+```
+spring:
+  datasource:
+    #username: ...
+    #password: ...
+```
+
+Copy/paste the settings to `application-dev.yml`, and specify the PostgresQL user name and password.
+
+## Run the microservices
+
+- In the `Gradle` window on the right, for both projects, run `application` > `bootRun`.  Both should run.
+- In the bottom-right of the IDE, click Services. You should see both services running.
+
 
 # Architecture
 
