@@ -4,3 +4,5 @@ spring:
     url: jdbc:postgresql://localhost:5432/dots_turnservice_test
     username: postgres
     password: password
+dots:
+  service_to_service_secret: (not used)
