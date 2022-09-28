@@ -2,9 +2,11 @@ package com.deengames.dungeonsofthesultanate.services.web.users;
 
 import com.deengames.dungeonsofthesultanate.services.web.security.TokenParser;
 import com.deengames.dungeonsofthesultanate.services.web.security.SecurityContextFetcher;
+import com.deengames.dungeonsofthesultanate.services.web.security.client.ServiceToServiceClient;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +31,7 @@ public class UserController {
     private SecurityContextFetcher securityContextFetcher;
 
     @Autowired
-    private Environment environment;
+    private ServiceToServiceClient s2sClient;
 
     // This method invokes when the user successfully authenticates; it's configured in SecurityConfiguration,
     // via .oauth2Login().defaultSuccessUrl("/user/onLogin").
@@ -69,8 +71,8 @@ public class UserController {
 
     private void initializeUserTurns(UserModel user)
     {
-        var secret = environment.getProperty("dots.service_to_service_secret");
         var userId = user.getId().toString();
-        new RestTemplate().postForObject("http://localhost:8081/player", userId, String.class);
+        // TODO: make these DRY. Also, they should be across HTTPS, not HTTP.
+        s2sClient.post("http://localhost:8081/player", HttpMethod.POST, userId, String.class);
     }
 }
