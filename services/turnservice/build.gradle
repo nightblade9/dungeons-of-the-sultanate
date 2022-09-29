@@ -31,7 +31,10 @@ dependencies {
 	// database
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	runtimeOnly 'org.postgresql:postgresql'
+	// DB migrations
 	runtimeOnly 'org.flywaydb:flyway-core:9.3.0'
+	// embedded-at-runtime dependencies
+	testImplementation 'io.zonky.test:embedded-database-spring-test:2.1.2'
 }
 
 test {

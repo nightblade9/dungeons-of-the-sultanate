@@ -1,20 +1,19 @@
 package com.deengames.dungeonsofthesultanate.turnservice;
 
 import com.deengames.dungeonsofthesultanate.turnservice.core.TurnRepository;
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 
 @DataJpaTest // switches to embedded DB
+@AutoConfigureEmbeddedDatabase
 public class BaseIntegrationTest {
 
     // Singleton beans that we use to inspect the DB
     @Autowired
-    public TurnRepository turnRepository;
+    private TurnRepository turnRepository;
 
     @BeforeEach
     @AfterEach
