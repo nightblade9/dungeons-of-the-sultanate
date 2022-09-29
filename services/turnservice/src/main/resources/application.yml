@@ -5,12 +5,15 @@ spring:
     hikari:
       connectionTimeout: 20000
       maximumPoolSize: 5
-    url: jdbc:postgresql://localhost:5432/dots_turnservice
+    url: jdbc:postgresql://localhost:5432/dots_turnservice?autoreconnect=true
     #username: ...
     #password: ...
+  flyway:
+    url: jdbc:postgresql://localhost:5432/dots_turnservice
+    validateMigrationNaming: true
   jpa:
     hibernate:
-      ddl-auto: validate
+#      ddl-auto: validate
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     properties:
       ## Hibernate Properties
