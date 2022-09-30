@@ -1,10 +1,11 @@
 spring:
   datasource:
-    # TODO: replace with embedded DB!
-    url: jdbc:postgresql://localhost:5432/dots_turnservice_test
-    username: postgres
-    password: password
+    url: jdbc:h2:mem:dots_turnservice_test
+    driver-class-name: org.h2.Driver
+  flyway:
+    url: jdbc:h2:mem:dots_turnservice_test
   jpa:
+    database: H2
     hibernate:
       ddl-auto: create-drop
 dots:
