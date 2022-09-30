@@ -6,7 +6,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 @Configuration
 @EnableScheduling
-public class SchedulerConfig {
+public class SchedulerConfiguration {
 
     // Zone doesn't matter now; it could if we start doing things daily instead of hourly.
     @Scheduled(cron = "${dots.tickCron}", zone = "GMT")
