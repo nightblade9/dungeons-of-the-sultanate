@@ -17,8 +17,12 @@ public class ServiceToServiceClient {
     @Autowired
     private Environment environment;
 
-    public <T> T get(String url, Object request, Class<T> responseType) {
-        return this.call(url, HttpMethod.GET, request, responseType);
+    /**
+     * Makes a GET call. Doesn't accept a request, because you can't pass a body in HTML to a GET call.
+     * Instead, append it to the URL, e.g. ?userId=foo
+     */
+    public <T> T get(String url, Class<T> responseType) {
+        return this.call(url, HttpMethod.GET, null, responseType);
     }
 
     public <T> T post(String url, Object request, Class<T> responseType) {
@@ -41,6 +45,7 @@ public class ServiceToServiceClient {
     {
         var headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add(headerName, value);
         return headers;
     }

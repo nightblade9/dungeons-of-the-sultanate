@@ -14,8 +14,8 @@ public class PlayerController {
     private TurnService service;
 
     // TODO: delete
-    @GetMapping(value="/player", consumes=MediaType.TEXT_PLAIN_VALUE)
-    public int getPlayer(@RequestBody String userId) {
+    @GetMapping(value="/player", consumes=MediaType.APPLICATION_JSON_VALUE)
+    public int getPlayer(String userId) {
         return service.getNumTurns(userId);
     }
 

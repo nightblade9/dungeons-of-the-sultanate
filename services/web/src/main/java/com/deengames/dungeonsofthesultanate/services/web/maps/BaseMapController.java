@@ -13,7 +13,8 @@ public abstract class BaseMapController extends BaseController {
     {
         var user = this.getCurrentUser();
         // TODO: make these DRY. Also, they should be across HTTPS, not HTTP.
-        var result = s2sClient.post("http://localhost:8081/player", user.getId(), Integer.class);
+        String url = String.format("http://localhost:8081/player?userId=%s", user.getId());
+        var result = s2sClient.get(url, Integer.class);
         return result;
     }
 }
