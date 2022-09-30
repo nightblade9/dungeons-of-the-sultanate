@@ -30,4 +30,4 @@ server:
   port:
     8081
 dots:
-  tickCron: 0 0 0 * * * # every day at midnight
+  tickCron: 0 0 * * * * # hourly at the top of the hour

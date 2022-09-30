@@ -8,6 +8,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 @EnableScheduling
 public class SchedulerConfig {
 
+    // Zone doesn't matter now; it could if we start doing things daily instead of hourly.
     @Scheduled(cron = "${dots.tickCron}", zone = "GMT")
     public void incrementTurnsEveryHour() {
         // TODO: if this takes too long, consider spawning threads here, and partitioning data.
