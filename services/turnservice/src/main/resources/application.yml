@@ -11,6 +11,8 @@ spring:
   flyway:
     url: jdbc:postgresql://localhost:5432/dots_turnservice
     validateMigrationNaming: true
+    #user: ...
+    #password: ...
   jpa:
     hibernate:
 #      ddl-auto: validate
