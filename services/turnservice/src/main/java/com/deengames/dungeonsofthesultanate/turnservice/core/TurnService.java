@@ -13,4 +13,14 @@ public class TurnService {
     {
         repository.save(playerTurns);
     }
+
+    public int getNumTurns(String userId) {
+        var data = repository.findById(userId);
+        if (data == null || data.isEmpty())
+        {
+            return 0;
+        }
+
+        return data.get().getNumTurns();
+    }
 }

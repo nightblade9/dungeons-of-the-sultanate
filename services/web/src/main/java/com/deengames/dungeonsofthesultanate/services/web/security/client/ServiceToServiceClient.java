@@ -17,8 +17,16 @@ public class ServiceToServiceClient {
     @Autowired
     private Environment environment;
 
+    public <T> T get(String url, Object request, Class<T> responseType) {
+        return this.call(url, HttpMethod.GET, request, responseType);
+    }
+
+    public <T> T post(String url, Object request, Class<T> responseType) {
+        return this.call(url, HttpMethod.POST, request, responseType);
+    }
+
     // TODO: unit test (white-box)
-    public <T> T post(String url, HttpMethod method, Object request, Class<T> responseType)
+    private <T> T call(String url, HttpMethod method, Object request, Class<T> responseType)
     {
         var secret = environment.getProperty("dots.service_to_service_secret");
         var headers = createHeadersWith("Client-Secret", secret);

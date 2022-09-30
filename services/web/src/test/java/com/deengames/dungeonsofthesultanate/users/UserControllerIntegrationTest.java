@@ -49,7 +49,7 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
         given(this.securityContextFetcher.getAuthentication())
                 .willReturn(new StubToken(expectedEmailAddress));
 
-        given(this.s2sClient.post(Mockito.anyString(), Mockito.any(), Mockito.any(), Mockito.any()))
+        given(this.s2sClient.post(Mockito.anyString(), Mockito.any(), Mockito.any()))
             .willReturn("hi there");
 
         // Act
@@ -69,7 +69,7 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
         given(this.securityContextFetcher.getAuthentication())
             .willReturn(new StubToken(expectedEmailAddress));
 
-        given(this.s2sClient.post(Mockito.anyString(), Mockito.any(), Mockito.any(), Mockito.any()))
+        given(this.s2sClient.post(Mockito.anyString(), Mockito.any(), Mockito.any()))
             .willReturn("hi there");
 
         var expectedId = new ObjectId();
