@@ -28,19 +28,16 @@ public class HealthController {
         var isClientSecretSet =
             env.getProperty("spring.security.oauth2.client.registration.github.clientSecret") != null;
 
+        var isServiceToServiceSecretSet =
+            env.getProperty("dots.service_to_service_secret") != null;
+
         var toReturn = new HashMap<String, String>();
         toReturn.put("current_time_utc", Instant.now().toString());
         toReturn.put("profile", env.getDefaultProfiles()[0]);
         toReturn.put("oauth2_client_id", env.getProperty("spring.security.oauth2.client.registration.github.clientId"));
         toReturn.put("oauth2_client_secret_set", String.valueOf(isClientSecretSet));
+        toReturn.put("s2s_auth_set", String.valueOf(isServiceToServiceSecretSet));
 
         return toReturn;
-    }
-
-    // Detailed health checks; these are secured behind authentication.
-    @RequestMapping(value = ROOT_URL + "/detailed", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> detailed(Model model)
-    {
-        return new HashMap<String, String>();
     }
 }
