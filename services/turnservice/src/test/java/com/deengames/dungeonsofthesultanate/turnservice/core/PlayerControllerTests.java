@@ -35,7 +35,7 @@ public class PlayerControllerTests {
     }
 
     @Test
-    public void getPlayer_returnsPlayerTurnsFromService() {
+    public void getPlayer_ReturnsPlayerTurnsFromService() {
         // Arrange
         var expectedId = UUID.randomUUID().toString();
         var expectedTurns = 39;
@@ -50,7 +50,7 @@ public class PlayerControllerTests {
     }
 
     @Test
-    public void getPlayer_returnsNull_ifPlayerIsntInService() {
+    public void getPlayer_ReturnsNull_ifPlayerIsntInService() {
         // Act
         var actual = playerController.getPlayer("no such id");
         // Assert

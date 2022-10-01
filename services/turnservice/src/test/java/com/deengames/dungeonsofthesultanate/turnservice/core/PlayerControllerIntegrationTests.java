@@ -49,4 +49,21 @@ public class PlayerControllerIntegrationTests extends BaseIntegrationTest {
         var actuals = turnRepository.findAll();
         Assertions.assertEquals(((Collection<?>)actuals).size(), 1);
     }
+
+    @Test
+    public void getPlayer_GetsPlayerFromDatabase() {
+        // Arrange
+        var expectedId = "some object id";
+        var expectedTurns = 123;
+        var expected = new PlayerTurns();
+        expected.setUserId(expectedId);
+        expected.setNumTurns(expectedTurns);
+        turnRepository.save(expected);
+
+        // Act
+        var actual = controller.getPlayer(expectedId);
+
+        // Assert
+        Assertions.assertEquals(actual, expectedTurns);
+    }
 }
