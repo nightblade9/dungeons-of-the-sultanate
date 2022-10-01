@@ -16,8 +16,7 @@ public class PlayerTurns {
     public PlayerTurns()
     {
         this.numTurns = newPlayerNumTurns;
-        var utcNow = OffsetDateTime.now(Clock.systemUTC().getZone());
-        this.lastTurnTickUtc = utcNow;
+        this.updateLastTickTime();
     }
 
     // In truth: a MongoDB BSON ID
@@ -30,4 +29,9 @@ public class PlayerTurns {
 
     @Getter @Setter
     private OffsetDateTime lastTurnTickUtc;
+
+    public void updateLastTickTime() {
+        var utcNow = OffsetDateTime.now(Clock.systemUTC().getZone());
+        this.lastTurnTickUtc = utcNow;
+    }
 }

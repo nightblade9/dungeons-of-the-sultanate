@@ -37,7 +37,11 @@ public class TurnService {
 
         var allPlayerTurns = repository.findAll();
         StreamSupport.stream(allPlayerTurns.spliterator(), false)
-            .parallel().forEach(turns -> turns.setNumTurns(turns.getNumTurns() + elapsedTicks));
+            .parallel().forEach(turns -> {
+                turns.setNumTurns(turns.getNumTurns() + elapsedTicks);
+                turns.updateLastTickTime();
+                }
+            );
 
         repository.saveAll(allPlayerTurns);
     }
