@@ -4,6 +4,8 @@ spring:
     driver-class-name: org.h2.Driver
   flyway:
     url: jdbc:h2:mem:dots_turnservice_test
+    user: sa
+    baseline-on-migrate: true
   jpa:
     database: H2
     hibernate:
