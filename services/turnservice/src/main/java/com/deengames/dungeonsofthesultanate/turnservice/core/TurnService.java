@@ -40,8 +40,8 @@ public class TurnService {
             .parallel().forEach(turns -> {
                 turns.setNumTurns(turns.getNumTurns() + elapsedTicks);
                 turns.updateLastTickTime();
-                }
-            );
+            }
+        );
 
         repository.saveAll(allPlayerTurns);
     }

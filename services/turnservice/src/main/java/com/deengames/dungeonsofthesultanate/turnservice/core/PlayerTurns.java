@@ -19,6 +19,13 @@ public class PlayerTurns {
         this.updateLastTickTime();
     }
 
+    // for unit tests
+    public PlayerTurns(String userId, int numTurns) {
+        this();
+        this.userId = userId;
+        this.setNumTurns(numTurns);
+    }
+
     // In truth: a MongoDB BSON ID
     @Id
     @Getter @Setter
@@ -31,7 +38,11 @@ public class PlayerTurns {
     private OffsetDateTime lastTurnTickUtc;
 
     public void updateLastTickTime() {
-        var utcNow = OffsetDateTime.now(Clock.systemUTC().getZone());
+        var utcNow = utcNow();
         this.lastTurnTickUtc = utcNow;
+    }
+
+    public static OffsetDateTime utcNow() {
+        return OffsetDateTime.now(Clock.systemUTC().getZone());
     }
 }
