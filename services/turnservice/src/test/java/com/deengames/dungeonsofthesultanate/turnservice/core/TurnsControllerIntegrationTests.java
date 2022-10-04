@@ -10,11 +10,11 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PlayerControllerIntegrationTests extends BaseIntegrationTest {
+public class TurnsControllerIntegrationTests extends BaseIntegrationTest {
 
     // Subject under test
     @Autowired
-    private PlayerController controller;
+    private TurnsController controller;
 
     @Autowired
     private TurnRepository turnRepository;

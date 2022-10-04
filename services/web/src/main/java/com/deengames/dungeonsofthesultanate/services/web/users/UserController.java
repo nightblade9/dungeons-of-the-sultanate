@@ -4,6 +4,7 @@ import com.deengames.dungeonsofthesultanate.services.web.BaseController;
 import com.deengames.dungeonsofthesultanate.services.web.security.client.ServiceToServiceClient;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,7 @@ public class UserController extends BaseController {
 
     // This method invokes when the user successfully authenticates; it's configured in SecurityConfiguration,
     // via .oauth2Login().defaultSuccessUrl("/user/onLogin").
-    @GetMapping("/user/onLogin")
+    @GetMapping(value = "/user/onLogin")
     public RedirectView onLogin() throws UsernameNotFoundException {
         // add user into database (if not there already), and update lastLogin
         var user = (UserModel)upsertUser();
@@ -56,6 +57,6 @@ public class UserController extends BaseController {
     {
         var userId = user.getId().toString();
         // TODO: make these DRY. Also, they should be across HTTPS, not HTTP.
-        s2sClient.post("http://localhost:8081/player", userId, String.class);
+        s2sClient.post("http://localhost:8081/turns", userId, String.class);
     }
 }

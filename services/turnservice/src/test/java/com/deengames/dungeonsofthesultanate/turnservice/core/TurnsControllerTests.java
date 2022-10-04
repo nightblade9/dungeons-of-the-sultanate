@@ -11,10 +11,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.UUID;
 
 @SpringBootTest
-public class PlayerControllerTests {
+public class TurnsControllerTests {
 
     @Autowired
-    private PlayerController playerController; // Subject under test
+    private TurnsController turnsController; // Subject under test
 
     @MockBean
     private TurnService turnService;
@@ -25,7 +25,7 @@ public class PlayerControllerTests {
         var expectedId = UUID.randomUUID().toString();
 
         // Act
-        playerController.createPlayer(expectedId);
+        turnsController.createPlayer(expectedId);
 
         var argument = ArgumentCaptor.forClass(PlayerTurns.class);
         Mockito.verify(turnService).addNewRecord(argument.capture());
@@ -44,7 +44,7 @@ public class PlayerControllerTests {
             .thenReturn(expectedTurns);
 
         // Act
-        var actual = playerController.getPlayer(expectedId);
+        var actual = turnsController.getPlayer(expectedId);
 
         Assertions.assertEquals(actual, expectedTurns);
     }
@@ -52,7 +52,7 @@ public class PlayerControllerTests {
     @Test
     public void getPlayer_ReturnsNull_ifPlayerIsntInService() {
         // Act
-        var actual = playerController.getPlayer("no such id");
+        var actual = turnsController.getPlayer("no such id");
         // Assert
         Assertions.assertEquals(actual, 0);
     }
