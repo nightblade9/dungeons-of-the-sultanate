@@ -48,12 +48,12 @@ public class TurnServiceIntegrationTests extends BaseIntegrationTest {
         var iterator = actuals.iterator();
 
         var actualP1 = iterator.next();
-        Assertions.assertEquals(actualP1.getNumTurns(), 10 + elapsed);
-        Assertions.assertNotEquals(actualP1.getLastTurnTickUtc().toEpochSecond(), distantPast.toEpochSecond());
+        Assertions.assertEquals(10 + elapsed, actualP1.getNumTurns());
+        Assertions.assertNotEquals(distantPast.toEpochSecond(), actualP1.getLastTurnTickUtc().toEpochSecond());
 
         var actualP2 = iterator.next();
-        Assertions.assertEquals(actualP2.getNumTurns(), 20 + elapsed);
-        Assertions.assertNotEquals(actualP2.getLastTurnTickUtc().toEpochSecond(), distantPast.toEpochSecond());
+        Assertions.assertEquals(20 + elapsed, actualP2.getNumTurns());
+        Assertions.assertNotEquals(distantPast.toEpochSecond(), actualP2.getLastTurnTickUtc().toEpochSecond());
 
         Assertions.assertFalse(iterator.hasNext());
     }

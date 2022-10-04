@@ -36,7 +36,7 @@ class DungeonsOfTheSultanateApplicationTests extends BaseIntegrationTest
 		// Assert
 		var actual = userRepository.findUserByEmailAddress(expectedEmailAddress);
 		assertNotNull(actual);
-		assertEquals(actual.getId(), expectedUser.getId());
+		assertEquals(expectedUser.getId(), actual.getId());
 	}
 
 	@Test

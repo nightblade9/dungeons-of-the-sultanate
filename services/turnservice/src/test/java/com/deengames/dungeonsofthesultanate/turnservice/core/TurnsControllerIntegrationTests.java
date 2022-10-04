@@ -29,8 +29,8 @@ public class TurnsControllerIntegrationTests extends BaseIntegrationTest {
 
         // Assert
         var actual = turnRepository.findById(expectedId).get();
-        assertEquals(expectedId, actual.getUserId());
-        assertEquals(PlayerTurns.newPlayerNumTurns, actual.getNumTurns());
+        assertEquals(actual.getUserId(), expectedId);
+        assertEquals(actual.getNumTurns(), PlayerTurns.newPlayerNumTurns);
     }
 
     @Test
@@ -47,7 +47,7 @@ public class TurnsControllerIntegrationTests extends BaseIntegrationTest {
 
         // Assert
         var actuals = turnRepository.findAll();
-        Assertions.assertEquals(((Collection<?>)actuals).size(), 1);
+        Assertions.assertEquals(1, ((Collection<?>)actuals).size());
     }
 
     @Test
@@ -64,6 +64,6 @@ public class TurnsControllerIntegrationTests extends BaseIntegrationTest {
         var actual = controller.getTurns(expectedId);
 
         // Assert
-        Assertions.assertEquals(actual, expectedTurns);
+        Assertions.assertEquals(expectedTurns, actual);
     }
 }

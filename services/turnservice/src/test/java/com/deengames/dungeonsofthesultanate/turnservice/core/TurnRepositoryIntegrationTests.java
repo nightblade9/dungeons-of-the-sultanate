@@ -41,7 +41,7 @@ public class TurnRepositoryIntegrationTests extends BaseIntegrationTest {
         // Act
         var actual = turnRepository.getElapsedTicks();
         // Assert
-        Assertions.assertEquals(actual, 1);
+        Assertions.assertEquals(1, actual);
     }
 
     @Test
@@ -59,7 +59,7 @@ public class TurnRepositoryIntegrationTests extends BaseIntegrationTest {
         var actual = turnRepository.getElapsedTicks();
 
         // Assert
-        Assertions.assertEquals(actual, expectedHours);
+        Assertions.assertEquals(expectedHours, actual);
     }
 
 

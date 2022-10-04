@@ -12,7 +12,7 @@ public class ApplicationTests {
 
     @Test
     void junitWorks() {
-        assertEquals(2 + 3, 5);
+        assertEquals(5, 2 + 3);
     }
 
     @Test
@@ -27,6 +27,6 @@ public class ApplicationTests {
         var actualId = userModel.getEmailAddress();
 
         // Assert
-        assertEquals(actualId, "fake@fake.com");
+        assertEquals("fake@fake.com", actualId);
     }
 }

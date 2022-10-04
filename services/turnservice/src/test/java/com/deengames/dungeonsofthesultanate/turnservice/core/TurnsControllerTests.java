@@ -32,8 +32,8 @@ public class TurnsControllerTests {
         var argument = ArgumentCaptor.forClass(PlayerTurns.class);
         Mockito.verify(turnService).save(argument.capture());
         var actual = argument.getValue();
-        Assertions.assertEquals(actual.getUserId(), expectedId);
-        Assertions.assertEquals(actual.getNumTurns(), PlayerTurns.newPlayerNumTurns);
+        Assertions.assertEquals(expectedId, actual.getUserId());
+        Assertions.assertEquals(PlayerTurns.newPlayerNumTurns, actual.getNumTurns());
     }
 
     @Test
@@ -49,7 +49,7 @@ public class TurnsControllerTests {
         // Act
         var actual = turnsController.getTurns(expectedId);
 
-        Assertions.assertEquals(actual, expectedTurns);
+        Assertions.assertEquals(expectedTurns, actual);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class TurnsControllerTests {
         // Act
         var actual = turnsController.getTurns("no such id");
         // Assert
-        Assertions.assertEquals(actual, 0);
+        Assertions.assertEquals(0, actual);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class TurnsControllerTests {
         // Act
         turnsController.consumeTurn(userId);
 
-        Assertions.assertEquals(turns.getNumTurns(), numTurns);
+        Assertions.assertEquals(numTurns, turns.getNumTurns());
     }
 
     @Test
@@ -97,7 +97,7 @@ public class TurnsControllerTests {
         // Act
         turnsController.consumeTurn(userId);
 
-        Assertions.assertEquals(turns.getNumTurns(), 98);
+        Assertions.assertEquals(98, turns.getNumTurns());
     }
 
 
