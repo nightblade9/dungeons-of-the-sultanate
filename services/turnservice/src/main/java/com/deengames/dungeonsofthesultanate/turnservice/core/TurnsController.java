@@ -11,19 +11,38 @@ public class TurnsController {
     private TurnService service;
 
     @GetMapping(value="/turns", consumes=MediaType.APPLICATION_JSON_VALUE)
-    public int getPlayer(String userId) {
-        return service.getNumTurns(userId);
+    public int getTurns(String userId) {
+        var data = service.getTurns(userId);
+        if (data == null)
+        {
+            return 0;
+        }
+
+        return data.getNumTurns();
     }
 
     @PostMapping(value = "/turns", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createPlayer(@RequestBody String userId) {
+    public void createTurns(@RequestBody String userId) {
         var data = new PlayerTurns();
         data.setUserId(userId);
-        service.addNewRecord(data);
+        service.save(data);
     }
 
     @PatchMapping(value="/turns", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void consumeTurn(@RequestBody String userId) {
 
+        var turns = service.getTurns(userId);
+        if (turns == null)
+        {
+            throw new IllegalStateException(String.format("Player %s doesn't have turn data", userId));
+        }
+
+        if (turns.getNumTurns() <= 0)
+        {
+            return; // Multiple tabs open and had an action but no turns? Meh.
+        }
+
+        turns.setNumTurns(turns.getNumTurns() - 1);
+        service.save(turns);
     }
 }

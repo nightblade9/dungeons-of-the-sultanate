@@ -3,8 +3,6 @@ package com.deengames.dungeonsofthesultanate.turnservice.core;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.function.Consumer;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -13,19 +11,19 @@ public class TurnService {
     @Autowired
     private TurnRepository repository;
 
-    public void addNewRecord(PlayerTurns playerTurns)
+    public void save(PlayerTurns playerTurns)
     {
         repository.save(playerTurns);
     }
 
-    public int getNumTurns(String userId) {
+    public PlayerTurns getTurns(String userId) {
         var data = repository.findById(userId);
         if (data == null || data.isEmpty())
         {
-            return 0;
+            return null;
         }
 
-        return data.get().getNumTurns();
+        return data.get();
     }
 
     public void onTick(int elapsedTicks) {

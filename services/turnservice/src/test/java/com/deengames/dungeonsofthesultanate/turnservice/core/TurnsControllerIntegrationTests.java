@@ -25,7 +25,7 @@ public class TurnsControllerIntegrationTests extends BaseIntegrationTest {
         var expectedId = UUID.randomUUID().toString();
 
         // Act
-        controller.createPlayer(expectedId);
+        controller.createTurns(expectedId);
 
         // Assert
         var actual = turnRepository.findById(expectedId).get();
@@ -43,7 +43,7 @@ public class TurnsControllerIntegrationTests extends BaseIntegrationTest {
         turnRepository.save(existingPlayer);
 
         // Act
-        controller.createPlayer(expectedId);
+        controller.createTurns(expectedId);
 
         // Assert
         var actuals = turnRepository.findAll();
@@ -61,7 +61,7 @@ public class TurnsControllerIntegrationTests extends BaseIntegrationTest {
         turnRepository.save(expected);
 
         // Act
-        var actual = controller.getPlayer(expectedId);
+        var actual = controller.getTurns(expectedId);
 
         // Assert
         Assertions.assertEquals(actual, expectedTurns);
