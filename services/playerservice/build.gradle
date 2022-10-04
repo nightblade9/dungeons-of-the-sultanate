@@ -24,10 +24,15 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// Dev tools
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+
+	// DB stuff
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	testRuntimeOnly 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:3.4.9'
 }
 
 tasks.named('test') {
@@ -37,4 +42,8 @@ tasks.named('test') {
 tasks.named('bootBuildImage') {
 	builder = 'paketobuildpacks/builder:tiny'
 	environment = ['BP_NATIVE_IMAGE': 'true']
+}
+
+test {
+	environment "spring.profiles.default", "test"
 }

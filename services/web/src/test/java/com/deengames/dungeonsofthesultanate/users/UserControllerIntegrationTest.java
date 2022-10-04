@@ -9,11 +9,9 @@ import com.deengames.dungeonsofthesultanate.services.web.users.UserModel;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Date;
@@ -37,9 +35,6 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
     // Mocks our service-to-service REST client so we can run without other services
     @MockBean
     private ServiceToServiceClient s2sClient;
-
-    @Autowired
-    private BeanFactory beanFactory;
 
     @Test
     public void onlogin_InsertsUserIntoDatabase() throws UsernameNotFoundException {

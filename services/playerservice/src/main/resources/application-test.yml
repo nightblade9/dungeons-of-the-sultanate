@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1/dots_web_test
+      database: dots_web_test
+  mongodb:
+    embedded:
+      version: 5.0.6 # latest version supported on Windows :{
