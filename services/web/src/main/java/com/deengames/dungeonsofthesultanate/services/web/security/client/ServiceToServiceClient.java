@@ -32,7 +32,7 @@ public class ServiceToServiceClient {
     // TODO: unit test (white-box)
     private <T> T call(String url, HttpMethod method, Object request, Class<T> responseType)
     {
-        var secret = environment.getProperty("dots.service_to_service_secret");
+        var secret = environment.getProperty("dots.serviceToService.secret");
         var headers = createHeadersWith("Client-Secret", secret);
         var entity = new HttpEntity<>(request, headers);
 

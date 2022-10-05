@@ -32,7 +32,7 @@ public class HealthController {
     public Map<String, String> health(Model model)
     {
         var isServiceToServiceSecretSet =
-                env.getProperty("dots.service_to_service_secret") != null;
+                env.getProperty("dots.serviceToService.secret") != null;
 
         var tickCron = env.getProperty("dots.tickCron");
 

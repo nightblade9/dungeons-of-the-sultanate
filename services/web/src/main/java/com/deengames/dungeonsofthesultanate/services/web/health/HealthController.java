@@ -29,7 +29,7 @@ public class HealthController {
             env.getProperty("spring.security.oauth2.client.registration.github.clientSecret") != null;
 
         var isServiceToServiceSecretSet =
-            env.getProperty("dots.service_to_service_secret") != null;
+            env.getProperty("dots.serviceToService.secret") != null;
 
         var toReturn = new HashMap<String, String>();
         toReturn.put("current_time_utc", Instant.now().toString());

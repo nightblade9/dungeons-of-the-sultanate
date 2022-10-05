@@ -4,7 +4,6 @@ import com.deengames.dungeonsofthesultanate.services.web.BaseController;
 import com.deengames.dungeonsofthesultanate.services.web.security.client.ServiceToServiceClient;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,9 +26,9 @@ public class UserController extends BaseController {
     // via .oauth2Login().defaultSuccessUrl("/user/onLogin").
     @GetMapping(value = "/user/onLogin")
     public RedirectView onLogin() throws UsernameNotFoundException {
-        // add user into database (if not there already), and update lastLogin
+        // add new-user data into database (if not there already), and update lastLogin
         var user = (UserModel)upsertUser();
-        initializeUserTurns(user);
+        initializeUser(user);
 
         // Redirect. This doesn't trigger the controller, IDK why (I get a 500 error).
         return new RedirectView("/map/world");
@@ -53,7 +52,7 @@ public class UserController extends BaseController {
         return user;
     }
 
-    private void initializeUserTurns(UserModel user)
+    private void initializeUser(UserModel user)
     {
         var userId = user.getId().toString();
         // TODO: make these DRY. Also, they should be across HTTPS, not HTTP.

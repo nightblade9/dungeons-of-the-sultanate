@@ -9,6 +9,7 @@ Browser-based roguelike built in JEE and friends.
 - Install MongoDB and PostgresQL (latest versions)
 - Open IDEA > New project > repository root
 - Click "project" (top-left of IDE) and choose Project Files; then, for each project, find the `build.gradle` under the root of each project, right-click, and pick `Link Gradle project`. Wait for IDEA to process the prjects ("Gradle" window on the right side, the two-way arrow circle icon should be white, not grey)
+- Add all the build.gradle files one by one
 
 ## Configurating OAuth2
 
@@ -101,11 +102,12 @@ Copy/paste the settings to `application-dev.yml`, and specify the PostgresQL use
 
 ## Inter-Service Communication
 
-Make sure all services have a `dots.service_to_service_secret` value specified in `application-dev.yml`. For development:
+Make sure all services have a `dots.serviceToService.secret` value specified in `application-dev.yml`. For development:
 
 ```yaml
 dots:
-  service_to_service_secret: Super Sekrit Dev Value!
+  serviceToService:
+    secret: Super Sekrit Dev Value!
 ```
 
 # Architecture
