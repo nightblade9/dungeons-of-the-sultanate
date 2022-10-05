@@ -10,7 +10,7 @@ public class StatsServiceImpl implements StatsService {
     private StatsRepository statsRepository;
 
     @Override
-    public void savePlayerStats(PlayerStats stats)
+    public void save(PlayerStats stats)
     {
         statsRepository.save(stats);
     }

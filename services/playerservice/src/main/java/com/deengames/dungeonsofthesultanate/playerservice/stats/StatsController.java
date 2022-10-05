@@ -18,6 +18,6 @@ public class StatsController {
         var stats = new PlayerStats(); // sets defaults
         var objectId = new ObjectId(userId);
         stats.setPlayerId(objectId);
-        statsService.savePlayerStats(stats);
+        statsService.save(stats);
     }
 }

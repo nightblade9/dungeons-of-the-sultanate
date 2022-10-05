@@ -1,8 +1,5 @@
 package com.deengames.dungeonsofthesultanate.playerservice.stats;
 
-import com.deengames.dungeonsofthesultanate.playerservice.stats.PlayerStats;
-import com.deengames.dungeonsofthesultanate.playerservice.stats.StatsController;
-import com.deengames.dungeonsofthesultanate.playerservice.stats.StatsService;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -31,7 +28,7 @@ public class StatsControllerTests {
 
         // Assert
         var argument = ArgumentCaptor.forClass(PlayerStats.class);
-        Mockito.verify(statsService).savePlayerStats(argument.capture());
+        Mockito.verify(statsService).save(argument.capture());
         var actual = argument.getValue();
         Assertions.assertTrue(playerId.equals(actual.getPlayerId().toHexString()));
 
