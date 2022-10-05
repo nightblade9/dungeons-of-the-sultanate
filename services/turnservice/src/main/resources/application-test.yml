@@ -11,4 +11,5 @@ spring:
     hibernate:
       ddl-auto: create-drop
 dots:
-  service_to_service_secret: (not used)
+  serviceToService:
+    secret: (not used)
