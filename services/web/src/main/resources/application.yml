@@ -1,8 +1,5 @@
 # Global YML configuration goes here.
 # For GitHub + OAuth2, see application-dev.yml or application-production.yml.
-spring:
-  profiles:
-    active: dev
 dots:
   serviceToService:
     turnService: http://localhost:8081
