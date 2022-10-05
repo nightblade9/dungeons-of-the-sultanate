@@ -1,5 +1,7 @@
 # Global YML configuration goes here.
 spring:
+  profiles:
+    active: dev
   datasource:
     ## default connection pool: use Hikari.
     hikari:

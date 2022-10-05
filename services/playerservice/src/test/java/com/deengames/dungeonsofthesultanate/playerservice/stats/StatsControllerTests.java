@@ -33,7 +33,7 @@ public class StatsControllerTests {
         var argument = ArgumentCaptor.forClass(PlayerStats.class);
         Mockito.verify(statsService).savePlayerStats(argument.capture());
         var actual = argument.getValue();
-        Assertions.assertTrue(playerId.equals(actual.getId().toHexString()));
+        Assertions.assertTrue(playerId.equals(actual.getPlayerId().toHexString()));
 
         Assertions.assertEquals(1, actual.getLevel());
         Assertions.assertEquals(0, actual.getExperiencePoints());
@@ -54,7 +54,7 @@ public class StatsControllerTests {
     void updateStats_SavesStatsToService() {
         // Arrange
         var expectedStats = new PlayerStats();
-        expectedStats.setId(new ObjectId());
+        expectedStats.setPlayerId(new ObjectId());
         expectedStats.setLevel(99);
         expectedStats.setExperiencePoints(9999);
 

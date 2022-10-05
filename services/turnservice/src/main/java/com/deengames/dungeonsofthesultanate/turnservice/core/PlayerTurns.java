@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import java.time.Clock;
 import java.time.OffsetDateTime;
 
-@Entity
+@Entity @Getter @Setter
 public class PlayerTurns {
 
     static final int newPlayerNumTurns = 25;
@@ -28,13 +28,10 @@ public class PlayerTurns {
 
     // In truth: a MongoDB BSON ID
     @Id
-    @Getter @Setter
     private String userId;
 
-    @Getter @Setter
     private int numTurns;
 
-    @Getter @Setter
     private OffsetDateTime lastTurnTickUtc;
 
     public void updateLastTickTime() {

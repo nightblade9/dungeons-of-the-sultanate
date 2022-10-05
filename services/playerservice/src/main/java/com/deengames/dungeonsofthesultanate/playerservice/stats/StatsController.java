@@ -17,7 +17,7 @@ public class StatsController {
     public void createStats(@RequestBody String userId) {
         var stats = new PlayerStats(); // sets defaults
         var objectId = new ObjectId(userId);
-        stats.setId(objectId);
+        stats.setPlayerId(objectId);
         statsService.savePlayerStats(stats);
     }
 }

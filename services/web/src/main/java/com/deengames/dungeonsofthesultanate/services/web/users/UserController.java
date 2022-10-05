@@ -4,6 +4,7 @@ import com.deengames.dungeonsofthesultanate.services.web.BaseController;
 import com.deengames.dungeonsofthesultanate.services.web.security.client.ServiceToServiceClient;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,9 @@ public class UserController extends BaseController {
 
     @Autowired
     private ServiceToServiceClient s2sClient;
+
+    @Autowired
+    private Environment environment;
 
     // This method invokes when the user successfully authenticates; it's configured in SecurityConfiguration,
     // via .oauth2Login().defaultSuccessUrl("/user/onLogin").
@@ -55,7 +59,10 @@ public class UserController extends BaseController {
     private void initializeUser(UserModel user)
     {
         var userId = user.getId().toString();
-        // TODO: make these DRY. Also, they should be across HTTPS, not HTTP.
-        s2sClient.post("http://localhost:8081/turns", userId, String.class);
+        var turnServiceUrl = environment.getProperty("dots.serviceToService.turnService");
+        s2sClient.post(String.format("%s/turns", turnServiceUrl), userId, String.class);
+
+        var playerServiceUrl = environment.getProperty("dots.serviceToService.playerService");
+        s2sClient.post(String.format("%s/stats", playerServiceUrl), userId, String.class);
     }
 }

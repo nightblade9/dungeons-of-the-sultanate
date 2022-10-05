@@ -12,9 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-@Document    
-@Getter 
-@Setter
+@Document @Getter @Setter
 public class UserModel implements UserDetails {
 
     @Id

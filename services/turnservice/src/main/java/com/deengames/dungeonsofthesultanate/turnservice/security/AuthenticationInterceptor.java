@@ -25,7 +25,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         this.expectedSecret = secret;
     }
 
-    @Value("${dots.service_to_service_secret}")
+    @Value("${dots.serviceToService.secret}")
     private String expectedSecret;
 
     @Override
