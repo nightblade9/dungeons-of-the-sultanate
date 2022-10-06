@@ -16,6 +16,30 @@ public class StatsControllerIntegrationTests extends BaseIntegrationTest {
     private StatsController controller;
 
     @Test
+    void getStats_GetsStatsFromDatabase_IfStatsExistInDatabase() {
+        // Arrange
+        var existingId = new ObjectId();
+        var expectedStats = new PlayerStats();
+        expectedStats.setPlayerId(existingId);
+        // It's pure JPA, don't need to test all the fields
+        expectedStats.setCurrentHealth(9999);
+        expectedStats.setAttack(999);
+        expectedStats.setSpecialDefense(99);
+        statsRepository.save(expectedStats);
+
+        // Act
+        var result = controller.getStats(existingId.toHexString());
+        var actualStats = result.get();
+
+        // Assert
+        Assertions.assertTrue(result.isPresent());
+        Assertions.assertEquals(expectedStats.getPlayerId(), actualStats.getPlayerId());
+        Assertions.assertEquals(expectedStats.getCurrentHealth(), actualStats.getCurrentHealth());
+        Assertions.assertEquals(expectedStats.getAttack(), actualStats.getAttack());
+        Assertions.assertEquals(expectedStats.getSpecialDefense(), actualStats.getSpecialDefense());
+    }
+
+    @Test
     public void createStats_InsertsStatsIntoDatabase() {
         // Arrange
         var userId = new ObjectId();
@@ -40,5 +64,39 @@ public class StatsControllerIntegrationTests extends BaseIntegrationTest {
         Assertions.assertEquals(7, actual.getSpecialAttack());
         Assertions.assertEquals(3, actual.getSpecialDefense());
         Assertions.assertEquals(5, actual.getSpeed());
+    }
+
+    @Test
+    public void updateStats_UpdatesStats() {
+        // Arrange
+        var playerId = new ObjectId();
+        var stats = new PlayerStats();
+        stats.setPlayerId(playerId);
+        statsRepository.save(stats);
+
+        stats.setMaxHealth(999);
+        stats.setCurrentHealth(888);
+        stats.setMaxEnergy(99);
+        stats.setCurrentEnergy(88);
+        stats.setAttack(77);
+        stats.setDefense(75);
+        stats.setSpecialAttack(73);
+        stats.setSpecialDefense(71);
+        stats.setSpeed(70);
+
+        // Act
+        controller.updateStats(stats);
+
+        // Assert
+        var actual = statsRepository.findById(playerId.toHexString()).get();
+        Assertions.assertEquals(actual.getMaxHealth(), 999);
+        Assertions.assertEquals(actual.getCurrentHealth(), 888);
+        Assertions.assertEquals(actual.getMaxEnergy(), 99);
+        Assertions.assertEquals(actual.getCurrentEnergy(), 88);
+        Assertions.assertEquals(actual.getAttack(), 77);
+        Assertions.assertEquals(actual.getDefense(), 75);
+        Assertions.assertEquals(actual.getSpecialAttack(), 73);
+        Assertions.assertEquals(actual.getSpecialDefense(), 71);
+        Assertions.assertEquals(actual.getSpeed(), 70);
     }
 }
