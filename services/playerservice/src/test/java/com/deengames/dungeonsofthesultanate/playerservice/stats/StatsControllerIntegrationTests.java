@@ -28,11 +28,9 @@ public class StatsControllerIntegrationTests extends BaseIntegrationTest {
         statsRepository.save(expectedStats);
 
         // Act
-        var result = controller.getStats(existingId.toHexString());
-        var actualStats = result.get();
+        var actualStats = controller.getStats(existingId.toHexString());
 
         // Assert
-        Assertions.assertTrue(result.isPresent());
         Assertions.assertEquals(expectedStats.getPlayerId(), actualStats.getPlayerId());
         Assertions.assertEquals(expectedStats.getCurrentHealth(), actualStats.getCurrentHealth());
         Assertions.assertEquals(expectedStats.getAttack(), actualStats.getAttack());

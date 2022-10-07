@@ -1,0 +1,6 @@
+# Global YML configuration goes here.
+# For GitHub + OAuth2, see application-dev.yml or application-production.yml.
+dots:
+  serviceToService:
+    turnService: http://localhost:8081
+    playerService: http://localhost:8082

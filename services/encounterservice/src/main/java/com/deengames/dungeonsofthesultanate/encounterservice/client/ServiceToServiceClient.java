@@ -1,4 +1,4 @@
-package com.deengames.dungeonsofthesultanate.services.web.security.client;
+package com.deengames.dungeonsofthesultanate.encounterservice.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 
-// TODO: DRY with the one in EncounterService
+// TODO: DRY with the one in web. This one has PUT and PATCH, the other one doesn't.
 @Component
 public class ServiceToServiceClient {
 
@@ -26,8 +26,12 @@ public class ServiceToServiceClient {
         return this.call(url, HttpMethod.GET, null, responseType);
     }
 
-    public <T> T post(String url, Object request, Class<T> responseType) {
-        return this.call(url, HttpMethod.POST, request, responseType);
+    public <T> T patch(String url, Object request, Class<T> responseType) {
+        return this.call(url, HttpMethod.PATCH, request, responseType);
+    }
+
+    public <T> T put(String url, Object request, Class<T> responseType) {
+        return this.call(url, HttpMethod.PUT, request, responseType);
     }
 
     // TODO: unit test (white-box)

@@ -27,13 +27,13 @@ public class StatsControllerTests {
 
         var stats = new PlayerStats();
         Mockito.when(statsService.get(playerId))
-            .thenReturn(Optional.of(stats));
+            .thenReturn(stats);
 
         // Act
         var actual = controller.getStats(playerId.toHexString());
 
         // Assert
-        Assertions.assertEquals(stats, actual.get());
+        Assertions.assertEquals(stats, actual);
     }
 
     @Test

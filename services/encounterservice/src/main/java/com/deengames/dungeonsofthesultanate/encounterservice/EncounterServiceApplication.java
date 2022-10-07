@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class EncounterServiceApplication {
 
 	public static void main(String[] args) {
+		System.setProperty(org.springframework.core.env.AbstractEnvironment.DEFAULT_PROFILES_PROPERTY_NAME, "dev");
 		SpringApplication.run(EncounterServiceApplication.class, args);
 	}
 

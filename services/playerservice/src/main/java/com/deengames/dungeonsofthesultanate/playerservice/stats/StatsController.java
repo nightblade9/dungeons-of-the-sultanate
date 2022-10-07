@@ -14,7 +14,7 @@ public class StatsController {
     private StatsService statsService;
 
     @GetMapping(value="/stats", consumes=MediaType.APPLICATION_JSON_VALUE)
-    public Optional<PlayerStats> getStats(@RequestBody String userId) {
+    public PlayerStats getStats(@RequestBody String userId) {
         return statsService.get(new ObjectId(userId));
     }
 

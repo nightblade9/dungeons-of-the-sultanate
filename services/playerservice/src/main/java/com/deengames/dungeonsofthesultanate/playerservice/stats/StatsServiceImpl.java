@@ -13,8 +13,8 @@ public class StatsServiceImpl implements StatsService {
     private StatsRepository statsRepository;
 
     @Override
-    public Optional<PlayerStats> get(ObjectId id) {
-        return statsRepository.findById(id.toHexString());
+    public PlayerStats get(ObjectId id) {
+        return statsRepository.findById(id.toHexString()).get();
     }
 
     @Override
