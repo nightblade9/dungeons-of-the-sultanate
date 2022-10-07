@@ -2,17 +2,17 @@ package com.deengames.dungeonsofthesultanate.encounterservice.battle;
 
 import com.deengames.dungeonsofthesultanate.encounterservice.dtos.PlayerStatsDto;
 import com.deengames.dungeonsofthesultanate.encounterservice.monsters.Monster;
-import com.deengames.dungeonsofthesultanate.encounterservice.monsters.MonsterFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Random;
 
 public class BattleResolver {
 
     private static final Random random = new Random();
     private static final float DAMAGE_VARIATION_PERCENT = 0.2f;
+
+    private BattleResolver() { } // we're a "static" class (C# meaning)
 
     public static Collection<String> resolve(PlayerStatsDto player, Monster monster) {
         var battleLogs = new ArrayList<String>();
@@ -23,14 +23,28 @@ public class BattleResolver {
             // TODO: implement turns in accordance to speed
             if (player.getSpeed() > monster.getSpeed()) {
                 battleLogs.add(attacks(player, monster));
+                battleLogs.add(attacks(monster, player));
             } else {
                 battleLogs.add(attacks(monster, player));
+                battleLogs.add(attacks(player, monster));
             }
         }
 
-        if (maxRounds == 0)
+        if (player.getCurrentHealth() == 0)
+        {
+            battleLogs.add("You slink away, defeated.");
+        }
+        else if (monster.getCurrentHealth() == 0)
+        {
+            battleLogs.add(String.format("You vanquish the %s!", monster.getName()));
+        }
+        else if (maxRounds == 0)
         {
             battleLogs.add("You shrug and walk away.");
+        }
+        else
+        {
+            throw new IllegalStateException("Unknown battle resolution");
         }
 
         return battleLogs;
