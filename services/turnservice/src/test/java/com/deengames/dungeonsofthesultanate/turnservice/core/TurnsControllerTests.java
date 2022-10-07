@@ -76,29 +76,31 @@ public class TurnsControllerTests {
 
     @ParameterizedTest
     @ValueSource(ints={-192, -1, 0})
-    void consumeTurn_DoesNothing_IfPlayerHasNoTurnsLeft(int numTurns) {
+    void consumeTurn_ReturnsFalse_IfPlayerHasNoTurnsLeft(int numTurns) {
         // Arrange
         var userId = "hello, world!";
         var turns = new PlayerTurns(userId, numTurns);
         Mockito.when(turnService.getTurns(userId)).thenReturn(turns);
 
         // Act
-        turnsController.consumeTurn(userId);
+        var actual = turnsController.consumeTurn(userId);
 
         Assertions.assertEquals(numTurns, turns.getNumTurns());
+        Assertions.assertFalse(actual);
     }
 
     @Test
-    void consumeTurn_DecreasesTurns() {
+    void consumeTurn_ReturnsTruAndDecreasesTurns() {
         // Arrange
         var userId = "positive_test_case";
         var turns = new PlayerTurns(userId, 99);
         Mockito.when(turnService.getTurns(userId)).thenReturn(turns);
 
         // Act
-        turnsController.consumeTurn(userId);
+        var actual = turnsController.consumeTurn(userId);
 
         Assertions.assertEquals(98, turns.getNumTurns());
+        Assertions.assertTrue(actual);
     }
 
 

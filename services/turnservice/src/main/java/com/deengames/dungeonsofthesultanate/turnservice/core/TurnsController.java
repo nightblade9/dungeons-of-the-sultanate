@@ -29,7 +29,7 @@ public class TurnsController {
     }
 
     @PatchMapping(value="/turns", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void consumeTurn(@RequestBody String userId) {
+    public boolean consumeTurn(@RequestBody String userId) {
 
         var turns = service.getTurns(userId);
         if (turns == null)
@@ -39,10 +39,11 @@ public class TurnsController {
 
         if (turns.getNumTurns() <= 0)
         {
-            return; // Multiple tabs open and had an action but no turns? Meh.
+            return false; // Multiple tabs open and had an action but no turns? Meh.
         }
 
         turns.setNumTurns(turns.getNumTurns() - 1);
         service.save(turns);
+        return true;
     }
 }

@@ -66,4 +66,21 @@ public class TurnsControllerIntegrationTests extends BaseIntegrationTest {
         // Assert
         Assertions.assertEquals(expectedTurns, actual);
     }
+
+    @Test
+    void consumeTurn_ConsumesTurnAndReturnsTrue() {
+        // Arrange
+        var playerId = "some object id";
+        var expectedTurns = 123;
+        var expected = new PlayerTurns();
+        expected.setUserId(playerId);
+        expected.setNumTurns(expectedTurns + 1);
+        turnRepository.save(expected);
+
+        // Act
+        var actual = controller.consumeTurn(playerId);
+
+        // Assert
+        Assertions.assertTrue(actual);
+    }
 }
