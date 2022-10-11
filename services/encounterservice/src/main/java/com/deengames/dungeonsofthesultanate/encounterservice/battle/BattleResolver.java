@@ -56,7 +56,7 @@ public class BattleResolver {
         var variance = DAMAGE_VARIATION_PERCENT / 2;
         var minDamage = (int)Math.max(0, (1 - variance) * baseDamage);
         var maxDamage = (int)Math.max(0, (1 + variance) * baseDamage);
-        var damage = random.nextInt(minDamage, maxDamage);
+        var damage = random.ints(minDamage, maxDamage).findAny().getAsInt();
 
         // Apply
         defender.setCurrentHealth(Math.max(0, defender.getCurrentHealth() - damage));
