@@ -5,7 +5,9 @@ import com.deengames.dungeonsofthesultanate.encounterservice.battle.BattleResolv
 import com.deengames.dungeonsofthesultanate.encounterservice.client.ServiceToServiceClient;
 import com.deengames.dungeonsofthesultanate.encounterservice.dtos.PlayerStatsDto;
 import com.deengames.dungeonsofthesultanate.encounterservice.monsters.MonsterFactory;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,13 +27,19 @@ public class EncounterController {
     private Environment environment;
 
     @PostMapping(value = "/encounter", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Collection<String> tryEncounter(@RequestBody String playerId, @RequestBody  String locationName) {
+    public Collection<String> tryEncounter(@RequestBody JSONObject body) throws Exception {
         // TODO: care about location name. e.g. Towering Tree Forest vs. Wishful Well
+
+        var playerId = body.getAsString("playerId");
+        var locationName = body.getAsString("locationName");
 
         // Did we have enough turns to encounter?
         var turnServiceUrl = String.format("%s/turns", environment.getProperty("dots.serviceToService.turnService"));
 
-        var consumedTurn = client.patch(turnServiceUrl, playerId, Boolean.class);
+        var request = new JSONObject();
+        request.put("playerId", playerId);
+
+        var consumedTurn = client.patch(turnServiceUrl, request, Boolean.class);
         if (!consumedTurn) {
             return List.of(new String[]{"No turns left!"});
         }

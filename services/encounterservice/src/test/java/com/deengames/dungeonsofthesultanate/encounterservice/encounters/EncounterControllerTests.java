@@ -2,6 +2,7 @@ package com.deengames.dungeonsofthesultanate.encounterservice.encounters;
 
 import com.deengames.dungeonsofthesultanate.encounterservice.client.ServiceToServiceClient;
 import com.deengames.dungeonsofthesultanate.encounterservice.dtos.PlayerStatsDto;
+import net.minidev.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -28,15 +29,19 @@ public class EncounterControllerTests {
     private Environment environment;
 
     @Test
-    void tryEncounter_ReturnsNoTurnsMessage_IfPlayerHasNoTurnsLeft() {
+    void tryEncounter_ReturnsNoTurnsMessage_IfPlayerHasNoTurnsLeft() throws Exception {
         // Arrange
         var playerId = UUID.randomUUID().toString();
         // Check for turns left => nope
         Mockito.when(client.patch(anyString(), eq(playerId), eq(Boolean.class)))
             .thenReturn(false);
 
+        var request = new JSONObject();
+        request.put("playerId", playerId);
+        request.put("locationName", "Sleepy Hollow");
+
         // Act
-        var actuals = controller.tryEncounter(playerId, "Sleepy Hollow");
+        var actuals = controller.tryEncounter(request);
 
         // Assert
         Assertions.assertEquals(actuals.size(), 1);
@@ -45,7 +50,7 @@ public class EncounterControllerTests {
     }
 
     @Test
-    void tryEncounter_ReturnsMessagesAndUpdatesPlayer_IfBattleProceeds() {
+    void tryEncounter_ReturnsMessagesAndUpdatesPlayer_IfBattleProceeds() throws Exception {
         // Arrange
         var playerId = UUID.randomUUID().toString();
 
@@ -59,8 +64,12 @@ public class EncounterControllerTests {
         Mockito.when(client.get(anyString(), eq(PlayerStatsDto.class)))
                 .thenReturn(playerStats);
 
+        var request = new JSONObject();
+        request.put("playerId", playerId);
+        request.put("locationName", Location.TOWERING_TREE_FOREST.name());
+
         // Act
-        var actuals = controller.tryEncounter(playerId, Location.TOWERING_TREE_FOREST.name());
+        var actuals = controller.tryEncounter(request);
 
         // Assert
         Assertions.assertTrue(actuals.stream().anyMatch(m -> m.contains("Player attacks")));

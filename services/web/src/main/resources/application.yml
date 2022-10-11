@@ -4,3 +4,4 @@ dots:
   serviceToService:
     turnService: http://localhost:8081
     playerService: http://localhost:8082
+    encounterService: http://localhost:8083

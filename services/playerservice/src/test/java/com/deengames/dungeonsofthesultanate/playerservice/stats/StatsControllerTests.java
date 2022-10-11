@@ -17,7 +17,7 @@ public class StatsControllerTests {
     @Autowired
     private StatsController controller; // thing we're testing
 
-    @MockBean
+//    @MockBean
     private StatsService statsService;
 
     @Test
