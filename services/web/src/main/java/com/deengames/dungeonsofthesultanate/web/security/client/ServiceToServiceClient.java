@@ -6,6 +6,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -37,7 +38,7 @@ public class ServiceToServiceClient {
         var headers = createHeadersWith("Client-Secret", secret);
         var entity = new HttpEntity<>(request, headers);
 
-        var restClient = new RestTemplate();
+        var restClient = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
         var result = restClient.exchange(url, method, entity, responseType);
         return result != null ? result.getBody() : null;
     }

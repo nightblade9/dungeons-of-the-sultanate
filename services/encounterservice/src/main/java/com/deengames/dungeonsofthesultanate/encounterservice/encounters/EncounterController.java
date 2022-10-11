@@ -35,17 +35,13 @@ public class EncounterController {
 
         // Did we have enough turns to encounter?
         var turnServiceUrl = String.format("%s/turns", environment.getProperty("dots.serviceToService.turnService"));
-
-        var request = new JSONObject();
-        request.put("playerId", playerId);
-
-        var consumedTurn = client.patch(turnServiceUrl, request, Boolean.class);
+        var consumedTurn = client.patch(turnServiceUrl, playerId, Boolean.class);
         if (!consumedTurn) {
             return List.of(new String[]{"No turns left!"});
         }
 
         // What kind of encounter was it -- battle? random loot?
-        var location = Location.valueOf(locationName);
+        var location = Location.TOWERING_TREE_FOREST; // TODO: proper parsing valueOf(locationName);
         var encounterType = EncounterPicker.chooseEncounter(location);
         if (encounterType != EncounterType.BATTLE) {
             throw new IllegalStateException(String.format("Encounters of type %s aren't implemented yet", encounterType));
@@ -53,7 +49,7 @@ public class EncounterController {
 
         // Fight it out!
         var playerServiceUrl = environment.getProperty("dots.serviceToService.playerService");
-        var getPlayerUrl = String.format("%s/player?userId=%s", playerServiceUrl, playerId);
+        var getPlayerUrl = String.format("%s/stats?userId=%s", playerServiceUrl, playerId);
         var player = client.get(getPlayerUrl, PlayerStatsDto.class);
         player.setName("Player");
 

@@ -25,6 +25,8 @@ dependencies {
 	// web UI
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
+	// allow PUT/PATCH/etc. on RestTemplate
+	implementation 'org.apache.httpcomponents:httpclient:4.5.13'
 
 	// User/authorization stuff. Spring ones use the version from plugins.
 	implementation 'org.springframework.boot:spring-boot-starter-security'
