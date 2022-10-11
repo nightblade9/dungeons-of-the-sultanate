@@ -16,7 +16,6 @@ public abstract class BaseMapController extends BaseController {
     public int getNumTurns()
     {
         var user = this.getCurrentUser();
-        // TODO: make these DRY. Also, they should be across HTTPS, not HTTP.
         String url = String.format("%s/turns?userId=%s", environment.getProperty("dots.serviceToService.turnService"), user.getId());
         var result = s2sClient.get(url, Integer.class);
         return result;
