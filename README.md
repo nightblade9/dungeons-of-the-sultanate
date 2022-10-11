@@ -4,6 +4,13 @@
 
 Browser-based roguelike built in JEE and friends.
 
+# Technical Design
+
+- Designed as a cluster of independent microservices, with a web application that provides a UI.
+- Each service has its own separate code-base and data
+- DTOs provide (with partial duplication) abstraction for inter-service communication
+- Services authenticate each other via a shared secret
+
 # Development Environment Setup
 
 - Install MongoDB and PostgresQL (latest versions)
