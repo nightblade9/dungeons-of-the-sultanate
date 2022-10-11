@@ -1,4 +1,4 @@
-package com.deengames.dungeonsofthesultanate.services.web.home;
+package com.deengames.dungeonsofthesultanate.web.home;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;

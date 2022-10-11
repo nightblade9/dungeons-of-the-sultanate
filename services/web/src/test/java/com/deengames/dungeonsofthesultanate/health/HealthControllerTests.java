@@ -1,6 +1,6 @@
 package com.deengames.dungeonsofthesultanate.health;
 
-import com.deengames.dungeonsofthesultanate.services.web.health.HealthController;
+import com.deengames.dungeonsofthesultanate.web.health.HealthController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

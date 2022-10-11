@@ -1,4 +1,4 @@
-package com.deengames.dungeonsofthesultanate.services.web.maps.world;
+package com.deengames.dungeonsofthesultanate.web.maps.world;
 
 import java.util.Arrays;
 

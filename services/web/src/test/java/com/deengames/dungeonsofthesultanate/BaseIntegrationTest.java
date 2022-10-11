@@ -1,6 +1,6 @@
 package com.deengames.dungeonsofthesultanate;
 
-import com.deengames.dungeonsofthesultanate.services.web.users.UserRepository;
+import com.deengames.dungeonsofthesultanate.web.users.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;

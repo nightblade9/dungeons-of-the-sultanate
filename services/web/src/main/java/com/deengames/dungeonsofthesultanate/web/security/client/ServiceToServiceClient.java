@@ -1,4 +1,4 @@
-package com.deengames.dungeonsofthesultanate.services.web.security.client;
+package com.deengames.dungeonsofthesultanate.web.security.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;

@@ -1,13 +1,11 @@
-package com.deengames.dungeonsofthesultanate.services.web;
+package com.deengames.dungeonsofthesultanate.web;
 
-import com.deengames.dungeonsofthesultanate.services.web.security.SecurityContextFetcher;
-import com.deengames.dungeonsofthesultanate.services.web.security.TokenParser;
-import com.deengames.dungeonsofthesultanate.services.web.security.client.ServiceToServiceClient;
-import com.deengames.dungeonsofthesultanate.services.web.users.ReadUserDetailsService;
-import com.deengames.dungeonsofthesultanate.services.web.users.UserModel;
+import com.deengames.dungeonsofthesultanate.web.security.SecurityContextFetcher;
+import com.deengames.dungeonsofthesultanate.web.security.TokenParser;
+import com.deengames.dungeonsofthesultanate.web.users.ReadUserDetailsService;
+import com.deengames.dungeonsofthesultanate.web.users.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Controller;
 
 public abstract class BaseController {
 

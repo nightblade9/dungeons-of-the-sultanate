@@ -1,11 +1,11 @@
 package com.deengames.dungeonsofthesultanate.users;
 
 import com.deengames.dungeonsofthesultanate.BaseIntegrationTest;
-import com.deengames.dungeonsofthesultanate.services.web.security.SecurityContextFetcher;
+import com.deengames.dungeonsofthesultanate.web.security.SecurityContextFetcher;
 import com.deengames.dungeonsofthesultanate.security.StubToken;
-import com.deengames.dungeonsofthesultanate.services.web.security.client.ServiceToServiceClient;
-import com.deengames.dungeonsofthesultanate.services.web.users.UserController;
-import com.deengames.dungeonsofthesultanate.services.web.users.UserModel;
+import com.deengames.dungeonsofthesultanate.web.security.client.ServiceToServiceClient;
+import com.deengames.dungeonsofthesultanate.web.users.UserController;
+import com.deengames.dungeonsofthesultanate.web.users.UserModel;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

@@ -1,4 +1,4 @@
-package com.deengames.dungeonsofthesultanate.services.web.users;
+package com.deengames.dungeonsofthesultanate.web.users;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;

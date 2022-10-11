@@ -1,7 +1,7 @@
-package com.deengames.dungeonsofthesultanate.services.web.users;
+package com.deengames.dungeonsofthesultanate.web.users;
 
-import com.deengames.dungeonsofthesultanate.services.web.BaseController;
-import com.deengames.dungeonsofthesultanate.services.web.security.client.ServiceToServiceClient;
+import com.deengames.dungeonsofthesultanate.web.BaseController;
+import com.deengames.dungeonsofthesultanate.web.security.client.ServiceToServiceClient;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;

@@ -1,7 +1,7 @@
-package com.deengames.dungeonsofthesultanate.services.web.maps;
+package com.deengames.dungeonsofthesultanate.web.maps;
 
-import com.deengames.dungeonsofthesultanate.services.web.BaseController;
-import com.deengames.dungeonsofthesultanate.services.web.security.client.ServiceToServiceClient;
+import com.deengames.dungeonsofthesultanate.web.BaseController;
+import com.deengames.dungeonsofthesultanate.web.security.client.ServiceToServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class BaseMapController extends BaseController {

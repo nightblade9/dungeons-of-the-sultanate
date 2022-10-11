@@ -1,4 +1,4 @@
-package com.deengames.dungeonsofthesultanate.services.web.health;
+package com.deengames.dungeonsofthesultanate.web.health;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

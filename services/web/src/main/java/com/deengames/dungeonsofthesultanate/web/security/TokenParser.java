@@ -1,4 +1,4 @@
-package com.deengames.dungeonsofthesultanate.services.web.security;
+package com.deengames.dungeonsofthesultanate.web.security;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
