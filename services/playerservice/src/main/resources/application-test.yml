@@ -6,3 +6,6 @@ spring:
   mongodb:
     embedded:
       version: 5.0.6 # latest version supported on Windows :{
+dots:
+  serviceToService:
+    secret: (not used)
