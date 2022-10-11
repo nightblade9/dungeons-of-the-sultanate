@@ -1,7 +1,5 @@
 package com.deengames.dungeonsofthesultanate.playerservice.health;
 
-import com.deengames.dungeonsofthesultanate.playerservice.stats.StatsRepository;
-import com.deengames.dungeonsofthesultanate.turnservice.core.TurnRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
@@ -9,9 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.Duration;
 import java.time.Instant;
-import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
