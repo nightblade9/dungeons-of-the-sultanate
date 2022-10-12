@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.env.Environment;
 
+import java.util.Collection;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.*;
@@ -41,11 +42,12 @@ public class EncounterControllerTests {
         request.put("locationName", "Sleepy Hollow");
 
         // Act
-        var actuals = controller.tryEncounter(request);
+        var result = controller.tryEncounter(request);
 
         // Assert
-        Assertions.assertEquals(actuals.size(), 1);
-        var actual = actuals.stream().findFirst().get();
+        var actuals = (String[])result.get("logs");
+        Assertions.assertEquals(actuals.length, 1);
+        var actual = actuals[0];
         Assertions.assertEquals("No turns left!", actual);
     }
 
@@ -69,11 +71,12 @@ public class EncounterControllerTests {
         request.put("locationName", Location.TOWERING_TREE_FOREST.name());
 
         // Act
-        var actuals = controller.tryEncounter(request);
+        var result = controller.tryEncounter(request);
 
         // Assert
-        Assertions.assertTrue(actuals.stream().anyMatch(m -> m.contains("Player attacks")));
-        Assertions.assertTrue(actuals.stream().anyMatch(m -> m.contains("attacks Player")));
+        var logs = (Collection<String>)result.get("logs");
+        Assertions.assertTrue(logs.stream().anyMatch(m -> m.contains("Player attacks")));
+        Assertions.assertTrue(logs.stream().anyMatch(m -> m.contains("attacks Player")));
         Assertions.assertTrue(playerStats.getCurrentHealth() < playerStats.getMaxHealth());
         // Verify player stats were PUT back to the player service
         Mockito.verify(client, Mockito.times(1)).put(anyString(), eq(playerStats), eq(String.class));

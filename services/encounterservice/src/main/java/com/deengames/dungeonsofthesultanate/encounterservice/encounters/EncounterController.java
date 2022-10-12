@@ -27,7 +27,7 @@ public class EncounterController {
     private Environment environment;
 
     @PostMapping(value = "/encounter", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Collection<String> tryEncounter(@RequestBody JSONObject body) throws Exception {
+    public JSONObject tryEncounter(@RequestBody JSONObject body) throws Exception {
         // TODO: care about location name. e.g. Towering Tree Forest vs. Wishful Well
 
         var playerId = body.getAsString("playerId");
@@ -37,7 +37,11 @@ public class EncounterController {
         var turnServiceUrl = String.format("%s/turns", environment.getProperty("dots.serviceToService.turnService"));
         var consumedTurn = client.patch(turnServiceUrl, playerId, Boolean.class);
         if (!consumedTurn) {
-            return List.of(new String[]{"No turns left!"});
+            return new JSONObject() {
+                {
+                    put("logs", new String[]{"No turns left!"});
+                }
+            };
         }
 
         // What kind of encounter was it -- battle? random loot?
@@ -62,7 +66,13 @@ public class EncounterController {
         var updatePlayerUrl = String.format("%s/stats/%s", playerServiceUrl, player.getId());
        client.put(updatePlayerUrl, player, String.class);
 
-        return battleLogs;
+        return new JSONObject() {
+            {
+                put("title", String.format("%s battle", monsterName));
+                put("encounterType", encounterType.toString());
+                put("logs", battleLogs);
+            }
+        };
     }
 
 }

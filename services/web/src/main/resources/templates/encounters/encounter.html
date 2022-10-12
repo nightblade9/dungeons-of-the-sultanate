@@ -3,11 +3,12 @@
       xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{layout/encounter.html}">
 <head>
+    <title th:text="${title}" />
 </head>
 <body>
 <section layout:fragment="content">
-    <h1>Fight! (Or maybe not ...)</h1>
-    <div th:each="log : ${battleLog}">
+    <h1 th:text="${title}" />
+    <div th:each="log : ${logs}">
         <p th:text="${log}" />
     </div>
 </section>

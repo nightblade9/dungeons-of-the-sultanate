@@ -31,9 +31,11 @@ public class ExploreController extends BaseController {
         request.put("locationName", location);
 
         var url = String.format("%s/encounter", environment.getProperty("dots.serviceToService.encounterService"));
-        var battleLog = s2sClient.post(url, request, String[].class);
+        var results = s2sClient.post(url, request, JSONObject.class);
 
-        model.addAttribute("battleLog", battleLog);
+        for (String key : results.keySet()) {
+            model.addAttribute(key, results.get(key));
+        }
 
         return "encounters/encounter";
     }
