@@ -29,16 +29,15 @@ public class StatsController {
     @PutMapping(value="/stats/{id}", consumes=MediaType.APPLICATION_JSON_VALUE)
     public void updateStats(@PathVariable String id, @RequestBody PlayerStats updatedStats) {
         // Externalities only have the ID, not the ObjectId.
-        var playerId = id; //updatedStats.getId();
 
-        if (playerId == null) {
+        if (id == null) {
             throw new IllegalArgumentException("playerID");
         }
 
-        var objectId = new ObjectId(playerId);
+        var objectId = new ObjectId(id);
         var isExisting = statsService.exists(objectId);
         if (!isExisting) {
-            throw new IllegalArgumentException(String.format("No stats found for player %s", playerId));
+            throw new IllegalArgumentException(String.format("No stats found for player %s", id));
         }
 
         statsService.save(updatedStats);

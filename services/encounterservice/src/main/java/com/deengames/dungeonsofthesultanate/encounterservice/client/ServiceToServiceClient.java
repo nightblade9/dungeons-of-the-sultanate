@@ -28,12 +28,7 @@ public class ServiceToServiceClient {
      * Instead, append it to the URL, e.g. ?userId=foo
      */
     public <T> T get(String url, Class<T> responseType) {
-        var secret = environment.getProperty("dots.serviceToService.secret");
-        var template = builder
-                .defaultHeader("Content-Type", "application/json")
-                .defaultHeader("Client-Secret", secret)
-                .build();
-        return template.getForObject(url, responseType);
+        return call(url, HttpMethod.GET, null, responseType);
     }
 
     public <T> T patch(String url, Object request, Class<T> responseType) {
