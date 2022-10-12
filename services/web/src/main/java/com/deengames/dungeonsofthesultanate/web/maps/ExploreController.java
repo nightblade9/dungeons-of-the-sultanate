@@ -5,10 +5,13 @@ import com.deengames.dungeonsofthesultanate.web.security.client.ServiceToService
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class ExploreController extends BaseController {
 
     @Autowired
@@ -17,8 +20,8 @@ public class ExploreController extends BaseController {
     @Autowired
     private Environment environment;
 
-    @GetMapping("/explore")
-    public void explore(String location) {
+    @GetMapping("/explore/{location}")
+    public String explore(@PathVariable String location, Model model) {
         if (location == null || location.isEmpty()) {
             throw new IllegalArgumentException("location");
         }
@@ -29,5 +32,9 @@ public class ExploreController extends BaseController {
 
         var url = String.format("%s/encounter", environment.getProperty("dots.serviceToService.encounterService"));
         var battleLog = s2sClient.post(url, request, String[].class);
+
+        model.addAttribute("battleLog", battleLog);
+
+        return "encounters/encounter";
     }
 }

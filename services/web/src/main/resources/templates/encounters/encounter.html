@@ -1,0 +1,15 @@
+<!doctype html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout/encounter.html}">
+<head>
+</head>
+<body>
+<section layout:fragment="content">
+    <h1>Fight! (Or maybe not ...)</h1>
+    <div th:each="log : ${battleLog}">
+        <p th:text="${log}" />
+    </div>
+</section>
+</body>
+</html>
