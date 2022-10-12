@@ -29,7 +29,5 @@ public class ExploreController extends BaseController {
 
         var url = String.format("%s/encounter", environment.getProperty("dots.serviceToService.encounterService"));
         var battleLog = s2sClient.post(url, request, String[].class);
-
-        System.out.println("log: " + battleLog.length);
     }
 }

@@ -1,6 +1,7 @@
 package com.deengames.dungeonsofthesultanate.encounterservice.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,12 +20,20 @@ public class ServiceToServiceClient {
     @Autowired
     private Environment environment;
 
+    @Autowired
+    private RestTemplateBuilder builder;
+
     /**
      * Makes a GET call. Doesn't accept a request, because you can't pass a body in HTML to a GET call.
      * Instead, append it to the URL, e.g. ?userId=foo
      */
     public <T> T get(String url, Class<T> responseType) {
-        return this.call(url, HttpMethod.GET, null, responseType);
+        var secret = environment.getProperty("dots.serviceToService.secret");
+        var template = builder
+                .defaultHeader("Content-Type", "application/json")
+                .defaultHeader("Client-Secret", secret)
+                .build();
+        return template.getForObject(url, responseType);
     }
 
     public <T> T patch(String url, Object request, Class<T> responseType) {

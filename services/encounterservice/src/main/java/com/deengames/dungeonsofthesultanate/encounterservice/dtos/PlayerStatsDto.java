@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter @Setter
 public class PlayerStatsDto extends BaseEntity {
 
-    private String playerId;
+    private String id;
     private int level = 1;
     private int experiencePoints = 0;
 }

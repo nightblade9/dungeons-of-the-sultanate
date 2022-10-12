@@ -83,7 +83,7 @@ public class StatsControllerIntegrationTests extends BaseIntegrationTest {
         stats.setSpeed(70);
 
         // Act
-        controller.updateStats(stats);
+        controller.updateStats(playerId.toHexString(), stats);
 
         // Assert
         var actual = statsRepository.findById(playerId.toHexString()).get();

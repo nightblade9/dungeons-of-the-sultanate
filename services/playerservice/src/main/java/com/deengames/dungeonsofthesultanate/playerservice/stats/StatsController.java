@@ -13,8 +13,8 @@ public class StatsController {
     @Autowired
     private StatsService statsService;
 
-    @GetMapping(value="/stats", consumes=MediaType.APPLICATION_JSON_VALUE)
-    public PlayerStats getStats(String userId) {
+    @GetMapping(value="/stats/{userId}", consumes=MediaType.APPLICATION_JSON_VALUE)
+    public PlayerStats getStats(@PathVariable String userId) {
         return statsService.get(new ObjectId(userId));
     }
 
@@ -26,15 +26,17 @@ public class StatsController {
         statsService.save(stats);
     }
 
-    @PutMapping(value="stats", consumes=MediaType.APPLICATION_JSON_VALUE)
-    public void updateStats(@RequestBody PlayerStats updatedStats) {
-        var playerId = updatedStats.getPlayerId();
+    @PutMapping(value="/stats/{id}", consumes=MediaType.APPLICATION_JSON_VALUE)
+    public void updateStats(@PathVariable String id, @RequestBody PlayerStats updatedStats) {
+        // Externalities only have the ID, not the ObjectId.
+        var playerId = id; //updatedStats.getId();
 
         if (playerId == null) {
             throw new IllegalArgumentException("playerID");
         }
 
-        var isExisting = statsService.exists(playerId);
+        var objectId = new ObjectId(playerId);
+        var isExisting = statsService.exists(objectId);
         if (!isExisting) {
             throw new IllegalArgumentException(String.format("No stats found for player %s", playerId));
         }

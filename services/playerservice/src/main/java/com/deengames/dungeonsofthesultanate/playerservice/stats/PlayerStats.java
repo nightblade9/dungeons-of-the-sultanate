@@ -11,6 +11,12 @@ public class PlayerStats {
 
     @Id
     private ObjectId playerId;
+
+    // for JSON serialization, expose the ID as just the hex string.
+    public String getId() {
+        return this.playerId.toHexString();
+    }
+
     private int level = 1;
     private int experiencePoints = 0;
 

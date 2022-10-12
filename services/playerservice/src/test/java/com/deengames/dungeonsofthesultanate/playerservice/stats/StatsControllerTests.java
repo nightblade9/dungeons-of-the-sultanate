@@ -88,7 +88,7 @@ public class StatsControllerTests {
         Mockito.when(statsService.exists(playerId)).thenReturn(true);
 
         // Act
-        controller.updateStats(expectedStats);
+        controller.updateStats(playerId.toHexString(), expectedStats);
 
         // Assert
         var argument = ArgumentCaptor.forClass(PlayerStats.class);
@@ -110,7 +110,7 @@ public class StatsControllerTests {
     void updateStats_Throws_IfPlayerIdIsNull() {
         // Act
         var ex = Assertions.assertThrows(IllegalArgumentException.class,
-                () -> controller.updateStats(new PlayerStats()));
+                () -> controller.updateStats("", new PlayerStats()));
 
         // Assert
         Assertions.assertTrue(ex.getMessage().contains("playerID"));
@@ -125,7 +125,7 @@ public class StatsControllerTests {
 
         // Act
         var ex = Assertions.assertThrows(IllegalArgumentException.class,
-                () -> controller.updateStats(stats));
+                () -> controller.updateStats("", stats));
 
         // Assert
         Assertions.assertTrue(ex.getMessage().contains("No stats found"));

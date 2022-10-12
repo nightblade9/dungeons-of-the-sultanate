@@ -49,8 +49,9 @@ public class EncounterController {
 
         // Fight it out!
         var playerServiceUrl = environment.getProperty("dots.serviceToService.playerService");
-        var getPlayerUrl = String.format("%s/stats?userId=%s", playerServiceUrl, playerId);
+        var getPlayerUrl = String.format("%s/stats/%s", playerServiceUrl, playerId);
         var player = client.get(getPlayerUrl, PlayerStatsDto.class);
+
         player.setName("Player");
 
         var monsterName = BattleMonsterPicker.pickMonster(location);
@@ -58,7 +59,7 @@ public class EncounterController {
         var battleLogs = BattleResolver.resolve(player, monster);
 
        // Persist changes to the player
-        var updatePlayerUrl = String.format("%s/player", playerServiceUrl);
+        var updatePlayerUrl = String.format("%s/stats/%s", playerServiceUrl, player.getId());
        client.put(updatePlayerUrl, player, String.class);
 
         return battleLogs;
