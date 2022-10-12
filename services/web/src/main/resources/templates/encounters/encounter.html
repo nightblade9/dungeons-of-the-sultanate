@@ -8,6 +8,7 @@
 <body>
 <section layout:fragment="content">
     <h1 th:text="${title}" />
+    <img th:src="@{'/images/' + ${encounterType} + '/' + ${imageName} + '.png'}" class="area-thumbnail" />
     <div th:each="log : ${logs}">
         <p th:text="${log}" />
     </div>

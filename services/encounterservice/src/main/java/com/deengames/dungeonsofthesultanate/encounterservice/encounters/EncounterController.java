@@ -61,6 +61,7 @@ public class EncounterController {
         var monsterName = BattleMonsterPicker.pickMonster(location);
         var monster = MonsterFactory.create(monsterName);
         var battleLogs = BattleResolver.resolve(player, monster);
+        var imageName = monsterName.toLowerCase().replace(' ', '-');
 
        // Persist changes to the player
         var updatePlayerUrl = String.format("%s/stats/%s", playerServiceUrl, player.getId());
@@ -69,7 +70,9 @@ public class EncounterController {
         return new JSONObject() {
             {
                 put("title", String.format("%s battle", monsterName));
-                put("encounterType", encounterType.toString());
+                put("monster", monsterName);
+                put("imageName", imageName);
+                put("encounterType", encounterType.toString().toLowerCase());
                 put("logs", battleLogs);
             }
         };
