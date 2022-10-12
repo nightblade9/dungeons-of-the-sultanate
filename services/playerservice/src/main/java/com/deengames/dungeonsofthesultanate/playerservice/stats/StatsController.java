@@ -30,7 +30,7 @@ public class StatsController {
     public void updateStats(@PathVariable String id, @RequestBody PlayerStats updatedStats) {
         // Externalities only have the ID, not the ObjectId.
 
-        if (id == null) {
+        if (id == null || id.isEmpty()) {
             throw new IllegalArgumentException("playerID");
         }
 

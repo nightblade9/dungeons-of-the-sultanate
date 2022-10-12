@@ -3,6 +3,8 @@ package com.deengames.dungeonsofthesultanate.playerservice.stats;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ public class StatsControllerTests {
     @Autowired
     private StatsController controller; // thing we're testing
 
-//    @MockBean
+    @MockBean
     private StatsService statsService;
 
     @Test
@@ -106,11 +108,15 @@ public class StatsControllerTests {
         Assertions.assertEquals(actual.getSpeed(), 5);
     }
 
-    @Test
-    void updateStats_Throws_IfPlayerIdIsNull() {
+    @ParameterizedTest
+    @ValueSource(booleans = {true, false})
+    void updateStats_Throws_IfPlayerIdIsNullOrEmptyString(boolean isNull) {
+        // Arrange
+        var id = isNull ? null : "";
+
         // Act
         var ex = Assertions.assertThrows(IllegalArgumentException.class,
-                () -> controller.updateStats("", new PlayerStats()));
+                () -> controller.updateStats(id, new PlayerStats()));
 
         // Assert
         Assertions.assertTrue(ex.getMessage().contains("playerID"));
@@ -125,7 +131,7 @@ public class StatsControllerTests {
 
         // Act
         var ex = Assertions.assertThrows(IllegalArgumentException.class,
-                () -> controller.updateStats("", stats));
+                () -> controller.updateStats(new ObjectId().toHexString(), stats));
 
         // Assert
         Assertions.assertTrue(ex.getMessage().contains("No stats found"));
