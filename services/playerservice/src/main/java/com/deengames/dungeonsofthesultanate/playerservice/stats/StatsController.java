@@ -35,6 +35,8 @@ public class StatsController {
         }
 
         var objectId = new ObjectId(id);
+        updatedStats.setPlayerId(objectId);
+
         var isExisting = statsService.exists(objectId);
         if (!isExisting) {
             throw new IllegalArgumentException(String.format("No stats found for player %s", id));

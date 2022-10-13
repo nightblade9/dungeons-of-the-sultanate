@@ -68,7 +68,7 @@ public class StatsControllerTests {
     }
 
     @Test
-    void updateStats_SavesStatsToService() {
+    void updateStats_UpdatesStatsInService() {
         // Arrange
         var expectedStats = new PlayerStats();
         var playerId = new ObjectId();
@@ -97,15 +97,16 @@ public class StatsControllerTests {
         Mockito.verify(statsService).save(argument.capture());
         var actual = argument.getValue();
 
-        Assertions.assertEquals(actual.getMaxHealth(), 100);
-        Assertions.assertEquals(actual.getCurrentHealth(), 37);
-        Assertions.assertEquals(actual.getMaxEnergy(), 50);
-        Assertions.assertEquals(actual.getCurrentEnergy(), 17);
-        Assertions.assertEquals(actual.getAttack(), 9);
-        Assertions.assertEquals(actual.getDefense(), 8);
-        Assertions.assertEquals(actual.getSpecialAttack(), 7);
-        Assertions.assertEquals(actual.getSpecialDefense(), 6);
-        Assertions.assertEquals(actual.getSpeed(), 5);
+        Assertions.assertEquals(playerId, actual.getPlayerId());
+        Assertions.assertEquals(100, actual.getMaxHealth());
+        Assertions.assertEquals(37, actual.getCurrentHealth());
+        Assertions.assertEquals(50, actual.getMaxEnergy());
+        Assertions.assertEquals(17, actual.getCurrentEnergy());
+        Assertions.assertEquals(9, actual.getAttack());
+        Assertions.assertEquals(8, actual.getDefense());
+        Assertions.assertEquals(7, actual.getSpecialAttack());
+        Assertions.assertEquals(6, actual.getSpecialDefense());
+        Assertions.assertEquals(5, actual.getSpeed());
     }
 
     @ParameterizedTest
