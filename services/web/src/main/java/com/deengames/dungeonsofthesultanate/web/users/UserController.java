@@ -32,7 +32,6 @@ public class UserController extends BaseController {
     public RedirectView onLogin() throws UsernameNotFoundException {
         // add new-user data into database (if not there already), and update lastLogin
         var user = (UserModel)upsertUser();
-        initializeUser(user);
 
         // Redirect. This doesn't trigger the controller, IDK why (I get a 500 error).
         return new RedirectView("/map/world");
@@ -53,6 +52,10 @@ public class UserController extends BaseController {
         var username = UserModel.calculateUserName(emailAddress);
         user = new UserModel(new ObjectId(), username, emailAddress, new Date());
         writeUserDetailsService.saveUser(user);
+
+        // AND! Notify all the other services. (Yes, this is orchestration ...)
+        initializeUser(user);
+
         return user;
     }
 
