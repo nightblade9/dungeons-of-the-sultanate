@@ -15,7 +15,7 @@ public class TurnsController {
         var data = service.getTurns(userId);
         if (data == null)
         {
-            return 0;
+            throw new IllegalArgumentException("Invalid user ID: " + userId);
         }
 
         return data.getNumTurns();

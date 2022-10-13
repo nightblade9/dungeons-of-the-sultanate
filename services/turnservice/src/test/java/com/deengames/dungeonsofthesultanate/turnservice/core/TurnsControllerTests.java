@@ -54,11 +54,10 @@ public class TurnsControllerTests {
     }
 
     @Test
-    public void getTurns_ReturnsZero_ifPlayerIsntInService() {
+    public void getTurns_Throws_IfPlayerIsntInService() {
         // Act
-        var actual = turnsController.getTurns("no such id");
+        var ex = Assertions.assertThrows(IllegalArgumentException.class, () -> turnsController.getTurns("no such id"));
         // Assert
-        Assertions.assertEquals(0, actual);
     }
 
     @Test
