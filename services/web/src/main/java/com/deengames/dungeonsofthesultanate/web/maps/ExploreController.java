@@ -1,6 +1,8 @@
 package com.deengames.dungeonsofthesultanate.web.maps;
 
 import com.deengames.dungeonsofthesultanate.web.BaseController;
+import com.deengames.dungeonsofthesultanate.web.maps.world.LocationData;
+import com.deengames.dungeonsofthesultanate.web.maps.world.WorldMapLocations;
 import com.deengames.dungeonsofthesultanate.web.security.client.ServiceToServiceClient;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +28,23 @@ public class ExploreController extends BaseController {
             throw new IllegalArgumentException("location");
         }
 
+        // Grab the encounter details from the encounter service
         var request = new JSONObject();
+        // Assumes location is valid 👀
+        var locationData = LocationData.findBySlug(location);
         request.put("playerId", getCurrentUser().getId().toHexString());
-        request.put("locationName", location);
+        request.put("location", location);
 
         var url = String.format("%s/encounter", environment.getProperty("dots.serviceToService.encounterService"));
         var results = s2sClient.post(url, request, JSONObject.class);
 
+        // Populate UI model
+
         for (String key : results.keySet()) {
             model.addAttribute(key, results.get(key));
         }
+
+        model.addAttribute("location", locationData);
 
         return "encounters/encounter";
     }

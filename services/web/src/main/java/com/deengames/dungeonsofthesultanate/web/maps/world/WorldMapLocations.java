@@ -7,7 +7,7 @@ public class WorldMapLocations {
 
     public static final Object[] locations =
             Arrays.stream(WorldMapLocations.LOCATIONS)
-            .map(l -> new LocationData(l))
+            .map(LocationData::new)
             .toArray();
 
 }
