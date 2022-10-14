@@ -2,15 +2,18 @@
     border: 2px solid black;
     background: white;
     padding: 8px;
-    width: 100%;
+    width: 960px;
 }
 
 #mainContent {
-    width: 1024px;
+    width: 700px;
     margin: 0px;
 }
 
 #sidebar {
-    width: 300px;
+    width: 210px;
+    border-left: 3px double black;
+    height: 100%;
+    padding: 8px;
 }
 
