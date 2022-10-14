@@ -1,0 +1,16 @@
+#mainContainer {
+    border: 2px solid black;
+    background: white;
+    padding: 8px;
+    width: 100%;
+}
+
+#mainContent {
+    width: 1024px;
+    margin: 0px;
+}
+
+#sidebar {
+    width: 300px;
+}
+

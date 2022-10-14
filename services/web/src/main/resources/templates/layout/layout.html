@@ -1,5 +1,8 @@
 <!doctype html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -8,13 +11,15 @@
     <meta name="viewport" content="width=device-width"/>
     <base href="/"/>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body style="background-color: #ddd; padding: 8px; border: 8px solid #888;">
-<div class="container" style="border: 2px solid black; background-color: white; padding: 8px;">
-    <section layout:fragment="content">
+<div id="mainContainer" class="row">
+    <section layout:fragment="content" class="col-md">
         <p>Content goes here.</p>
     </section>
+    <section layout:insert="~{fragments/sidebar}" class="col-md" />
 </div>
 </body>
 </html>
