@@ -1,3 +1,10 @@
 <div id="sidebar" th:if="${#httpServletRequest.requestURI} != '/'">
-    SIDEBAR~!
+    <h2>Stats</h2>
+    <ul>
+        <li th:text="'Level ' + ${currentStats.level} + ' (' + ${currentStats.experiencePoints} + ' xp)'"} />
+        <li th:text="${currentStats.currentHealth} + '/' + ${currentStats.maxHealth} + ' health'" />
+        <li th:text="${currentStats.attack} + ' attack, ' + ${currentStats.specialAttack} + ' special attack'" />
+        <li th:text="${currentStats.defense} + ' defense, ' + ${currentStats.specialDefense} + ' special defense'" />
+        <li th:text="${currentStats.speed} + ' speed'" />
+    </ul>
 </div>

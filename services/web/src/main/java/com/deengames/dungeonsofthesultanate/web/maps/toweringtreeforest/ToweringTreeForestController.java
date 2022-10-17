@@ -11,6 +11,7 @@ public class ToweringTreeForestController extends BaseMapController {
 
     @GetMapping(value = "/map/towering-tree-forest")
     public String worldMap(Model model) {
+        this.addPlayerDetailsToModel(model);
         model.addAttribute("location", WorldMapLocations.locations[0]);
         model.addAttribute("turnsLeft", this.getNumTurns());
         return "map/toweringtreeforest/index";

@@ -12,7 +12,7 @@ public class WorldMapController extends BaseController
 {
     @GetMapping("/map/world")
     public String worldMap(Model model) {
-        model.addAttribute("currentUser", this.getCurrentUser());
+        this.addPlayerDetailsToModel(model);
         model.addAttribute("locations", WorldMapLocations.locations);
         return "map/world/index";
     }

@@ -45,6 +45,7 @@ public class ExploreController extends BaseController {
         }
 
         model.addAttribute("location", locationData);
+        this.addPlayerDetailsToModel(model);
 
         return "encounters/encounter";
     }
