@@ -27,10 +27,13 @@ public abstract class BaseController {
     }
 
     protected UserModel getCurrentUser() {
+        if (securityContextFetcher == null || securityContextFetcher.getAuthentication() == null) {
+            return null;
+        }
+
         var userEmail = this.getUserEmailFromToken();
-        if (userEmail == null)
-        {
-            throw new UsernameNotFoundException("User email not found in token.");
+        if (userEmail == null) {
+            return null; // User email not found in token
         }
 
         var username = UserModel.calculateUserName(userEmail);

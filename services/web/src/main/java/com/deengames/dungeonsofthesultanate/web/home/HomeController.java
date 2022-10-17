@@ -1,5 +1,6 @@
 package com.deengames.dungeonsofthesultanate.web.home;
 
+import com.deengames.dungeonsofthesultanate.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,7 +16,7 @@ import java.util.Collections;
 import java.util.Map;
 
 @Controller
-public class HomeController
+public class HomeController extends BaseController
 {
     @GetMapping("/")
     // User is not available here, because this page is unauthenticated (no security context).

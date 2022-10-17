@@ -8,7 +8,7 @@
     </head>
     <body>
         <section layout:fragment="content">
-            <p th:text="'Welcome back, ' + ${authenticatedAs} + '!'" />
+            <p th:text="'Welcome back, ' + ${currentUser.username} + '!'" />
 
             <h1>Locations</h1>
             <!-- TODO: grid layout would be fantastico -->

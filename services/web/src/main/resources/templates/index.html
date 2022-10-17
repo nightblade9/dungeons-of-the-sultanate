@@ -6,13 +6,10 @@
         <title>Dungeons of the Sultanate</title>
     </head>
     <body>
-        <div id="header">
-            <!-- todo: only show if logged in -->
-            <a href="/logout" th:insert="{SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken}">Log out</a>
-        </div>
-        <section layout:fragment="content">
+       <section layout:fragment="content">
             <p>Dungeons of the Sultanate is a browser-based, (mostly) single-player roguelike.</p>
             <p>Click <a href="/login">here</a> to log in.</p>
+           <hr />
         </section>
     </body>
 </html>
