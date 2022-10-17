@@ -17,7 +17,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     {
         "/", // home page
         String.format("/%s", HealthController.ROOT_URL), // BASIC health check (root)
-        "/webjars/**", "*.css", "*.png" // web files that shouldn't be locked behind authentication
+
+        // web css/png/etc. files that shouldn't be locked behind authentication; note that Spring seems to map
+        // /static/resources/<foo> to /<foo>. You can't blanket permit /* ofc.
+        "/webjars/**", "/images/**", "/css/**"
     };
 
     @Override
@@ -32,11 +35,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
 
         http
-//            .csrf().disable().cors().disable()
+            .csrf().disable().cors().disable()
             .authorizeRequests()
             .antMatchers(unauthenticatedRoutes).permitAll()
             .anyRequest().authenticated()
             .and()
+
             .oauth2Client()
             .and()
             .oauth2Login()
