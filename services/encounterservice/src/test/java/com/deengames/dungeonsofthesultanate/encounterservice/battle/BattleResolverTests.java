@@ -31,7 +31,7 @@ public class BattleResolverTests {
         // Arrange
         var player = new PlayerStatsDto();
         player.setName("Player");
-        player.setCurrentHealth(5); // huhuhuhh...
+        player.setCurrentHealth(1); // huhuhuhh...
 
         var monster = MonsterFactory.create("Grass Slime");
 
