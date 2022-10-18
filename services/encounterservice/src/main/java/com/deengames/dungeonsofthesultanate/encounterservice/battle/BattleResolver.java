@@ -17,17 +17,13 @@ public class BattleResolver {
     public static Collection<String> resolve(PlayerStatsDto player, Monster monster) {
         var battleLogs = new ArrayList<String>();
         var maxRounds = 100;
+        var turnPicker = new TurnPicker(player, monster);
 
         while (player.getCurrentHealth() > 0 && monster.getCurrentHealth() > 0 && maxRounds-- > 0)
         {
-            // TODO: implement turns in accordance to speed
-            if (player.getSpeed() > monster.getSpeed()) {
-                battleLogs.add(attacks(player, monster));
-                battleLogs.add(attacks(monster, player));
-            } else {
-                battleLogs.add(attacks(monster, player));
-                battleLogs.add(attacks(player, monster));
-            }
+            var nextTurn = turnPicker.getNextTurn();
+            var battleLog = attacks(nextTurn, nextTurn == player ? monster : player);
+            battleLogs.add(battleLog);
         }
 
         if (player.getCurrentHealth() == 0)
