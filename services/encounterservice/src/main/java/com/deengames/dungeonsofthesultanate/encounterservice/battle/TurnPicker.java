@@ -21,6 +21,8 @@ public class TurnPicker {
     }
 
     public BaseEntity getNextTurn() {
+        // Integer rounding AT ANY STAGE HERE gives us invalid results - even with round, ceil, etc.
+        // Float is OK. We will lose some precision, but that's totally fine.
         var playerTimeToTurn = Math.ceil((pointsNeededForTurn - playerPoints) / player.getSpeed());
         var monsterTimeToTurn = Math.ceil((pointsNeededForTurn - monsterPoints) / monster.getSpeed());
         var advanceTimeBy = Math.ceil(Math.min(playerTimeToTurn, monsterTimeToTurn));
