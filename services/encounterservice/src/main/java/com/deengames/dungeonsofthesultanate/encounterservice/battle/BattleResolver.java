@@ -59,7 +59,7 @@ public class BattleResolver {
         if (random.nextFloat() <= attacker.getCriticalHitRate())
         {
             isCritical = true;
-            damage = damage * (int)Math.round(1 + CRITICAL_DAMAGE_RATE);
+            damage = damage * Math.round(1 + CRITICAL_DAMAGE_RATE);
         }
 
         // Apply
