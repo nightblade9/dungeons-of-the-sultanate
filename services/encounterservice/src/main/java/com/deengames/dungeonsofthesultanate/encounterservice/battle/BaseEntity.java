@@ -17,5 +17,6 @@ public abstract class BaseEntity {
     private int specialAttack = 7;
     private int specialDefense = 3;
     private int speed = 5;
+    private float criticalHitRate = 0.0f; // NOT subject to change!
 
 }

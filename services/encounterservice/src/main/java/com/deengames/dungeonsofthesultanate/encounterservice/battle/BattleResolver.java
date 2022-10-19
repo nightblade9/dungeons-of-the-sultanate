@@ -11,6 +11,7 @@ public class BattleResolver {
 
     private static final Random random = new Random();
     private static final float DAMAGE_VARIATION_PERCENT = 0.2f;
+    private static final float CRITICAL_DAMAGE_RATE = 1.5f;
 
     private BattleResolver() { } // we're a "static" class (C# meaning)
 
@@ -47,16 +48,24 @@ public class BattleResolver {
     }
 
     public static String attacks(BaseEntity attacker, BaseEntity defender) {
-        // Calcuate
+        // Calculate
         var baseDamage = attacker.getAttack() - defender.getDefense();
         var variance = DAMAGE_VARIATION_PERCENT / 2;
         var minDamage = (int)Math.max(0, (1 - variance) * baseDamage);
         var maxDamage = (int)Math.max(0, (1 + variance) * baseDamage);
         var damage = random.ints(minDamage, maxDamage).findAny().getAsInt();
+        var isCritical = false;
+
+        if (random.nextFloat() <= attacker.getCriticalHitRate())
+        {
+            isCritical = true;
+            damage = damage * (int)Math.round(1 + CRITICAL_DAMAGE_RATE);
+        }
 
         // Apply
         defender.setCurrentHealth(Math.max(0, defender.getCurrentHealth() - damage));
 
-        return String.format("%s attacks %s for %s damage!", attacker.getName(), defender.getName(), damage);
+        var attackString = isCritical ? "CRITICALLY attacks" : "attacks";
+        return String.format("%s %s %s for %s damage!", attacker.getName(), attackString, defender.getName(), damage);
     }
 }

@@ -47,4 +47,29 @@ public class BattleResolverTests {
         Assertions.assertTrue(messages.stream().anyMatch(m -> m.contains("defeated")));
     }
 
+    @Test
+    void resolve_PlayerAndMOnsterCriticallyAttack_Sometimes() {
+        // Arrange
+        var player = new PlayerStatsDto();
+        player.setCriticalHitRate(0.4f); // makes test more reliable
+        player.setName("Player");
+        player.setMaxHealth(300);
+        player.setCurrentHealth(300);
+
+        var monster = MonsterFactory.create("Grass Slime");
+        monster.setMaxHealth(300);
+        monster.setCurrentHealth(300);
+        // probably won't happen in reality, but worth testing
+        monster.setCriticalHitRate(0.25f);
+
+        // Act
+        var messages = BattleResolver.resolve(player, monster);
+
+        // Assert
+        Assertions.assertTrue(messages.stream().anyMatch(m -> m.contains("Player CRITICALLY attacks")));
+        Assertions.assertTrue(messages.stream().anyMatch(m -> m.contains("Player attacks")));
+        Assertions.assertTrue(messages.stream().anyMatch(m -> m.contains("Grass Slime CRITICALLY attacks")));
+        Assertions.assertTrue(messages.stream().anyMatch(m -> m.contains("Grass Slime attacks")));
+    }
+
 }

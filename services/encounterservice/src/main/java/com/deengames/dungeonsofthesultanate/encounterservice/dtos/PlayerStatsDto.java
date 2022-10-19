@@ -10,4 +10,5 @@ public class PlayerStatsDto extends BaseEntity {
     private String id;
     private int level = 1;
     private int experiencePoints = 0;
+    private float criticalHitRate = 0f;
 }
