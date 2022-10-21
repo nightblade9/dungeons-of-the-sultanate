@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 @RestController
@@ -26,14 +27,14 @@ public class EncounterController {
     @Autowired
     private Environment environment;
 
-    private static HashMap<EncounterType, EncounterHandler> handlers = new HashMap<EncounterType, EncounterHandler>() {
+    private static HashMap<EncounterType, Class> handlers = new HashMap<EncounterType, Class>() {
         {
-            put(EncounterType.BATTLE, new BattleHandler());
+            put(EncounterType.BATTLE, BattleHandler.class);
         }
     };
 
     @PostMapping(value = "/encounter", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public JSONObject tryEncounter(@RequestBody JSONObject body) {
+    public JSONObject tryEncounter(@RequestBody JSONObject body) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         // TODO: care about location name. e.g. Towering Tree Forest vs. Wishful Well
 
         var playerId = body.getAsString("playerId");
@@ -64,7 +65,9 @@ public class EncounterController {
         inputs.put("player", player);
 
         // Delegate the actual processing to this bad boi
-        var result = handlers.get(encounterType).handle(inputs);
+        var type = handlers.get(encounterType);
+        var handler = (EncounterHandler)type.getDeclaredConstructor().newInstance();
+        var result = handler.handle(inputs);
         result.put("encounterType", encounterType.toString().toLowerCase());
 
         // Persist changes to the player
