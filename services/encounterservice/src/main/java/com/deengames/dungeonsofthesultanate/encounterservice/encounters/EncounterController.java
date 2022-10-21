@@ -1,12 +1,10 @@
 package com.deengames.dungeonsofthesultanate.encounterservice.encounters;
 
-import com.deengames.dungeonsofthesultanate.encounterservice.battle.BattleMonsterPicker;
-import com.deengames.dungeonsofthesultanate.encounterservice.battle.BattleResolver;
 import com.deengames.dungeonsofthesultanate.encounterservice.client.ServiceToServiceClient;
 import com.deengames.dungeonsofthesultanate.encounterservice.dtos.PlayerStatsDto;
 import com.deengames.dungeonsofthesultanate.encounterservice.encounters.handlers.BattleHandler;
 import com.deengames.dungeonsofthesultanate.encounterservice.encounters.handlers.EncounterHandler;
-import com.deengames.dungeonsofthesultanate.encounterservice.monsters.MonsterFactory;
+import com.deengames.dungeonsofthesultanate.encounterservice.encounters.handlers.CurrencyDropHandler;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.EnumMap;
 import java.util.HashMap;
 
 @RestController
@@ -27,11 +26,12 @@ public class EncounterController {
     @Autowired
     private Environment environment;
 
-    private static HashMap<EncounterType, Class> handlers = new HashMap<EncounterType, Class>() {
-        {
-            put(EncounterType.BATTLE, BattleHandler.class);
-        }
-    };
+    private static EnumMap<EncounterType, Class> handlers = new EnumMap<>(EncounterType.class);
+
+    static {
+        handlers.put(EncounterType.BATTLE, BattleHandler.class);
+        handlers.put(EncounterType.CURRENCY_DROP, CurrencyDropHandler.class);
+    }
 
     @PostMapping(value = "/encounter", consumes = MediaType.APPLICATION_JSON_VALUE)
     public JSONObject tryEncounter(@RequestBody JSONObject body) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
