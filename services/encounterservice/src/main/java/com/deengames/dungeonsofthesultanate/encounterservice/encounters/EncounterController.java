@@ -4,6 +4,8 @@ import com.deengames.dungeonsofthesultanate.encounterservice.battle.BattleMonste
 import com.deengames.dungeonsofthesultanate.encounterservice.battle.BattleResolver;
 import com.deengames.dungeonsofthesultanate.encounterservice.client.ServiceToServiceClient;
 import com.deengames.dungeonsofthesultanate.encounterservice.dtos.PlayerStatsDto;
+import com.deengames.dungeonsofthesultanate.encounterservice.encounters.handlers.BattleHandler;
+import com.deengames.dungeonsofthesultanate.encounterservice.encounters.handlers.EncounterHandler;
 import com.deengames.dungeonsofthesultanate.encounterservice.monsters.MonsterFactory;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+
 @RestController
 public class EncounterController {
 
@@ -21,6 +25,12 @@ public class EncounterController {
 
     @Autowired
     private Environment environment;
+
+    private static HashMap<EncounterType, EncounterHandler> handlers = new HashMap<EncounterType, EncounterHandler>() {
+        {
+            put(EncounterType.BATTLE, new BattleHandler());
+        }
+    };
 
     @PostMapping(value = "/encounter", consumes = MediaType.APPLICATION_JSON_VALUE)
     public JSONObject tryEncounter(@RequestBody JSONObject body) {
@@ -40,32 +50,27 @@ public class EncounterController {
         // What kind of encounter was it -- battle? random loot?
         var location = Location.TOWERING_TREE_FOREST; // TODO: proper parsing;
         var encounterType = EncounterPicker.chooseEncounter(location);
-        if (encounterType != EncounterType.BATTLE) {
+        if (!handlers.containsKey(encounterType)) {
             throw new IllegalStateException(String.format("Encounters of type %s aren't implemented yet", encounterType));
         }
 
-        // Fight it out!
+        var inputs = new HashMap<String, Object>();
+        inputs.put("location", location);
+
+        // Grab the player for the handler
         var playerServiceUrl = environment.getProperty("dots.serviceToService.playerService");
         var getPlayerUrl = String.format("%s/stats/%s", playerServiceUrl, playerId);
         var player = client.get(getPlayerUrl, PlayerStatsDto.class);
+        inputs.put("player", player);
 
-        player.setName("Player");
-
-        var monsterName = BattleMonsterPicker.pickMonster(location);
-        var monster = MonsterFactory.create(monsterName);
-        var battleLogs = BattleResolver.resolve(player, monster);
-        var imageName = monsterName.toLowerCase().replace(' ', '-');
-
-       // Persist changes to the player
-        var updatePlayerUrl = String.format("%s/stats/%s", playerServiceUrl, player.getId());
-       client.put(updatePlayerUrl, player, String.class);
-
-        var result = new JSONObject();
-        result.put("title", String.format("%s battle", monsterName));
-        result.put("monster", monsterName);
-        result.put("imageName", imageName);
+        // Delegate the actual processing to this bad boi
+        var result = handlers.get(encounterType).handle(inputs);
         result.put("encounterType", encounterType.toString().toLowerCase());
-        result.put("logs", battleLogs);
+
+        // Persist changes to the player
+        var updatePlayerUrl = String.format("%s/stats/%s", playerServiceUrl, player.getId());
+        client.put(updatePlayerUrl, player, String.class);
+
         return result;
     }
 
