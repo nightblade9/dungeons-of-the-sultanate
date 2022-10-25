@@ -1,6 +1,7 @@
 package com.deengames.dungeonsofthesultanate.web.security.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,16 +20,23 @@ public class ServiceToServiceClient {
     @Autowired
     private Environment environment;
 
+    @Autowired
+    private RestTemplateBuilder builder;
+
     /**
      * Makes a GET call. Doesn't accept a request, because you can't pass a body in HTML to a GET call.
      * Instead, append it to the URL, e.g. ?userId=foo
      */
     public <T> T get(String url, Class<T> responseType) {
-        return this.call(url, HttpMethod.GET, null, responseType);
+        return call(url, HttpMethod.GET, null, responseType);
     }
 
-    public <T> T post(String url, Object request, Class<T> responseType) {
-        return this.call(url, HttpMethod.POST, request, responseType);
+    public <T> T patch(String url, Object request, Class<T> responseType) {
+        return this.call(url, HttpMethod.PATCH, request, responseType);
+    }
+
+    public <T> T put(String url, Object request, Class<T> responseType) {
+        return this.call(url, HttpMethod.PUT, request, responseType);
     }
 
     // TODO: unit test (white-box)
