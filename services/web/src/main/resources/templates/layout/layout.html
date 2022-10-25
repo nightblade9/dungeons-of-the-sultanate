@@ -15,11 +15,16 @@
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body style="background-color: #ddd; padding: 8px; border: 8px solid #888;">
-<div id="mainContainer" class="row">
-    <section layout:fragment="content" class="col-9">
-        <p>Content goes here.</p>
-    </section>
-    <section layout:insert="~{fragments/sidebar}" class="col-3" />
+
+<div id="mainContainer">
+    <section layout:insert="~{fragments/header}" class="row" />
+    <div class="row">
+        <section layout:fragment="content" class="col-9">
+            <p>Content goes here.</p>
+        </section>
+        <section layout:insert="~{fragments/sidebar}" class="col-3" />
+    </div>
 </div>
+
 </body>
 </html>

@@ -8,8 +8,6 @@
     </head>
     <body>
         <section layout:fragment="content">
-            <p th:text="'Welcome back, ' + ${currentUser.username} + '!'" />
-
             <h1>Locations</h1>
             <!-- TODO: grid layout would be fantastico -->
             <span th:each="location : ${locations}">

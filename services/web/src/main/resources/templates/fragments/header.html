@@ -1,0 +1,4 @@
+<div id="header" th:if="${#httpServletRequest.requestURI} != '/'">
+    Welcome, <span th:text="${currentUser.username}" />! | <a href="/logout">Logout</a>
+
+</div>
