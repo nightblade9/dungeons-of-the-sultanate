@@ -1,6 +1,6 @@
 package com.deengames.dungeonsofthesultanate.encounterservice.security;
 
-import com.deengames.dungeonsofthesultanate.encounterservice.health.HealthController;
+import com.deengames.dungeonsofthesultanate.encounterservice.endpoints.health.HealthController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

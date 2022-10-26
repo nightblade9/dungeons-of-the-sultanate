@@ -1,9 +1,7 @@
-package com.deengames.dungeonsofthesultanate.encounterservice.encounters;
+package com.deengames.dungeonsofthesultanate.encounterservice.endpoints.encounters;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Random;
 
 public class EncounterPicker {
 

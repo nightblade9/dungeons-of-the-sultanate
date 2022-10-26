@@ -1,10 +1,10 @@
-package com.deengames.dungeonsofthesultanate.encounterservice.encounters;
+package com.deengames.dungeonsofthesultanate.encounterservice.endpoints.encounters;
 
 import com.deengames.dungeonsofthesultanate.encounterservice.client.ServiceToServiceClient;
 import com.deengames.dungeonsofthesultanate.encounterservice.dtos.PlayerStatsDto;
-import com.deengames.dungeonsofthesultanate.encounterservice.encounters.handlers.BattleHandler;
-import com.deengames.dungeonsofthesultanate.encounterservice.encounters.handlers.EncounterHandler;
-import com.deengames.dungeonsofthesultanate.encounterservice.encounters.handlers.CurrencyDropHandler;
+import com.deengames.dungeonsofthesultanate.encounterservice.endpoints.encounters.handlers.BattleHandler;
+import com.deengames.dungeonsofthesultanate.encounterservice.endpoints.encounters.handlers.EncounterHandler;
+import com.deengames.dungeonsofthesultanate.encounterservice.endpoints.encounters.handlers.CurrencyDropHandler;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -36,7 +36,6 @@ public class EncounterController {
     @PostMapping(value = "/encounter", consumes = MediaType.APPLICATION_JSON_VALUE)
     public JSONObject tryEncounter(@RequestBody JSONObject body) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         // TODO: care about location name. e.g. Towering Tree Forest vs. Wishful Well
-
         var playerId = body.getAsString("playerId");
 
         // Did we have enough turns to encounter?

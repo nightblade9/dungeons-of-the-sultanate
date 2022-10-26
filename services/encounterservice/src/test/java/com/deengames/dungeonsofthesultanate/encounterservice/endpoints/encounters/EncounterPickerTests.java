@@ -1,5 +1,8 @@
-package com.deengames.dungeonsofthesultanate.encounterservice.encounters;
+package com.deengames.dungeonsofthesultanate.encounterservice.endpoints.encounters;
 
+import com.deengames.dungeonsofthesultanate.encounterservice.endpoints.encounters.EncounterPicker;
+import com.deengames.dungeonsofthesultanate.encounterservice.endpoints.encounters.EncounterType;
+import com.deengames.dungeonsofthesultanate.encounterservice.endpoints.encounters.Location;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 

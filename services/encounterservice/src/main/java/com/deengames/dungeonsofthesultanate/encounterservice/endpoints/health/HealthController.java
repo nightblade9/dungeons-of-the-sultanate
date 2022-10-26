@@ -1,4 +1,4 @@
-package com.deengames.dungeonsofthesultanate.encounterservice.health;
+package com.deengames.dungeonsofthesultanate.encounterservice.endpoints.health;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;

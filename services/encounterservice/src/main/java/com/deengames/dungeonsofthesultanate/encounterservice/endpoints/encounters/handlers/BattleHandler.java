@@ -1,9 +1,9 @@
-package com.deengames.dungeonsofthesultanate.encounterservice.encounters.handlers;
+package com.deengames.dungeonsofthesultanate.encounterservice.endpoints.encounters.handlers;
 
 import com.deengames.dungeonsofthesultanate.encounterservice.battle.BattleMonsterPicker;
 import com.deengames.dungeonsofthesultanate.encounterservice.battle.BattleResolver;
 import com.deengames.dungeonsofthesultanate.encounterservice.dtos.PlayerStatsDto;
-import com.deengames.dungeonsofthesultanate.encounterservice.encounters.Location;
+import com.deengames.dungeonsofthesultanate.encounterservice.endpoints.encounters.Location;
 import com.deengames.dungeonsofthesultanate.encounterservice.monsters.MonsterFactory;
 import net.minidev.json.JSONObject;
 

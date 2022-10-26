@@ -1,7 +1,9 @@
-package com.deengames.dungeonsofthesultanate.encounterservice.encounters;
+package com.deengames.dungeonsofthesultanate.encounterservice.endpoints.encounters;
 
 import com.deengames.dungeonsofthesultanate.encounterservice.client.ServiceToServiceClient;
 import com.deengames.dungeonsofthesultanate.encounterservice.dtos.PlayerStatsDto;
+import com.deengames.dungeonsofthesultanate.encounterservice.endpoints.encounters.EncounterController;
+import com.deengames.dungeonsofthesultanate.encounterservice.endpoints.encounters.Location;
 import net.minidev.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,6 @@
 package com.deengames.dungeonsofthesultanate.encounterservice.battle;
 
-import com.deengames.dungeonsofthesultanate.encounterservice.encounters.Location;
+import com.deengames.dungeonsofthesultanate.encounterservice.endpoints.encounters.Location;
 
 
 public class BattleMonsterPicker {
