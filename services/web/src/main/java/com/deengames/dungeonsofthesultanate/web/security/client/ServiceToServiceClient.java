@@ -31,6 +31,10 @@ public class ServiceToServiceClient {
         return call(url, HttpMethod.GET, null, responseType);
     }
 
+    public <T> T post(String url, Object request, Class<T> responseType) {
+        return call(url, HttpMethod.POST, request, responseType);
+    }
+
     public <T> T patch(String url, Object request, Class<T> responseType) {
         return this.call(url, HttpMethod.PATCH, request, responseType);
     }
