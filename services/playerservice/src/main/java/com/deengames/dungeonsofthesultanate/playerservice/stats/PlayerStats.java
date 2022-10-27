@@ -12,12 +12,14 @@ public class PlayerStats {
     @Id
     private ObjectId playerId;
 
-    // for JSON serialization, expose the ID as just the hex string.
+    // For JSON serialization, expose the ID as just the hex string.
     public String getId() {
         return this.playerId.toHexString();
     }
 
     private int level = 1;
+
+    // *total* experience points, like, it's not reset to zero when you level up or anything like that.
     private int experiencePoints = 0;
 
     private int maxHealth = 50;
