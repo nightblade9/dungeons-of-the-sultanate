@@ -29,7 +29,7 @@ public class StatsControllerTests {
 
         var stats = new PlayerStats();
         Mockito.when(statsService.get(playerId))
-            .thenReturn(stats);
+            .thenReturn(Optional.of(stats));
 
         // Act
         var actual = controller.getStats(playerId.toHexString());
@@ -87,7 +87,7 @@ public class StatsControllerTests {
         expectedStats.setSpecialDefense(6);
         expectedStats.setSpeed(5);
 
-        Mockito.when(statsService.exists(playerId)).thenReturn(true);
+        Mockito.when(statsService.get(playerId)).thenReturn(Optional.of(new PlayerStats()));
 
         // Act
         controller.updateStats(playerId.toHexString(), expectedStats);

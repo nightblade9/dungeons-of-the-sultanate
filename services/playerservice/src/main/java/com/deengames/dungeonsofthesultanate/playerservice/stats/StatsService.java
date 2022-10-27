@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface StatsService {
 
     boolean exists(ObjectId id);
-    PlayerStats get(ObjectId id);
+    Optional<PlayerStats> get(ObjectId id);
     void save(PlayerStats stats);
 
 }
