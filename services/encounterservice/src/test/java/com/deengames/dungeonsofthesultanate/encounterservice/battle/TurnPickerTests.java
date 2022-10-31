@@ -14,9 +14,9 @@ public class TurnPickerTests {
     void getNextTurn_returnsMultiplePlayerTurns_IfPLayerIsMultipleTimesFaster() throws CloneNotSupportedException {
         // Arrange
         var player = new PlayerStatsDto();
-        player.setSpeed(100);
-        var monster = MonsterFactory.create("test monster");
-        monster.setSpeed(player.getSpeed() / 2);
+        player.setSpeed(10);
+        var monster = createTestMonster();
+        monster.setSpeed(5);
         var turnPicker = new TurnPicker(player, monster);
         var actual = new ArrayList<BaseEntity>();
 
@@ -36,7 +36,7 @@ public class TurnPickerTests {
         // Arrange
         var player = new PlayerStatsDto();
         player.setSpeed(3);
-        var monster = MonsterFactory.create("test monster");
+        var monster = createTestMonster();
         monster.setSpeed(5);
         var turnPicker = new TurnPicker(player, monster);
         var actual = new ArrayList<BaseEntity>();
@@ -50,5 +50,9 @@ public class TurnPickerTests {
         // Assert
         Assertions.assertEquals(63, actual.stream().filter(b -> b == monster).count());
         Assertions.assertEquals(37, actual.stream().filter(b -> b == player).count());
+    }
+
+    private Monster createTestMonster() {
+        return new Monster("Test Monster", 100, 50, 5, 5, 5, 5, 5);
     }
 }
