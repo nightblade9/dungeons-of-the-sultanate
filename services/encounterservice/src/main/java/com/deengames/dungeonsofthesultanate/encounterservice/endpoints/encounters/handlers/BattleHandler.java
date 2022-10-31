@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class BattleHandler implements EncounterHandler {
 
     @Override
-    public JSONObject handle(HashMap<String, Object> inputs) {
+    public JSONObject handle(HashMap<String, Object> inputs) throws CloneNotSupportedException {
         // Fight it out!
         var player = (PlayerStatsDto)inputs.get("player");
         var location = (Location)inputs.get("location");

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class TurnPickerTests {
 
     @Test
-    void getNextTurn_returnsMultiplePlayerTurns_IfPLayerIsMultipleTimesFaster() {
+    void getNextTurn_returnsMultiplePlayerTurns_IfPLayerIsMultipleTimesFaster() throws CloneNotSupportedException {
         // Arrange
         var player = new PlayerStatsDto();
         player.setSpeed(100);
@@ -32,7 +32,7 @@ public class TurnPickerTests {
     }
 
     @Test
-    void getNextTurn_returnsInterleavedTurnsForImperfectMultiple_IfMonsterIsFaster() {
+    void getNextTurn_returnsInterleavedTurnsForImperfectMultiple_IfMonsterIsFaster() throws CloneNotSupportedException {
         // Arrange
         var player = new PlayerStatsDto();
         player.setSpeed(3);

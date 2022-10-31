@@ -34,7 +34,7 @@ public class EncounterController {
     }
 
     @PostMapping(value = "/encounter", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public JSONObject tryEncounter(@RequestBody JSONObject body) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public JSONObject tryEncounter(@RequestBody JSONObject body) throws Exception {
         // TODO: care about location name. e.g. Towering Tree Forest vs. Wishful Well
         var playerId = body.getAsString("playerId");
 

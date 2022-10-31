@@ -53,7 +53,8 @@ public class BattleResolver {
         var variance = DAMAGE_VARIATION_PERCENT / 2;
         var minDamage = (int)Math.max(0, (1 - variance) * baseDamage);
         var maxDamage = (int)Math.max(0, (1 + variance) * baseDamage);
-        var damage = random.ints(minDamage, maxDamage).findAny().getAsInt();
+        // +1 here makes these values inclusive, and prevents an exception when min = max
+        var damage = random.ints(minDamage, maxDamage + 1).findAny().getAsInt();
         var isCritical = false;
 
         if (random.nextFloat() <= attacker.getCriticalHitRate())

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class BattleResolverTests {
 
     @Test
-    void resolve_ResolvesToTheDeathOfTheMonster() {
+    void resolve_ResolvesToTheDeathOfTheMonster() throws CloneNotSupportedException {
         // Arrange
         var player = new PlayerStatsDto();
         player.setName("Player");
@@ -27,7 +27,7 @@ public class BattleResolverTests {
     }
 
     @Test
-    void resolve_ResolvesToTheDeathOfThePlayer() {
+    void resolve_ResolvesToTheDeathOfThePlayer() throws CloneNotSupportedException {
         // Arrange
         var player = new PlayerStatsDto();
         player.setName("Player");
@@ -48,7 +48,7 @@ public class BattleResolverTests {
     }
 
     @Test
-    void resolve_PlayerAndMOnsterCriticallyAttack_Sometimes() {
+    void resolve_PlayerAndMOnsterCriticallyAttack_Sometimes() throws CloneNotSupportedException {
         // Arrange
         var player = new PlayerStatsDto();
         player.setCriticalHitRate(0.4f); // makes test more reliable

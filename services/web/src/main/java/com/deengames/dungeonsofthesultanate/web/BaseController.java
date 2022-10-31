@@ -25,10 +25,6 @@ public abstract class BaseController {
     @Autowired
     private Environment environment;
 
-    // Cached so multiple requests per controller action don't result in multiple expensive calls
-    private UserModel currentPlayer;
-    private PlayerStatsDto currentPlayerStats;
-
     protected String getUserEmailFromToken()
     {
         var authentication = securityContextFetcher.getAuthentication();
@@ -45,10 +41,6 @@ public abstract class BaseController {
             return null;
         }
 
-        if (this.currentPlayer != null) {
-            return this.currentPlayer;
-        }
-
         var userEmail = this.getUserEmailFromToken();
         if (userEmail == null) {
             return null; // User email not found in token
@@ -56,17 +48,11 @@ public abstract class BaseController {
 
         var username = UserModel.calculateUserName(userEmail);
         var user = (UserModel)readUserDetailsService.loadUserByUsername(username);
-        this.currentPlayer = user;
 
         return user;
     }
 
     protected PlayerStatsDto getPlayerStats() {
-        if (this.currentPlayerStats != null)
-        {
-            return this.currentPlayerStats;
-        }
-
         var user = this.getCurrentUser();
 
         if (user == null) {
@@ -76,7 +62,6 @@ public abstract class BaseController {
         var playerServiceUrl = environment.getProperty("dots.serviceToService.playerService");
         var getPlayerUrl = String.format("%s/stats/%s", playerServiceUrl, user.getId());
         var player = client.get(getPlayerUrl, PlayerStatsDto.class);
-        this.currentPlayerStats = player;
         return player;
     }
 
