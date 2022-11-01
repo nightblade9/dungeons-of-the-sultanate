@@ -53,6 +53,6 @@ public class TurnPickerTests {
     }
 
     private Monster createTestMonster() {
-        return new Monster("Test Monster", 100, 50, 5, 5, 5, 5, 5);
+        return new Monster("Test Monster", 100, 50, 5, 5, 5, 5, 5, 0);
     }
 }

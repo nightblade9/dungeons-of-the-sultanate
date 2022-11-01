@@ -27,6 +27,22 @@ public class BattleResolverTests {
     }
 
     @Test
+    void resolve_GrantsXp_WhenMonsterDies() throws CloneNotSupportedException {
+        // Arrange
+        var player = new PlayerStatsDto();
+        player.setName("Player");
+        var monster1 = MonsterFactory.create("Grass Slime");
+        var monster2 = MonsterFactory.create("Rock Rabbit");
+
+        // Act
+        BattleResolver.resolve(player, monster1);
+        BattleResolver.resolve(player, monster2);
+
+        // Assert
+        Assertions.assertEquals(monster1.getExperiencePoints() + monster2.getExperiencePoints(), player.getExperiencePoints());
+    }
+
+    @Test
     void resolve_ResolvesToTheDeathOfThePlayer() throws CloneNotSupportedException {
         // Arrange
         var player = new PlayerStatsDto();

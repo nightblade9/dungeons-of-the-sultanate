@@ -23,6 +23,7 @@ public class ExperiencePointsCalculator {
         // Also, I like prime numbers. Gives juicy, rough numbers - nothing nice and round.
         // 2^n and n^2 are expensive, floating-point calcs are expensive, but ya3ne, we cache.
         // =7*(2^n) + 11n^2 + 29n + 13
+        // 67, 143, 255, 417, 657, 1031, 1651, 2741, 4749, ...
         var points = (7 * Math.pow(2, level)) + (11 * Math.pow(level, 2)) + (29 * level) + 13;
         // Round to int by converting to float. These values are all integers, so nothing lost.
         var xpRequired = Math.round((float)points);

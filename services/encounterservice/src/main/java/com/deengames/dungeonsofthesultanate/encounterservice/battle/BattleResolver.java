@@ -34,6 +34,8 @@ public class BattleResolver {
         else if (monster.getCurrentHealth() == 0)
         {
             battleLogs.add(String.format("You vanquish the %s!", monster.getName()));
+            battleLogs.add(String.format("You gain %s experience points!", monster.getExperiencePoints()));
+            player.setExperiencePoints(player.getExperiencePoints() + monster.getExperiencePoints());
         }
         else if (maxRounds == 0)
         {
