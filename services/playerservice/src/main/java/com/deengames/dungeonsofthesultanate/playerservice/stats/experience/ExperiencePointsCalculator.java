@@ -5,8 +5,6 @@ import java.util.HashMap;
 // "static" class (C# meaning)
 public class ExperiencePointsCalculator {
 
-    public static final int STATS_POINTS_PER_LEVEL_UP = 5;
-
     // Since the UI shows the diff of XP in some places, and since the formula isn't personal and doesn't change,
     // why don't we just consume some memory unnecessarily and micro-optimize this, right? Right?! :facepalm: :baka:
     private static HashMap<Integer, Integer> experiencePointsCache = new HashMap<>();
@@ -25,6 +23,7 @@ public class ExperiencePointsCalculator {
         return level;
     }
 
+    // TODO: hook into UI (e.g. 39/67XP)
     public static int experiencePointsRequiredForLevel(int level) {
         if (level <= 0) {
             throw new IllegalArgumentException("Level should be positive");
