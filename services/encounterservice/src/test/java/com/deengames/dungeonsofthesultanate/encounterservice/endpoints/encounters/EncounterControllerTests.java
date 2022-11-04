@@ -20,7 +20,7 @@ import java.util.UUID;
 import static org.mockito.ArgumentMatchers.*;
 
 @SpringBootTest
-public class EncounterControllerTests {
+class EncounterControllerTests {
 
     @Autowired
     private EncounterController controller;

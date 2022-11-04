@@ -55,6 +55,8 @@ public class LevelController {
         player.setSpecialDefense(player.getSpecialDefense() + specialDefenseIncrease);
         player.setSpeed(player.getSpeed() + speedIncrease);
 
+        statsService.save(player);
+
         result.put("levels_gained", 0);
         result.put("logs", new String[] {
             String.format("You gained %s levels!", levelDiff),
