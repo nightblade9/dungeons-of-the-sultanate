@@ -13,10 +13,11 @@ public class LevelController {
     @Autowired
     private StatsService statsService;
 
-    @PostMapping(value="/levelup/{userId}/{experiencePoints}", consumes=MediaType.APPLICATION_JSON_VALUE)
-    public JSONObject checkAndLevelUp(@PathVariable String userId, @PathVariable int experiencePoints) {
+    @PostMapping(value="/levelup/{userId}", consumes=MediaType.APPLICATION_JSON_VALUE)
+    public JSONObject checkAndLevelUp(@PathVariable String userId) {
         var objectId = new ObjectId(userId);
         var player = statsService.get(objectId).get();
+        var experiencePoints = player.getExperiencePoints();
 
         var previousLevel = player.getLevel();
         var currentLevel = ExperiencePointsCalculator.whatLevelAmI(experiencePoints);
@@ -33,21 +34,27 @@ public class LevelController {
         }
 
         var levelDiff = currentLevel - previousLevel;
+        player.setLevel(currentLevel);
+        var hpIncrease = 0;
+        var spIncrease = 0;
 
-        // TODO: test that leveling up from 1-5 incrementally gives the same HP as jumping from 1-5
-        var unrolledHpIncreasePercent = Math.pow(1 + StatsGains.HP_UP_PERCENT_PER_LEVEL, levelDiff);
-        var hpIncrease = (int)Math.round(player.getMaxHealth() * unrolledHpIncreasePercent);
-        player.setMaxHealth(player.getMaxHealth() + hpIncrease);
+        // The only way to ensure bulk-level-ups (e.g. jump 5 levels) give exactly the same stats points as incremental
+        // ones, is to incrementally upgrade. It's floating-point math, don't look at me like that.
+        for (var i = 0; i < levelDiff; i++) {
+            var newHp = (int) Math.round(player.getMaxHealth() * (1 + StatsGains.HP_UP_PERCENT_PER_LEVEL));
+            hpIncrease += newHp - player.getMaxHealth();
+            player.setMaxHealth(newHp);
 
-        var unrolledSpIncreasePercent = Math.pow(1 + StatsGains.SP_UP_PERCENT_PER_LEVEL, levelDiff);
-        var spIncrease = (int)Math.round(player.getMaxHealth() * unrolledSpIncreasePercent);
-        player.setMaxEnergy(player.getMaxEnergy() + spIncrease);
+            var newSp = (int) Math.round(player.getMaxEnergy() * (1 + StatsGains.SP_UP_PERCENT_PER_LEVEL));
+            spIncrease += newSp - player.getMaxEnergy();
+            player.setMaxEnergy(newSp);
+        }
 
-        var attackIncrease = (levelDiff * StatsGains.attackUpPerLevel);
-        var defenseIncrease = (levelDiff * StatsGains.defenseUpPerLevel);
-        var specialAttackIncrease = (levelDiff * StatsGains.specialAttackUpPerLevel);
-        var specialDefenseIncrease = (levelDiff * StatsGains.specialDefenseUpPerLevel);
-        var speedIncrease = (levelDiff * StatsGains.speedUpPerLevel);
+        var attackIncrease = (levelDiff * StatsGains.ATTACK_UP_PER_LEVEL);
+        var defenseIncrease = (levelDiff * StatsGains.DEFENSE_UP_PER_LEVEL);
+        var specialAttackIncrease = (levelDiff * StatsGains.SPECIAL_ATTACK_UP_PER_LEVEL);
+        var specialDefenseIncrease = (levelDiff * StatsGains.SPECIAL_DEFENSE_UP_PER_LEVEL);
+        var speedIncrease = (levelDiff * StatsGains.SPEED_UP_PER_LEVEL);
 
         player.setAttack(player.getAttack() + attackIncrease);
         player.setDefense(player.getDefense() + defenseIncrease);
