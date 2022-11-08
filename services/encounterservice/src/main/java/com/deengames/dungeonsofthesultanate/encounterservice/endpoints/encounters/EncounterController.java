@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.EnumMap;
 import java.util.HashMap;
 
@@ -68,12 +70,22 @@ public class EncounterController {
         var handler = (EncounterHandler)type.getDeclaredConstructor().newInstance();
         var result = handler.handle(inputs);
         result.put("encounterType", encounterType.toString().toLowerCase());
+        var logs = (Collection<String>)result.get("logs");
 
         // Persist changes to the player
         var updatePlayerUrl = String.format("%s/stats/%s", playerServiceUrl, player.getId());
         client.put(updatePlayerUrl, player, String.class);
 
+        // Special case, idk what to do here. Putting this into the battle handler makes no sense
+        // (why would it make s2s calls?) ... :thinking:
+        // Figure out if we levelled up
+        var statsServiceUrl = String.format("%s/levelup/%s", environment.getProperty("dots.serviceToService.playerService"), player.getId());
+        var levelledUpResults = client.post(statsServiceUrl, null, JSONObject.class);
+        if ((int)levelledUpResults.get("levels_gained") > 0) {
+            var levelUpLogs = (String[])levelledUpResults.get("logs");
+            logs.addAll(Arrays.asList(levelUpLogs));
+        }
+
         return result;
     }
-
 }

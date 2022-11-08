@@ -3,10 +3,9 @@ package com.deengames.dungeonsofthesultanate.encounterservice.battle;
 import com.deengames.dungeonsofthesultanate.encounterservice.dtos.PlayerStatsDto;
 import com.deengames.dungeonsofthesultanate.encounterservice.monsters.Monster;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Random;
+import java.util.*;
 
+// Static class (C# meaning)
 public class BattleResolver {
 
     private static final Random random = new Random();
@@ -39,7 +38,7 @@ public class BattleResolver {
         }
         else if (maxRounds == 0)
         {
-            battleLogs.add("You shrug and walk away.");
+            battleLogs.add("You stare at each other a moment, mutually shrug, and walk away.");
         }
         else
         {
