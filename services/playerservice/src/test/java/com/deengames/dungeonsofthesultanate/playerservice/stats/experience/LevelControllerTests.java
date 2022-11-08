@@ -15,8 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
 
 @SpringBootTest
 class LevelControllerTests {
@@ -86,5 +85,23 @@ class LevelControllerTests {
         // Assert
         Assertions.assertEquals(statsIncremental.getMaxHealth(), statsAllAtOnce.getMaxHealth());
         Assertions.assertEquals(statsIncremental.getMaxEnergy(), statsAllAtOnce.getMaxEnergy());
+    }
+
+    @Test
+    void checkLevelUp_DoesNothing_IfPlayerDidNotLevelUp() {
+        // Arrange
+        var stats = new PlayerStats();
+        var playerId = new ObjectId();
+
+        Mockito.when(statsService.get(playerId)).thenReturn(Optional.of(stats));
+
+        // Act
+        var result = controller.checkAndLevelUp(playerId.toHexString());
+
+        // Assert
+        // What we're trying to capture: the saved player stats
+        Mockito.verify(statsService, never()).save(Mockito.any(PlayerStats.class));
+        var levelsGained = (int)result.get("levels_gained");
+        Assertions.assertEquals(0, levelsGained);
     }
 }
