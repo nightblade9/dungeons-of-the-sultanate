@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.env.Environment;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -68,6 +69,12 @@ class EncounterControllerTests {
         Mockito.when(client.get(anyString(), eq(PlayerStatsDto.class)))
                 .thenReturn(playerStats);
 
+        var levelUpResults = new JSONObject();
+        levelUpResults.put("levels_gained", 0);
+        levelUpResults.put("logs", new String[0]);
+        Mockito.when(client.post(anyString(), any(), eq(JSONObject.class)))
+                .thenReturn(levelUpResults);
+
         var request = new JSONObject();
         request.put("playerId", playerId);
         request.put("locationName", Location.TOWERING_TREE_FOREST.name());
@@ -80,6 +87,46 @@ class EncounterControllerTests {
         Assertions.assertTrue(logs.stream().anyMatch(m -> m.contains("Player attacks")));
         Assertions.assertTrue(logs.stream().anyMatch(m -> m.contains("attacks Player")));
         Assertions.assertTrue(playerStats.getCurrentHealth() < playerStats.getMaxHealth());
+        // Verify player stats were PUT back to the player service
+        Mockito.verify(client, Mockito.times(1)).put(anyString(), eq(playerStats), eq(String.class));
+    }
+
+    @Test
+    void tryEncoutner_ShowsLevelUpMessages_WhenPlayerLevelsUp() throws Exception {
+        // Arrange
+        var playerId = UUID.randomUUID().toString();
+
+        // Check for turns left => yup
+        Mockito.when(client.patch(anyString(), eq(playerId), eq(Boolean.class)))
+                .thenReturn(true);
+
+        var playerStats = new PlayerStatsDto();
+
+        // Get player stats => returns test stats
+        Mockito.when(client.get(anyString(), eq(PlayerStatsDto.class)))
+                .thenReturn(playerStats);
+
+        var levelUpResults = new JSONObject();
+        levelUpResults.put("levels_gained", 1);
+        var levelUpMessage = "You gained one level!";
+
+        var levelUpLogs = new ArrayList<String>();
+        levelUpLogs.add(levelUpMessage);
+        levelUpResults.put("logs", levelUpLogs);
+
+        Mockito.when(client.post(anyString(), any(), eq(JSONObject.class)))
+                .thenReturn(levelUpResults);
+
+        var request = new JSONObject();
+        request.put("playerId", playerId);
+        request.put("locationName", Location.TOWERING_TREE_FOREST.name());
+
+        // Act
+        var result = controller.tryEncounter(request);
+
+        // Assert
+        var logs = (Collection<String>)result.get("logs");
+        Assertions.assertTrue(logs.stream().anyMatch(m -> m.contains(levelUpMessage)));
         // Verify player stats were PUT back to the player service
         Mockito.verify(client, Mockito.times(1)).put(anyString(), eq(playerStats), eq(String.class));
     }

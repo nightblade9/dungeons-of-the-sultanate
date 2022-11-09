@@ -17,8 +17,8 @@ class ExperiencePointsCalculatorTests {
     @Test
     void experiencePointsRequiredForLevel_IncreasesForHigherLevels() {
         // Act
-        var levelOne = ExperiencePointsCalculator.experiencePointsRequiredForLevel(1);
-        var levelTwo = ExperiencePointsCalculator.experiencePointsRequiredForLevel(2);
+        var levelOne = ExperiencePointsCalculator.experiencePointsRequiredForLevel(2);
+        var levelTwo = ExperiencePointsCalculator.experiencePointsRequiredForLevel(5);
         var levelTen = ExperiencePointsCalculator.experiencePointsRequiredForLevel(10);
 
         // Assert

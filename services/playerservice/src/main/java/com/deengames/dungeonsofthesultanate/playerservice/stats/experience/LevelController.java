@@ -64,9 +64,14 @@ public class LevelController {
 
         statsService.save(player);
 
+        var levelWord = "level";
+        if (levelDiff > 1) {
+            levelWord = "levels";
+        }
+
         result.put("levels_gained", levelDiff);
         result.put("logs", new String[] {
-            String.format("You gained %s levels!", levelDiff),
+            String.format("You gained %s %s!", levelDiff, levelWord),
             String.format("Gained %s health!", hpIncrease),
             String.format("Gained %s energy!", spIncrease),
             String.format("Gained %s attack and %s special attack!", attackIncrease, specialAttackIncrease),
