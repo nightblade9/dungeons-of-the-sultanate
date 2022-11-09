@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 class ExperiencePointsCalculatorTests {
 
     @ParameterizedTest
-    @ValueSource(ints = {-193, -1, 0})
+    @ValueSource(ints = {-193, -1, 0, 1})
     void experiencePointsRequiredForLevel_Throws_IfLevelIsInvalid(int level) {
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> ExperiencePointsCalculator.experiencePointsRequiredForLevel(level));
