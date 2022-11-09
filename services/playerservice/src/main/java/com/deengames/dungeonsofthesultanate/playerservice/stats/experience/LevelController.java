@@ -13,6 +13,14 @@ public class LevelController {
     @Autowired
     private StatsService statsService;
 
+    @GetMapping(value="/levelup/{level}", consumes=MediaType.APPLICATION_JSON_VALUE)
+    public int getXpRequiredForLevelUp(@PathVariable int level) {
+        if (level <= 1) {
+            throw new IllegalArgumentException("Level should be > 1");
+        }
+        return ExperiencePointsCalculator.experiencePointsRequiredForLevel(level);
+    }
+
     @PostMapping(value="/levelup/{userId}", consumes=MediaType.APPLICATION_JSON_VALUE)
     public JSONObject checkAndLevelUp(@PathVariable String userId) {
         var objectId = new ObjectId(userId);

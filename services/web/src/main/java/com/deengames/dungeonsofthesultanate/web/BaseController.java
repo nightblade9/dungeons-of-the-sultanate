@@ -65,8 +65,24 @@ public abstract class BaseController {
         return player;
     }
 
+    protected int getXpForNextLevel(int nextLevel) {
+        var user = this.getCurrentUser();
+
+        if (user == null) {
+            return 0;
+        }
+
+        var playerServiceUrl = environment.getProperty("dots.serviceToService.playerService");
+        var getPlayerUrl = String.format("%s/levelup/%s", playerServiceUrl, nextLevel);
+        var result = client.get(getPlayerUrl, Integer.class);
+        return result.intValue();
+    }
+
     protected void addPlayerDetailsToModel(Model model) {
+        var playerStats = this.getPlayerStats();
+
         model.addAttribute("currentUser", this.getCurrentUser());
-        model.addAttribute("currentStats", this.getPlayerStats());
+        model.addAttribute("currentStats", playerStats);
+        model.addAttribute("xpRequiredForNextLevel", this.getXpForNextLevel(playerStats.getLevel() + 1));
     }
 }
