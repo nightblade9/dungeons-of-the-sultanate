@@ -64,7 +64,7 @@ public class LevelController {
 
         statsService.save(player);
 
-        result.put("levels_gained", 0);
+        result.put("levels_gained", levelDiff);
         result.put("logs", new String[] {
             String.format("You gained %s levels!", levelDiff),
             String.format("Gained %s health!", hpIncrease),

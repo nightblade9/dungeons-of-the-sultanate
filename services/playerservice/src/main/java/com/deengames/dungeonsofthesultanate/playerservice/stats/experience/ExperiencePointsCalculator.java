@@ -25,8 +25,8 @@ public class ExperiencePointsCalculator {
 
     // TODO: hook into UI (e.g. 39/67XP)
     public static int experiencePointsRequiredForLevel(int level) {
-        if (level <= 0) {
-            throw new IllegalArgumentException("Level should be positive");
+        if (level <= 1) {
+            throw new IllegalArgumentException("Level should be positive and greater than one");
         }
 
         var key = Integer.valueOf(level);
@@ -39,7 +39,8 @@ public class ExperiencePointsCalculator {
         // 2^n and n^2 are expensive, floating-point calcs are expensive, but ya3ne, we cache.
         // =7*(2^n) + 11n^2 + 29n + 13
         // 67, 143, 255, 417, 657, 1031, 1651, 2741, 4749, ...
-        var points = (7 * Math.pow(2, level)) + (11 * Math.pow(level, 2)) + (29 * level) + 13;
+        var n = level - 1; // first value (67) is for level TWO, not level ONE
+        var points = (7 * Math.pow(2, n)) + (11 * Math.pow(n, 2)) + (29 * n) + 13;
         // Round to int by converting to float. These values are all integers, so nothing lost.
         var xpRequired = Math.round((float)points);
         experiencePointsCache.put(key, Integer.valueOf(xpRequired));
