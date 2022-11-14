@@ -1,0 +1,11 @@
+group = 'com.deengames.dungeonsofthesultanate'
+version = '0.0.1-SNAPSHOT'
+
+// TODO: cleanly use with array
+// TODO: proper reporting
+tasks.register("test") {
+	dependsOn gradle.includedBuild("web").task(":test")
+	dependsOn gradle.includedBuild("playerService").task(":test")
+	dependsOn gradle.includedBuild("turnService").task(":test")
+	dependsOn gradle.includedBuild("encounterService").task(":test")
+}
