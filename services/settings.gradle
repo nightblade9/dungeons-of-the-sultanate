@@ -1,6 +1,6 @@
 rootProject.name = 'services'
 
-includeBuild 'encounterService'
-includeBuild 'playerService'
-includeBuild 'turnService'
-includeBuild 'web'
+include 'Web'
+include 'TurnService'
+include 'PlayerService'
+include 'EncounterService'
